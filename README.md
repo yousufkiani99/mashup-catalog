@@ -45,9 +45,8 @@ install it until every download has a real SHA-256.
 
 ## The signing key
 
-- The **private key never goes in git**. It lives with the founder (outside every repo) and in this
-  repo's `CATALOG_SIGNING_KEY` Actions secret (Settings, Secrets and variables, Actions).
-- Anyone who can push to `main` can get a recipe signed, so keep `main` protected.
+- The **private key never goes in git or GitHub**. It lives with the founder, outside every repo.
+  Recipes are signed locally with `scripts/sign.mjs`; CI only verifies.
 - If the private key leaks: make a new key pair, put the new public key in `public-key.pem` and
   in the app (`src/shared/catalog-key.ts`), ship an app update, and re-sign.
 
