@@ -44,13 +44,13 @@
     {
       "action": "extract",
       "download": "san-anskateas",
-      "to": "{appdir}/mashups/gta-san-anskateas",
+      "to": "{appdir}/gta-san-anskateas",
       "stripTopFolder": true,
       "only": ["converter/**", "licenses/**", "README.txt"]
     },
     {
       "action": "run",
-      "path": "{appdir}/mashups/gta-san-anskateas/converter/iw4l-skate-convert.exe",
+      "path": "{appdir}/gta-san-anskateas/converter/iw4l-skate-convert.exe",
       "args": ["--xex", "{input:skate3}", "--out", "{appdir}/skate3/gta-san-anskateas"],
       "waitForExit": true,
       "note": "Makes the skating data from your own Skate 3 files. Nothing is downloaded and your Skate 3 folder isn't changed."

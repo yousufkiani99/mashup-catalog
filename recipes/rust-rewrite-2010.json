@@ -37,7 +37,7 @@
     {
       "action": "extract",
       "download": "rust-rewrite-2010",
-      "to": "{appdir}/mashups/rust-rewrite-2010",
+      "to": "{appdir}/rust-rewrite-2010",
       "stripTopFolder": true
     }
   ],
@@ -46,14 +46,14 @@
       {
         "order": 1,
         "target": "exe",
-        "exe": "{appdir}/mashups/rust-rewrite-2010/iw4l.exe"
+        "exe": "{appdir}/rust-rewrite-2010/iw4l.exe"
       }
     ]
   },
   "saves": [
     {
       "gameKey": "mw2-2009",
-      "path": "{appdir}/mashups/rust-rewrite-2010/iw4l-artifacts/profile"
+      "path": "{appdir}/rust-rewrite-2010/iw4l-artifacts/profile"
     }
   ],
   "requirements": {
