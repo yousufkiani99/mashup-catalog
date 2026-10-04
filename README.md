@@ -36,7 +36,7 @@ fails is refused. An unsigned or changed catalog can't reach players.
 ## Changing a recipe
 
 1. Edit or add `recipes/<id>.json` (the file name must match its `id`; save with LF line endings).
-2. Push to `main`. The **Sign catalog** workflow rebuilds `index.json`, signs it and commits both.
+2. Sign: `node scripts/sign.mjs --key <path to the private key>`, then push to `main`. CI verifies it.
 3. Or sign locally: `node scripts/sign.mjs --key <path to the private key>`, then
    `node scripts/verify.mjs`.
 
