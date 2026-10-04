@@ -120,6 +120,13 @@
   "steps": [
     {
       "action": "extract",
+      "input": "script-hook-v",
+      "to": "{game:gta-v-legacy}",
+      "only": ["**/ScriptHookV.dll", "**/dinput8.dll"],
+      "flatten": true
+    },
+    {
+      "action": "extract",
       "download": "reshade-setup",
       "to": "{game:gta-v-legacy}",
       "only": ["ReShade64.dll"],
@@ -243,7 +250,6 @@
   "media": {},
   "aiBuilt": true,
   "knownIssues": [
-    "Waiting for a ready-made build: it installs once its download is published.",
     "Story mode only. GTA starts with BattlEye off, which keeps GTA Online out; never take a modded game online.",
     "Pick Story Mode on GTA's start screen yourself.",
     "A GTA update stops it until a new Script Hook V comes out.",
@@ -251,10 +257,27 @@
   ],
   "important": [
     {
-      "text": "Script Hook V can only be downloaded from its author's website. Download it, open the zip and copy ScriptHookV.dll and dinput8.dll from its bin folder into your GTA V folder (the one with GTA5.exe). Install continues once they're there.",
+      "text": "Script Hook V links GTA V with Minecraft. It comes only from its author's own site, so you press Download there. We do everything else.",
       "link": "https://www.dev-c.com/gtav/scripthookv/",
       "linkLabel": "Get Script Hook V",
-      "blocksInstall": true
+      "blocksInstall": true,
+      "input": {
+        "id": "script-hook-v",
+        "kind": "zip",
+        "name": "Script Hook V",
+        "label": "The Script Hook V zip",
+        "mustContain": ["ScriptHookV.dll", "dinput8.dll"],
+        "find": { "folder": "downloads", "name": "^ScriptHookV_.*\\.zip$", "exclude": "DotNet" },
+        "wrongFiles": [
+          {
+            "name": "_SDK_",
+            "contains": ["ScriptHookV.lib", "main.h"],
+            "message": "That's the Script Hook V developer kit, not Script Hook V itself. On the author's page, use the Download link just above it."
+          }
+        ],
+        "versionCheck": { "file": "ScriptHookV.dll", "game": "gta-v-legacy", "rule": "game-build" },
+        "origin": { "hosts": ["dev-c.com"] }
+      }
     }
   ]
 }
