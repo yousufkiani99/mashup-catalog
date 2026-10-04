@@ -102,7 +102,8 @@
       "kind": "dependency",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "Codeware-1.18.1.zip"
+      "fileName": "Codeware-1.18.1.zip",
+      "pins": { "version": "1.18.1" }
     },
     {
       "id": "world-builder",
@@ -116,14 +117,15 @@
       "fileName": "worldBuilderPacked_1_0_7_18_07_2025.zip"
     },
     {
-      "id": "reshade",
+      "id": "reshade-setup",
       "name": "ReShade 6.8.0 with full add-on support",
       "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
       "sha256": "TODO",
       "kind": "loader",
       "source": "official-site",
       "licence": "ReShade: free; binaries are downloaded from reshade.me only",
-      "fileName": "ReShade_Setup_6.8.0_Addon.exe"
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": { "version": "6.8.0" }
     },
     {
       "id": "reshade-fxh",
@@ -183,8 +185,8 @@
     },
     {
       "action": "run",
-      "download": "reshade",
-      "args": ["{game:cyberpunk-2077}/bin/x64/Cyberpunk2077.exe", "--api", "dxgi", "--headless"],
+      "download": "reshade-setup",
+      "args": ["{exe:cyberpunk-2077}", "--api", "dxgi", "--headless"],
       "waitForExit": true,
       "note": "Installs ReShade (the version with add-on support) into Cyberpunk as dxgi.dll. Nothing shows on screen."
     },
@@ -218,7 +220,10 @@
       "pattern": "host connected from"
     }
   },
-  "saves": [{ "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }],
+  "saves": [
+    { "gameKey": "cyberpunk-2077", "path": "{savedgames}/CD Projekt Red/Cyberpunk 2077" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
   "requirements": {
     "notes": "Both games render at once, so it needs a strong PC. Borderless windowed works best. Minecraft's window stays open in the background."
   },

@@ -51,7 +51,7 @@
     {
       "action": "run",
       "path": "{appdir}/mashups/gta-san-anskateas/converter/iw4l-skate-convert.exe",
-      "args": ["--xex", "{skate3-xex}", "--out", "{appdir}/skate3/gta-san-anskateas"],
+      "args": ["--xex", "{input:skate3}", "--out", "{appdir}/skate3/gta-san-anskateas"],
       "waitForExit": true,
       "note": "Makes the skating data from your own Skate 3 files. Nothing is downloaded and your Skate 3 folder isn't changed."
     },
@@ -124,10 +124,16 @@
       "blocksInstall": true
     },
     {
-      "text": "Skating is made from your own Skate 3 for Xbox 360, extracted to a folder with default.xex and a data folder in it (an ISO file won't work). Choose that default.xex when asked.",
+      "text": "Skating is made from your own Skate 3 for Xbox 360, extracted to a folder with default.xex and a data folder in it (an ISO file won't work). Choose that default.xex.",
       "link": "https://github.com/ryglizzy/GTA-San-AnSkateas#download-and-install",
       "linkLabel": "How to get your Skate 3 files",
-      "blocksInstall": true
+      "blocksInstall": true,
+      "input": {
+        "id": "skate3",
+        "kind": "file",
+        "label": "Your Skate 3 default.xex",
+        "mustContain": ["default.xex"]
+      }
     }
   ]
 }

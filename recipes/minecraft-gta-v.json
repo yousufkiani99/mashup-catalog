@@ -62,14 +62,15 @@
       "fileName": "minecraft-gta5-fabric-0.1.0.jar"
     },
     {
-      "id": "reshade",
+      "id": "reshade-setup",
       "name": "ReShade 6.8.0 with full add-on support",
       "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
       "sha256": "TODO",
       "kind": "loader",
       "source": "official-site",
       "licence": "ReShade: free; binaries are downloaded from reshade.me only",
-      "fileName": "ReShade_Setup_6.8.0_Addon.exe"
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": { "version": "6.8.0" }
     },
     {
       "id": "reshade-fxh",
@@ -119,9 +120,10 @@
   "steps": [
     {
       "action": "extract",
-      "download": "reshade",
+      "download": "reshade-setup",
       "to": "{game:gta-v-legacy}",
-      "only": ["ReShade64.dll"]
+      "only": ["ReShade64.dll"],
+      "rename": [{ "from": "ReShade64.dll", "to": "ReShade64.asi" }]
     },
     {
       "action": "copy",

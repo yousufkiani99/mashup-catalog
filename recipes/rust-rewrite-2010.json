@@ -96,7 +96,13 @@
       "text": "Skating is optional. To skate, have your own Skate 3 for Xbox 360 extracted to a folder with default.xex and a data folder in it (an ISO file won't work). The game asks for that default.xex the first time it starts.",
       "link": "https://github.com/chasmlol/2010-rust-rewrite-mashup#what-youll-need",
       "linkLabel": "What skating needs",
-      "blocksInstall": false
+      "blocksInstall": false,
+      "input": {
+        "id": "skate3",
+        "kind": "file",
+        "label": "Your Skate 3 default.xex (optional)",
+        "mustContain": ["default.xex"]
+      }
     }
   ]
 }

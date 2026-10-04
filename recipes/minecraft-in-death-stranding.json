@@ -62,14 +62,15 @@
       "fileName": "ds-minecraft-fabric-0.1.0.jar"
     },
     {
-      "id": "reshade",
+      "id": "reshade-setup",
       "name": "ReShade 6.8.0 with full add-on support",
       "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
       "sha256": "TODO",
       "kind": "loader",
       "source": "official-site",
       "licence": "ReShade: free; binaries are downloaded from reshade.me only",
-      "fileName": "ReShade_Setup_6.8.0_Addon.exe"
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": { "version": "6.8.0" }
     },
     {
       "id": "reshade-fxh",
@@ -141,8 +142,8 @@
   "steps": [
     {
       "action": "run",
-      "download": "reshade",
-      "args": ["{game:death-stranding-dc}/ds.exe", "--api", "dxgi", "--headless"],
+      "download": "reshade-setup",
+      "args": ["{exe:death-stranding-dc}", "--api", "dxgi", "--headless"],
       "waitForExit": true,
       "note": "Installs ReShade (the version with add-on support) into Death Stranding as dxgi.dll. Nothing shows on screen."
     },

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-04T13:13:48.603Z",
+  "generatedAt": "2026-10-04T13:47:30.213Z",
   "recipes": [
     {
       "id": "falloutcraft",
@@ -10,17 +10,17 @@
     {
       "id": "gta-san-anskateas",
       "path": "recipes/gta-san-anskateas.json",
-      "sha256": "c238c7264ae3a5c55fdf3461bf0adcd653c9f5edb4e94938e622d5a26ffddc78"
+      "sha256": "2d25a9da1372bd278e7c42fc424263c72d7b6e8cbe633f20bc48ccb9d38c6d2b"
     },
     {
       "id": "minecraft-gta-v",
       "path": "recipes/minecraft-gta-v.json",
-      "sha256": "add4a79f7306fd3441ec538cca24b12ddd1ce2f301db255df162f0273865b24e"
+      "sha256": "a34cd6e2354f93dd773463b2104b2a78a14c2ab77845a1e530f969fb6f538492"
     },
     {
       "id": "minecraft-in-death-stranding",
       "path": "recipes/minecraft-in-death-stranding.json",
-      "sha256": "1248809628a0ca6a077e2072a18d3fb6077e07a57afe1df4570db4c315ab754c"
+      "sha256": "bd6d9349d12bd4000ec3ecd8c460875a6d26892c9d27602bf7a9d63f122c13ff"
     },
     {
       "id": "minecraft-passthrough-iv",
@@ -30,7 +30,7 @@
     {
       "id": "minepunk",
       "path": "recipes/minepunk.json",
-      "sha256": "96e497b2cd6806d2eea68dfd2d2c8977d53eca426f479a2ecf309435457425a1"
+      "sha256": "477ceda23e15dafbad34188e2dc7e276310d4972a8dab372a9438163464813cc"
     },
     {
       "id": "owcraft",
@@ -40,7 +40,7 @@
     {
       "id": "rust-rewrite-2010",
       "path": "recipes/rust-rewrite-2010.json",
-      "sha256": "0b7a7e8222684684292593055d1213930bd5ffe55f96e31b93f4afc40d18bc67"
+      "sha256": "006e26ab4d5aa68a078b9042e12b847a3e5cc734add0d52c95de4508ada940a0"
     },
     {
       "id": "skycraft",
