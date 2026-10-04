@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-04T14:27:09.375Z",
+  "generatedAt": "2026-10-04T19:50:27.270Z",
   "recipes": [
     {
       "id": "falloutcraft",
@@ -15,7 +15,7 @@
     {
       "id": "minecraft-gta-v",
       "path": "recipes/minecraft-gta-v.json",
-      "sha256": "a34cd6e2354f93dd773463b2104b2a78a14c2ab77845a1e530f969fb6f538492"
+      "sha256": "986dfe0d6943b88d6fe6421e0578010375db4e58100b8b65fcf993b805b942b3"
     },
     {
       "id": "minecraft-in-death-stranding",
