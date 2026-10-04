@@ -198,12 +198,35 @@
       "key": "SavePath",
       "value": ".\\"
     },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShadePreset.ini",
+      "section": "",
+      "key": "Techniques",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShadePreset.ini",
+      "section": "",
+      "key": "TechniqueSorting",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
     { "action": "extract", "download": "minecraft-gta5", "to": "{game:gta-v-legacy}" },
     { "action": "prism-instance" }
   ],
   "launch": {
     "steps": [
-      { "order": 1, "target": "prism" },
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "host link listening",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
       {
         "order": 2,
         "target": "game",
@@ -250,6 +273,8 @@
   "media": {},
   "aiBuilt": true,
   "knownIssues": [
+    "You play as Steve: GTA's own character is hidden and Steve stands in his place.",
+    "A Minecraft window opens too and stays open behind GTA V. It draws the blocks you see in GTA, so leave it open.",
     "Story mode only. GTA starts with BattlEye off, which keeps GTA Online out; never take a modded game online.",
     "Pick Story Mode on GTA's start screen yourself.",
     "A GTA update stops it until a new Script Hook V comes out.",
