@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "id": "falloutcraft",
+  "title": "FalloutCraft",
+  "tagline": "Play Fallout 4 as a Minecraft player: build, gather and fight across the Commonwealth.",
+  "description": "Walk, sprint and jump through Sanctuary with Minecraft's movement. Build a base out of Minecraft blocks on top of Red Rocket, chop trees and dig for ores, and fight raiders and mole rats with a diamond sword, a bow and a shield. Your S.P.E.C.I.A.L. makes Steve faster, stronger or tougher, and the Pip-Boy still opens with Tab. Both games run at the same time: Minecraft runs hidden and Fallout 4 draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "fallout-4",
+      "name": "Fallout 4",
+      "store": "steam",
+      "steamAppId": "377160",
+      "version": {
+        "kind": "exeVersions",
+        "values": ["1.11.240.0"],
+        "note": "Developed and tested on 1.11.240. The old-gen 1.10.163 version isn't supported. Not the Microsoft Store, Game Pass or Epic copy."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["falloutcraft-fabric", "fabric-api"],
+    "instanceName": "FalloutCraft",
+    "jvmArgs": ["--enable-native-access=ALL-UNNAMED", "-Dskycraft.startHidden=true"],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "falloutcraft",
+      "name": "FalloutCraft 0.1.2 (Fallout 4 side)",
+      "url": "https://github.com/zeyvu/FalloutCraft/releases/download/v.0.1.2/commonlibf4-template.dll",
+      "sha256": "ed1bdafd16790c0c81ae90d099e1bef672c339284cb5ee880da9f372e0d2b2aa",
+      "sizeBytes": 2975744,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "commonlibf4-template.dll"
+    },
+    {
+      "id": "falloutcraft-fabric",
+      "name": "FalloutCraft 0.1.2 (Minecraft side)",
+      "url": "https://github.com/zeyvu/FalloutCraft/releases/download/v.0.1.2/falloutcraft-0.1.2.jar",
+      "sha256": "adf29ab1443b2559823216878dfb8fbd0a7069630abb69c770c7ad9b3ba16d13",
+      "sizeBytes": 264615,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "falloutcraft-0.1.2.jar"
+    },
+    {
+      "id": "f4se",
+      "name": "Fallout 4 Script Extender (F4SE) 0.7.9",
+      "url": "https://www.nexusmods.com/fallout4/mods/42147?tab=files",
+      "sha256": "TODO",
+      "kind": "loader",
+      "source": "nexus",
+      "nexus": { "gameDomain": "fallout4", "modId": 42147 },
+      "licence": "F4SE licence: free, no redistribution (official site f4se.silverlock.org)",
+      "fileName": "f4se_0_07_09.7z"
+    },
+    {
+      "id": "address-library",
+      "name": "Address Library for F4SE Plugins (All in One, 1.11.240)",
+      "url": "https://www.nexusmods.com/fallout4/mods/47327?tab=files",
+      "sha256": "TODO",
+      "kind": "dependency",
+      "source": "nexus",
+      "nexus": { "gameDomain": "fallout4", "modId": 47327 },
+      "licence": "Nexus Mods permissions (Fudgyduff)",
+      "fileName": "address-library-f4se-all-in-one.zip"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "f4se",
+      "to": "{game:fallout-4}",
+      "stripTopFolder": true,
+      "only": ["*.exe", "*.dll", "Data/**"]
+    },
+    {
+      "action": "extract",
+      "download": "address-library",
+      "to": "{game:fallout-4}/Data"
+    },
+    {
+      "action": "copy",
+      "download": "falloutcraft",
+      "to": "{game:fallout-4}/Data/F4SE/Plugins"
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "fallout-4",
+        "via": "loader",
+        "exe": "{game:fallout-4}/f4se_loader.exe"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "SkyCraft: linked to"
+    }
+  },
+  "saves": [
+    { "gameKey": "fallout-4", "path": "{documents}/My Games/Fallout4/Saves" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft and a graphics card that runs Minecraft 26.3."
+  },
+  "credits": [
+    { "name": "zeyvu", "role": "Creator of FalloutCraft", "url": "https://github.com/zeyvu" },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which FalloutCraft is built on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/zeyvu/FalloutCraft/blob/v.0.1.2/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/zeyvu/FalloutCraft",
+    "manualInstall": "https://github.com/zeyvu/FalloutCraft#quick-install-from-releases"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Fallout 4's opening (the pre-war house and Vault 111) may not work while Minecraft controls the player. Play from a save made after you leave the vault.",
+    "Fallout's weapons and VATS can't be used while Minecraft controls the player.",
+    "Stimpaks and Fallout food don't heal Minecraft's hearts yet; eat Minecraft food.",
+    "Cracked or uneven ground, such as Concord's broken roads, can make the player stumble for a moment.",
+    "NPCs bump into your blocks but still plan their routes as if the blocks weren't there.",
+    "Mods that also control the camera or movement don't work alongside it."
+  ]
+}

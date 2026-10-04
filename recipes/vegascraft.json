@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "id": "vegascraft",
+  "title": "VegasCraft",
+  "tagline": "Play Fallout: New Vegas as a Minecraft player: build, dig and fight across the Mojave.",
+  "description": "Explore the Mojave with Minecraft's movement, inventory, blocks and combat. Place and break blocks, dig into the desert, light the night with torches and craft in a Minecraft-style Pip-Boy that still shows your stats, quests, radio and map. Fire New Vegas guns or swing Minecraft swords, and meet Minecraft trees, animals and monsters on the Mojave's ground. Both games run at the same time: Minecraft runs hidden and New Vegas draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "fallout-nv",
+      "name": "Fallout: New Vegas",
+      "store": "steam",
+      "steamAppId": "22380",
+      "version": {
+        "kind": "exeVersions",
+        "values": ["1.4.0.525"],
+        "note": "The normal Steam version (1.4.0.525). Not the German No Gore version, Game Pass or Epic."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["vegascraft-fabric", "fabric-api"],
+    "instanceName": "VegasCraft",
+    "jvmArgs": ["--enable-native-access=ALL-UNNAMED", "-Dvegascraft.startHidden=true"],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "vegascraft",
+      "name": "VegasCraft 0.2.2 (New Vegas side)",
+      "url": "https://github.com/benedettoscala/VegasCraft/releases/download/0.2.2/VegasCraft-0.2.2.zip",
+      "sha256": "36764d995fdc915e15acf2213534c517b28afa22be851bee4c3d0caf58751b5f",
+      "sizeBytes": 25553087,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "VegasCraft-0.2.2.zip"
+    },
+    {
+      "id": "vegascraft-fabric",
+      "name": "VegasCraft 0.2.2 (Minecraft side)",
+      "url": "https://github.com/benedettoscala/VegasCraft/releases/download/0.2.2/vegascraft-fabric-0.2.2.jar",
+      "sha256": "ee74026f1e22501953341da175a0de2e91c818f7df4da991e63b2ea4534be983",
+      "sizeBytes": 434952,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "vegascraft-fabric-0.2.2.jar"
+    },
+    {
+      "id": "xnvse",
+      "name": "New Vegas Script Extender (xNVSE) 6.4.9",
+      "url": "https://github.com/xNVSE/NVSE/releases/download/6.4.9/nvse_6_4_9.7z",
+      "sha256": "81fb0638f87b2c822270e37cf2ca118d39e2425f13028f9173b172c5fdb2eb88",
+      "sizeBytes": 5326524,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "xNVSE: free to use, not to be repackaged with mods (official GitHub release)",
+      "fileName": "nvse_6_4_9.7z"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "xnvse",
+      "to": "{game:fallout-nv}",
+      "only": ["nvse_loader.exe", "nvse_1_4.dll", "nvse_steam_loader.dll"]
+    },
+    {
+      "action": "extract",
+      "download": "vegascraft",
+      "to": "{game:fallout-nv}/Data",
+      "only": [
+        "NVSE/Plugins/VegasCraft.dll",
+        "NVSE/Plugins/VegasCraft.ini",
+        "NVSE/Plugins/VegasCraft/VegasCraftCore.dll",
+        "NVSE/Plugins/VegasCraft/LICENSE.txt",
+        "NVSE/Plugins/VegasCraft/THIRD-PARTY-NOTICES.md",
+        "NVSE/Plugins/VegasCraft/SkyCraft-MIT.txt"
+      ]
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:fallout-nv}/Data/NVSE/Plugins/VegasCraft.ini",
+      "section": "Minecraft",
+      "key": "bStartWithNewVegas",
+      "value": "0"
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "fallout-nv",
+        "via": "loader",
+        "exe": "{game:fallout-nv}/nvse_loader.exe"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "SkyCraft: linked to"
+    }
+  },
+  "saves": [
+    { "gameKey": "fallout-nv", "path": "{documents}/My Games/FalloutNV/Saves" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 4,
+    "notes": "Minecraft gets up to 4 GB of RAM on top of New Vegas, and needs a graphics card that runs Minecraft 26.3."
+  },
+  "credits": [
+    {
+      "name": "benedettoscala",
+      "role": "Creator of VegasCraft",
+      "url": "https://github.com/benedettoscala"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which VegasCraft is a port of",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/benedettoscala/VegasCraft/blob/0.2.2/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/benedettoscala/VegasCraft",
+    "manualInstall": "https://github.com/benedettoscala/VegasCraft#installation-and-first-launch"
+  },
+  "media": {},
+  "aiBuilt": false,
+  "knownIssues": [
+    "Use G, not E, to open doors and talk to people: E opens Minecraft's inventory.",
+    "New Vegas saves and the Minecraft world are separate: loading an older save doesn't undo blocks you placed.",
+    "Interiors and other worldspaces share one Minecraft area, so builds in one can show up in another.",
+    "Digging only works on outdoor ground, not buildings or objects.",
+    "Block lights light nearby objects well but the ground only weakly.",
+    "Some menus and logs still say Skyrim or SkyCraft."
+  ]
+}

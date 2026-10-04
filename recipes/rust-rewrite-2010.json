@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "rust-rewrite-2010",
+  "title": "2010 Rust Rewrite Mashup",
+  "tagline": "Modern Warfare 2, Skate 3 and an endless Minecraft world in one game.",
+  "description": "Modern Warfare 2's multiplayer maps, guns, killstreaks and HUD, rebuilt in Rust. Press J on any map to drop onto a board with Skate 3's physics, tricks and grinds. Or pick the Minecraft map: a real, endless Minecraft world with its mobs, day and night, where you shoot blocks to break them, blow craters with grenades and build with an MW2-style inventory. Controllers work with MW2's console layouts and aim assist.",
+  "method": "rewrite",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "mw2-2009",
+      "name": "Call of Duty: Modern Warfare 2 (2009)",
+      "store": "steam",
+      "steamAppId": "10180",
+      "version": {
+        "kind": "any",
+        "note": "Any Steam copy with the multiplayer files installed. Your MW2 folder isn't changed."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "rust-rewrite-2010",
+      "name": "2010 Rust Rewrite Mashup 0.4.0 (Windows)",
+      "url": "https://github.com/chasmlol/2010-rust-rewrite-mashup/releases/download/v0.4.0/2010-Rust-Rewrite-Mashup-windows-x64.zip",
+      "sha256": "f7c02cfb4dd5650be29762947a0b17d3e6f9b9f1259025ee89a99bd031e1ebca",
+      "sizeBytes": 70231384,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "2010-Rust-Rewrite-Mashup-windows-x64.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "rust-rewrite-2010",
+      "to": "{appdir}/mashups/rust-rewrite-2010",
+      "stripTopFolder": true
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "exe",
+        "exe": "{appdir}/mashups/rust-rewrite-2010/iw4l.exe"
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "mw2-2009",
+      "path": "{appdir}/mashups/rust-rewrite-2010/iw4l-artifacts/profile"
+    }
+  ],
+  "requirements": {
+    "notes": "An internet connection the first time you play the Minecraft map: it downloads Minecraft's own files (about 125 MB) from Mojang. A controller for skating."
+  },
+  "credits": [
+    {
+      "name": "chasmlol",
+      "role": "Creator of 2010 Rust Rewrite Mashup",
+      "url": "https://github.com/chasmlol"
+    },
+    {
+      "name": "vladtrc and IW4L contributors",
+      "role": "IW4L, the MW2 rewrite it runs on",
+      "url": "https://github.com/vladtrc/iw4L"
+    },
+    {
+      "name": "SK8-ENGINE",
+      "role": "skate-3-rust-engine",
+      "url": "https://github.com/SK8-ENGINE/skate-3-rust-engine"
+    }
+  ],
+  "licence": {
+    "spdx": "Apache-2.0",
+    "url": "https://github.com/chasmlol/2010-rust-rewrite-mashup/blob/v0.4.0/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/chasmlol/2010-rust-rewrite-mashup",
+    "manualInstall": "https://github.com/chasmlol/2010-rust-rewrite-mashup#how-to-play"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "The skateboard is invisible on some maps.",
+    "The first time it starts, it asks you to confirm your MW2 folder and whether you have Skate 3."
+  ],
+  "important": [
+    {
+      "text": "Skating is optional. To skate, have your own Skate 3 for Xbox 360 extracted to a folder with default.xex and a data folder in it (an ISO file won't work). The game asks for that default.xex the first time it starts.",
+      "link": "https://github.com/chasmlol/2010-rust-rewrite-mashup#what-youll-need",
+      "linkLabel": "What skating needs",
+      "blocksInstall": false
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "id": "gta-san-anskateas",
+  "title": "GTA San AnSkateas",
+  "tagline": "Skate 3 inside GTA San Andreas: press J and CJ rides Skate 3's board through Los Santos.",
+  "description": "Press J (or click both sticks) and CJ gets on a skateboard driven by the real Skate 3 engine, riding San Andreas' own streets and collision with Skate 3's camera, controls, tricks, grinds and bails. Press it again to get off. The skating is built from your own copy of Skate 3 for Xbox 360; nothing from either game comes with the mod.",
+  "method": "embed",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "gta-sa",
+      "name": "Grand Theft Auto: San Andreas",
+      "store": "steam",
+      "steamAppId": "12120",
+      "version": {
+        "kind": "any",
+        "note": "The classic PC game at version 1.0 US with an ASI Loader (see Important). Not the Definitive Edition."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "san-anskateas",
+      "name": "GTA San AnSkateas 1.0",
+      "url": "https://github.com/ryglizzy/GTA-San-AnSkateas/releases/download/v1.0/GTA-San-Anskateas-v1.0.zip",
+      "sha256": "5e71d9ce6d5c36600891245a24354c9463ad55dbbb22ff84b2f6ad459c7e3d5e",
+      "sizeBytes": 30676151,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence: used only with the creator's written permission (its Skate engine part is Apache-2.0)",
+      "fileName": "GTA-San-Anskateas-v1.0.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "san-anskateas",
+      "to": "{game:gta-sa}",
+      "from": "GTA San Anskateas/mod",
+      "only": ["SanAnskateas.asi", "SanAnskateas.ini", "SanAnskateas/skate_ffi.dll"]
+    },
+    {
+      "action": "extract",
+      "download": "san-anskateas",
+      "to": "{appdir}/mashups/gta-san-anskateas",
+      "stripTopFolder": true,
+      "only": ["converter/**", "licenses/**", "README.txt"]
+    },
+    {
+      "action": "run",
+      "path": "{appdir}/mashups/gta-san-anskateas/converter/iw4l-skate-convert.exe",
+      "args": ["--xex", "{skate3-xex}", "--out", "{appdir}/skate3/gta-san-anskateas"],
+      "waitForExit": true,
+      "note": "Makes the skating data from your own Skate 3 files. Nothing is downloaded and your Skate 3 folder isn't changed."
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-sa}/SanAnskateas.ini",
+      "section": "Skate",
+      "key": "AssetsDir",
+      "value": "{appdir}/skate3/gta-san-anskateas/assets"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "gta-sa",
+        "via": "exe",
+        "exe": "{game:gta-sa}/gta_sa.exe"
+      }
+    ]
+  },
+  "saves": [{ "gameKey": "gta-sa", "path": "{documents}/GTA San Andreas User Files" }],
+  "requirements": {
+    "notes": "An Xbox controller (a PlayStation controller works through DS4Windows)."
+  },
+  "credits": [
+    {
+      "name": "ryglizzy",
+      "role": "Creator of GTA San AnSkateas",
+      "url": "https://github.com/ryglizzy"
+    },
+    {
+      "name": "chasmlol",
+      "role": "2010 Rust Rewrite Mashup, whose Skate engine part this uses",
+      "url": "https://github.com/chasmlol/2010-rust-rewrite-mashup"
+    },
+    {
+      "name": "SK8-ENGINE",
+      "role": "skate-3-rust-engine",
+      "url": "https://github.com/SK8-ENGINE/skate-3-rust-engine"
+    },
+    {
+      "name": "DK22Pac",
+      "role": "plugin-sdk, the base of the game plugin",
+      "url": "https://github.com/DK22Pac/plugin-sdk"
+    }
+  ],
+  "licence": {
+    "spdx": "none",
+    "url": "https://github.com/ryglizzy/GTA-San-AnSkateas",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/ryglizzy/GTA-San-AnSkateas",
+    "manualInstall": "https://github.com/ryglizzy/GTA-San-AnSkateas#download-and-install"
+  },
+  "media": {},
+  "aiBuilt": false,
+  "knownIssues": [
+    "If skating stops by itself or acts strange, press Ctrl + J to restart the Skate engine (about 10 seconds).",
+    "A black screen after Alt+Tab can happen on some PCs.",
+    "A Steam update or file check puts San Andreas back to its newer version, and the skating stops loading until it's back on 1.0 US."
+  ],
+  "important": [
+    {
+      "text": "San Andreas has to be the classic 1.0 US version with an ASI Loader. Follow step 1 of the creator's guide once, then come back here.",
+      "link": "https://github.com/ryglizzy/GTA-San-AnSkateas#download-and-install",
+      "linkLabel": "Open the creator's guide",
+      "blocksInstall": true
+    },
+    {
+      "text": "Skating is made from your own Skate 3 for Xbox 360, extracted to a folder with default.xex and a data folder in it (an ISO file won't work). Choose that default.xex when asked.",
+      "link": "https://github.com/ryglizzy/GTA-San-AnSkateas#download-and-install",
+      "linkLabel": "How to get your Skate 3 files",
+      "blocksInstall": true
+    }
+  ]
+}

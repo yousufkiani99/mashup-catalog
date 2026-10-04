@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "id": "minecraft-in-death-stranding",
+  "title": "Minecraft in Death Stranding",
+  "tagline": "Real Minecraft blocks in Death Stranding's world, solid for Sam to climb.",
+  "description": "Build with Minecraft's blocks anywhere in Death Stranding. They sit on the real ground, hide behind its rocks and buildings, and are solid for Sam to bump into and climb. Press F6 to build, I for Minecraft's inventory, and try Minecraft arrows and TNT on MULEs and BTs (people are only knocked out). Both games run at the same time and Death Stranding blends Minecraft into its own picture.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "death-stranding-dc",
+      "name": "DEATH STRANDING DIRECTOR'S CUT",
+      "store": "steam",
+      "steamAppId": "1850570",
+      "version": {
+        "kind": "buildIds",
+        "values": ["13300582"],
+        "note": "Steam build 13300582. On other builds its features switch themselves off."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["ds-minecraft-fabric", "fabric-api"],
+    "instanceName": "Death Stranding"
+  },
+  "downloads": [
+    {
+      "id": "ds-minecraft",
+      "name": "Minecraft in Death Stranding 0.1.0 (Death Stranding side, community build)",
+      "url": "https://github.com/yousufkiani99/ds-minecraft-builds/releases/download/v0.1.0/ds-minecraft-0.1.0.zip",
+      "sha256": "TODO",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "ds-minecraft-0.1.0.zip"
+    },
+    {
+      "id": "ds-minecraft-fabric",
+      "name": "Minecraft in Death Stranding 0.1.0 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/ds-minecraft-builds/releases/download/v0.1.0/ds-minecraft-fabric-0.1.0.jar",
+      "sha256": "TODO",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "ds-minecraft-fabric-0.1.0.jar"
+    },
+    {
+      "id": "reshade",
+      "name": "ReShade 6.8.0 with full add-on support",
+      "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
+      "sha256": "TODO",
+      "kind": "loader",
+      "source": "official-site",
+      "licence": "ReShade: free; binaries are downloaded from reshade.me only",
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe"
+    },
+    {
+      "id": "reshade-fxh",
+      "name": "ReShade.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShade.fxh",
+      "sha256": "6dabfbbaf968c3871905d2ea17f96572ff7b1cec01310b5d0e5252b66b30174f",
+      "sizeBytes": 4250,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "CC0-1.0",
+      "fileName": "ReShade.fxh"
+    },
+    {
+      "id": "reshadeui-fxh",
+      "name": "ReShadeUI.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShadeUI.fxh",
+      "sha256": "78adf672df47460297eb9fe6dd238d2aafa24510b52b84feb1a745dff70eb901",
+      "sizeBytes": 9930,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "crosire/reshade-shaders (no licence file; fetched from the official repository)",
+      "fileName": "ReShadeUI.fxh"
+    },
+    {
+      "id": "displaydepth-fx",
+      "name": "DisplayDepth.fx (ReShade depth viewer)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/DisplayDepth.fx",
+      "sha256": "b67944bb8a5c6c8127813d332f1fb271222f7aa2c365927b4cbac42bebf749c9",
+      "sizeBytes": 10368,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "crosire/reshade-shaders (no licence file; fetched from the official repository)",
+      "fileName": "DisplayDepth.fx"
+    },
+    {
+      "id": "displaydepth-l10n-fxh",
+      "name": "DisplayDepth_L10N.fxh (ReShade depth viewer translations)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/DisplayDepth_L10N.fxh",
+      "sha256": "f7d896885ecdb3f4953e069a09c16381ceb0c3a87d12025c3496d6986e67507d",
+      "sizeBytes": 17519,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "crosire/reshade-shaders (no licence file; fetched from the official repository)",
+      "fileName": "DisplayDepth_L10N.fxh"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "run",
+      "download": "reshade",
+      "args": ["{game:death-stranding-dc}/ds.exe", "--api", "dxgi", "--headless"],
+      "waitForExit": true,
+      "note": "Installs ReShade (the version with add-on support) into Death Stranding as dxgi.dll. Nothing shows on screen."
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "EffectSearchPaths",
+      "value": ".\\reshade-shaders\\Shaders\\**"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "TextureSearchPaths",
+      "value": ".\\reshade-shaders\\Textures\\**"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PresetPath",
+      "value": ".\\ReShadePreset.ini"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PerformanceMode",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PreprocessorDefinitions",
+      "value": "RESHADE_DEPTH_INPUT_IS_REVERSED=1,RESHADE_DEPTH_INPUT_IS_UPSIDE_DOWN=0,RESHADE_DEPTH_INPUT_IS_LOGARITHMIC=0,RESHADE_DEPTH_LINEARIZATION_FAR_PLANE=1000.0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "ADDON",
+      "key": "AddonPath",
+      "value": ".\\"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "DEPTH",
+      "key": "DepthCopyAtClearIndex",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "DEPTH",
+      "key": "DepthCopyBeforeClears",
+      "value": "1"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "DEPTH",
+      "key": "UseAspectRatioHeuristics",
+      "value": "1"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "INPUT",
+      "key": "KeyOverlay",
+      "value": "36,0,0,0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "INPUT",
+      "key": "KeyScreenshot",
+      "value": "35,0,0,0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "TutorialProgress",
+      "value": "4"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "SCREENSHOT",
+      "key": "FileFormat",
+      "value": "1"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShade.ini",
+      "section": "SCREENSHOT",
+      "key": "ClearAlpha",
+      "value": "1"
+    },
+    {
+      "action": "copy",
+      "download": "reshade-fxh",
+      "to": "{game:death-stranding-dc}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "copy",
+      "download": "reshadeui-fxh",
+      "to": "{game:death-stranding-dc}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "copy",
+      "download": "displaydepth-fx",
+      "to": "{game:death-stranding-dc}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "copy",
+      "download": "displaydepth-l10n-fxh",
+      "to": "{game:death-stranding-dc}/reshade-shaders/Shaders"
+    },
+    { "action": "extract", "download": "ds-minecraft", "to": "{game:death-stranding-dc}" },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      { "order": 2, "target": "game", "gameKey": "death-stranding-dc", "via": "steam" }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "host connected from"
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "death-stranding-dc",
+      "path": "{localappdata}/KojimaProductions/DeathStrandingDC"
+    },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "notes": "Minecraft draws a second picture alongside Death Stranding, so expect a lower frame rate (about 120 to 55 fps on the creator's PC). Minecraft's window stays open in the background."
+  },
+  "credits": [
+    {
+      "name": "mihailinl",
+      "role": "Creator of Minecraft in Death Stranding",
+      "url": "https://github.com/mihailinl"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "The Minecraft x GTA V passthrough it builds on",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    },
+    { "name": "crosire", "role": "ReShade and its add-on API", "url": "https://reshade.me" },
+    {
+      "name": "ShadelessFox",
+      "role": "Decima Workshop, used for the game's type dumps",
+      "url": "https://github.com/ShadelessFox/decima-workshop"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/mihailinl/minecraft-in-death-stranding/blob/main/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/mihailinl/minecraft-in-death-stranding",
+    "manualInstall": "https://github.com/mihailinl/minecraft-in-death-stranding#windows"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Waiting for a ready-made build: it installs once its download is published.",
+    "Its creator developed and played it on Linux; Windows hasn't been tested by them yet.",
+    "Weapons, damage and the Minecraft inventory are new and only lightly tested.",
+    "First-person view can't be widened yet.",
+    "You can only build in a band around Sam; walk closer to build further away."
+  ],
+  "important": [
+    {
+      "text": "To make blocks solid for Sam: the first time you play, press Home, open the DSMC tab, press Test box once, then tick \"Minecraft blocks solid for Sam\".",
+      "link": "https://github.com/mihailinl/minecraft-in-death-stranding#playing",
+      "linkLabel": "See the creator's steps",
+      "blocksInstall": false
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "id": "minepunk",
+  "title": "Minepunk",
+  "tagline": "Real Minecraft inside Cyberpunk 2077: Steve replaces V in Night City.",
+  "description": "Steve replaces V, and Minecraft's items work in Night City. Ender pearls teleport you, even off buildings. The sword hits and launches people, arrows hurt them, and TNT, creepers and fireworks set off real Cyberpunk explosions. Glide over Japantown with an elytra and stand on the blocks you build. V's health and Steve's hearts are the same, so damage in either game shows in both. Both games run at the same time and Cyberpunk blends Minecraft into its own picture.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "cyberpunk-2077",
+      "name": "Cyberpunk 2077",
+      "store": "steam",
+      "steamAppId": "1091500",
+      "version": {
+        "kind": "any",
+        "note": "Needs game version 2.31 (base game; Phantom Liberty wasn't tested). Other versions need matching mod updates first."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["minepunk-fabric", "fabric-api"],
+    "instanceName": "Minepunk"
+  },
+  "downloads": [
+    {
+      "id": "minepunk",
+      "name": "Minepunk 0.1.0 (Cyberpunk side, community build)",
+      "url": "https://github.com/yousufkiani99/minepunk-builds/releases/download/v0.1.0/minepunk-cyberpunk-0.1.0.zip",
+      "sha256": "TODO",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "minepunk-cyberpunk-0.1.0.zip"
+    },
+    {
+      "id": "minepunk-fabric",
+      "name": "Minepunk 0.1.0 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/minepunk-builds/releases/download/v0.1.0/minepunk-fabric-0.1.0.jar",
+      "sha256": "TODO",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "minepunk-fabric-0.1.0.jar"
+    },
+    {
+      "id": "cyber-engine-tweaks",
+      "name": "Cyber Engine Tweaks 1.37.1",
+      "url": "https://github.com/maximegmd/CyberEngineTweaks/releases/download/v1.37.1/cet_1.37.1.zip",
+      "sha256": "1855017796a27f518199f5b7d7210ef1db7a5c5f0af468c68e04e6e666ad248c",
+      "sizeBytes": 35227011,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "cet_1.37.1.zip"
+    },
+    {
+      "id": "red4ext",
+      "name": "RED4ext 1.30.0",
+      "url": "https://github.com/wopss/RED4ext/releases/download/v1.30.0/red4ext-1.30.0.zip",
+      "sha256": "3a72225c9d2c46c99f4a4159d952b9d24366357c2423eb7ea255c84e9e11c0b0",
+      "sizeBytes": 575834,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "red4ext-1.30.0.zip"
+    },
+    {
+      "id": "redscript",
+      "name": "redscript 1.0.0-preview.22",
+      "url": "https://github.com/jac3km4/redscript/releases/download/v1.0.0-preview.22/redscript-v1.0.0-preview.22-windows.zip",
+      "sha256": "d68f7978f194fe0fde4fe90989317053518af998712d363f5f398aa8d13b341c",
+      "sizeBytes": 1539215,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "redscript-v1.0.0-preview.22-windows.zip"
+    },
+    {
+      "id": "codeware",
+      "name": "Codeware 1.18.1",
+      "url": "https://github.com/psiberx/cp2077-codeware/releases/download/v1.18.1/Codeware-1.18.1.zip",
+      "sha256": "3d74b3560e1b27b3e507d39a5ad8e01bbf0d3ccae8191548fec42bbea7de40a0",
+      "sizeBytes": 1919330,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "Codeware-1.18.1.zip"
+    },
+    {
+      "id": "world-builder",
+      "name": "World Builder 1.0.7 (only its empty entity archive is used)",
+      "url": "https://github.com/justarandomguyintheinternet/CP77_entSpawner/releases/download/v.1.0.7/worldBuilderPacked_1_0_7_18_07_2025.zip",
+      "sha256": "a3dfc71b1673c8d64216a128a471b8cdea211a5a31c45459798354d0d017a254",
+      "sizeBytes": 2190639,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "No licence file: all rights reserved by keanuWheeze (downloaded from the author's own release)",
+      "fileName": "worldBuilderPacked_1_0_7_18_07_2025.zip"
+    },
+    {
+      "id": "reshade",
+      "name": "ReShade 6.8.0 with full add-on support",
+      "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
+      "sha256": "TODO",
+      "kind": "loader",
+      "source": "official-site",
+      "licence": "ReShade: free; binaries are downloaded from reshade.me only",
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe"
+    },
+    {
+      "id": "reshade-fxh",
+      "name": "ReShade.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShade.fxh",
+      "sha256": "6dabfbbaf968c3871905d2ea17f96572ff7b1cec01310b5d0e5252b66b30174f",
+      "sizeBytes": 4250,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "CC0-1.0",
+      "fileName": "ReShade.fxh"
+    },
+    {
+      "id": "reshadeui-fxh",
+      "name": "ReShadeUI.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShadeUI.fxh",
+      "sha256": "78adf672df47460297eb9fe6dd238d2aafa24510b52b84feb1a745dff70eb901",
+      "sizeBytes": 9930,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "crosire/reshade-shaders (no licence file; fetched from the official repository)",
+      "fileName": "ReShadeUI.fxh"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    { "action": "extract", "download": "cyber-engine-tweaks", "to": "{game:cyberpunk-2077}" },
+    { "action": "extract", "download": "red4ext", "to": "{game:cyberpunk-2077}" },
+    { "action": "extract", "download": "redscript", "to": "{game:cyberpunk-2077}" },
+    { "action": "extract", "download": "codeware", "to": "{game:cyberpunk-2077}" },
+    {
+      "action": "extract",
+      "download": "world-builder",
+      "to": "{game:cyberpunk-2077}",
+      "only": ["archive/pc/mod/baseEntity.archive"]
+    },
+    {
+      "action": "run",
+      "download": "reshade",
+      "args": ["{game:cyberpunk-2077}/bin/x64/Cyberpunk2077.exe", "--api", "dxgi", "--headless"],
+      "waitForExit": true,
+      "note": "Installs ReShade (the version with add-on support) into Cyberpunk as dxgi.dll. Nothing shows on screen."
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:cyberpunk-2077}/bin/x64/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PreprocessorDefinitions",
+      "value": "RESHADE_DEPTH_INPUT_IS_REVERSED=1,RESHADE_DEPTH_INPUT_IS_UPSIDE_DOWN=0,RESHADE_DEPTH_INPUT_IS_LOGARITHMIC=0"
+    },
+    {
+      "action": "copy",
+      "download": "reshade-fxh",
+      "to": "{game:cyberpunk-2077}/bin/x64/reshade-shaders/Shaders"
+    },
+    {
+      "action": "copy",
+      "download": "reshadeui-fxh",
+      "to": "{game:cyberpunk-2077}/bin/x64/reshade-shaders/Shaders"
+    },
+    { "action": "extract", "download": "minepunk", "to": "{game:cyberpunk-2077}" },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      { "order": 2, "target": "game", "gameKey": "cyberpunk-2077", "via": "steam" }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "host connected from"
+    }
+  },
+  "saves": [{ "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }],
+  "requirements": {
+    "notes": "Both games render at once, so it needs a strong PC. Borderless windowed works best. Minecraft's window stays open in the background."
+  },
+  "credits": [
+    { "name": "Duocor3", "role": "Creator of Minepunk", "url": "https://github.com/Duocor3" },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "The Minecraft x GTA V passthrough Minepunk builds on",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    },
+    {
+      "name": "yamashi, WopsS, jac3km4, psiberx",
+      "role": "Cyber Engine Tweaks, RED4ext, redscript and Codeware",
+      "url": "https://github.com/maximegmd/CyberEngineTweaks"
+    },
+    {
+      "name": "keanuWheeze",
+      "role": "World Builder, whose empty entity makes blocks solid",
+      "url": "https://github.com/justarandomguyintheinternet/CP77_entSpawner"
+    },
+    { "name": "crosire", "role": "ReShade and its add-on API", "url": "https://reshade.me" }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/Duocor3/minepunk/blob/main/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/Duocor3/minepunk",
+    "manualInstall": "https://github.com/Duocor3/minepunk#install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Waiting for a ready-made build: it installs once its download is published.",
+    "Turn off DLSS, FSR and XeSS upscaling and frame generation, motion blur and depth of field: they break how the two pictures line up.",
+    "Only Cyberpunk 2.31 works. A game update stops it until the mods catch up.",
+    "Up to 400 placed blocks are solid for V, and each is a full cube.",
+    "If you use other Cyberpunk mods that need a newer Codeware, they may stop working while this is installed."
+  ]
+}
