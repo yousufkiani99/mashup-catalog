@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-04T12:21:09.431Z",
+  "recipes": [
+    {
+      "id": "owcraft",
+      "path": "recipes/owcraft.json",
+      "sha256": "04136238049c9c738516b28a95bf1979f0ab5d4c61ebcbc5184b8885e6aab933"
+    },
+    {
+      "id": "skycraft",
+      "path": "recipes/skycraft.json",
+      "sha256": "489bce2a0c4d0d387e4fef4bc6e20e600727f866404f68f9771a0a8bf914ae50"
+    },
+    {
+      "id": "valcraft",
+      "path": "recipes/valcraft.json",
+      "sha256": "2934efcc3a9cf3382d73ab65c668748b36e7883b95938110dc76bd35cf9bf72a"
+    }
+  ]
+}

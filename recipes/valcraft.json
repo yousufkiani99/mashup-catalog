@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "id": "valcraft",
+  "title": "ValCraft",
+  "tagline": "Play Valheim as a Minecraft player: build, mine and fight across Valheim's world.",
+  "description": "Explore Valheim with Minecraft's movement, inventory, hands and blocks. Build with Minecraft blocks in Valheim's light and weather, chop trees and mine rocks with Minecraft tools, blow craters with TNT, sail Minecraft boats on Valheim's sea and fight its creatures and bosses with Minecraft weapons. Press F8 to turn Valheim's ground into real Minecraft blocks. Both games run at the same time: Minecraft runs hidden and Valheim draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "valheim",
+      "name": "Valheim",
+      "store": "steam",
+      "steamAppId": "892970",
+      "version": { "kind": "any", "note": "Any current Steam version." }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["valcraft-fabric", "fabric-api"],
+    "instanceName": "ValCraft",
+    "jvmArgs": ["--enable-native-access=ALL-UNNAMED", "-Dvalcraft.startHidden=true"],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "valcraft",
+      "name": "ValCraft 0.6.0 (Valheim side)",
+      "url": "https://github.com/LoAlCo/ValCraft/releases/download/v0.6.0/LoAlCo-ValCraft-0.6.0.zip",
+      "sha256": "6fc209c5f51fc5bf4db998a9ae64a9ed5eed09c05c12e71aa33651c3d38ec113",
+      "sizeBytes": 24316170,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence: used only with the creator's written permission",
+      "fileName": "LoAlCo-ValCraft-0.6.0.zip"
+    },
+    {
+      "id": "valcraft-fabric",
+      "name": "ValCraft 0.6.0 (Minecraft side)",
+      "url": "https://github.com/LoAlCo/ValCraft/releases/download/v0.6.0/valcraft-fabric-0.6.0.jar",
+      "sha256": "0243f4db8f4eda11f8a899e9fe2b128f18f25a427f452de4ae282862e4ae9ff5",
+      "sizeBytes": 780626,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence for the ValCraft changes (based on SkyCraft, MIT): used only with the creator's written permission",
+      "fileName": "valcraft-fabric-0.6.0.jar"
+    },
+    {
+      "id": "bepinexpack-valheim",
+      "name": "BepInExPack for Valheim 5.4.2350",
+      "url": "https://thunderstore.io/package/download/denikson/BepInExPack_Valheim/5.4.2350/",
+      "sha256": "TODO",
+      "kind": "loader",
+      "source": "thunderstore",
+      "licence": "LGPL-2.1 (BepInEx)",
+      "fileName": "denikson-BepInExPack_Valheim-5.4.2350.zip"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinexpack-valheim",
+      "to": "{game:valheim}",
+      "from": "BepInExPack_Valheim"
+    },
+    {
+      "action": "extract",
+      "download": "valcraft",
+      "to": "{game:valheim}/BepInEx/plugins",
+      "from": "plugins",
+      "only": ["ValCraft/ValCraft.dll", "ValCraft/NOTICE.md"]
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/BepInEx/config/loalco.valcraft.cfg",
+      "section": "Minecraft",
+      "key": "StartWithValheim",
+      "value": "false"
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      { "order": 2, "target": "game", "gameKey": "valheim", "via": "steam" }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "ValCraft: linked to Valheim"
+    }
+  },
+  "saves": [
+    { "gameKey": "valheim", "path": "{locallow}/IronGate/Valheim" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of free RAM on top of Valheim, and about 2 GB of disk space."
+  },
+  "credits": [
+    { "name": "LoAlCo", "role": "Creator of ValCraft", "url": "https://github.com/LoAlCo" },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which ValCraft's Minecraft side is based on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "none",
+    "url": "https://github.com/LoAlCo/ValCraft",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/LoAlCo/ValCraft",
+    "manualInstall": "https://github.com/LoAlCo/ValCraft/blob/main/INSTALL.md"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "You can sometimes slip through the floor of a steep crater; Valheim puts you back on top.",
+    "Valheim's creatures don't fight back against Minecraft mobs yet.",
+    "Bows, arrows, shields, armour and capes don't have Minecraft versions yet.",
+    "Building with the Build Hammer is experimental.",
+    "Minecraft's Nether and End portals don't work."
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "id": "owcraft",
+  "title": "OWCraft",
+  "tagline": "Land on an Outer Wilds planet, press F6, and play real Minecraft there.",
+  "description": "Fly your ship to a planet, step out and press F6 to become a Minecraft player. Break and place blocks, open your inventory, light TNT and build a house on Timber Hearth. Press F6 again to get back into your spacesuit. What you build stays on the planet, even after the time loop resets. Both games run at the same time and Outer Wilds draws the blocks with its own lighting.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "outer-wilds",
+      "name": "Outer Wilds",
+      "store": "steam",
+      "steamAppId": "753640",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version. The mod loader (OWML 2.16.3) supports game versions 1.1.15.1018 to 1.1.16.1388."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["owcraft-fabric", "fabric-api"],
+    "instanceName": "OWCraft"
+  },
+  "downloads": [
+    {
+      "id": "owcraft",
+      "name": "OWCraft 0.1.1 (Outer Wilds side)",
+      "url": "https://github.com/Yaekai/OWCraft/releases/download/v0.1.1/Yaekai.OWCraft-0.1.1.zip",
+      "sha256": "927f96588f2f1f6b89aad386e5a3dfebed119d6866cb48f71b711d3f442d9a28",
+      "sizeBytes": 44755,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "Yaekai.OWCraft-0.1.1.zip"
+    },
+    {
+      "id": "owcraft-fabric",
+      "name": "OWCraft 0.1.1 (Minecraft side, SkyCraft 0.1.2 + OWCraft patch 5)",
+      "url": "https://github.com/Yaekai/OWCraft/releases/download/v0.1.1/skycraft-0.1.2%2Bowcraft.5.jar",
+      "sha256": "bc820b62b215e36564c8559ff4318b87cd07e1577c21f65e1dedb0cfae39ab70",
+      "sizeBytes": 258416,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "skycraft-0.1.2+owcraft.5.jar"
+    },
+    {
+      "id": "owml",
+      "name": "OWML 2.16.3 (Outer Wilds Mod Loader)",
+      "url": "https://github.com/ow-mods/owml/releases/download/2.16.3/OWML.zip",
+      "sha256": "6aaffdc7e958fe05f8c096e1eb69a0b6241facadbef624177d7573089b9bd2ed",
+      "sizeBytes": 9159084,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "OWML-2.16.3.zip"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "owml",
+      "to": "{appdata}/OuterWildsModManager/OWML"
+    },
+    {
+      "action": "extract",
+      "download": "owcraft",
+      "to": "{appdata}/OuterWildsModManager/OWML/Mods"
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "outer-wilds",
+        "via": "loader",
+        "exe": "{appdata}/OuterWildsModManager/OWML/OWML.Launcher.exe"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "SkyCraft: linked to"
+    }
+  },
+  "saves": [
+    { "gameKey": "outer-wilds", "path": "{locallow}/Mobius Digital/Outer Wilds" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "notes": "Tested by its creator on one Windows PC at 60 frames per second."
+  },
+  "credits": [
+    { "name": "Yaekai", "role": "Creator of OWCraft", "url": "https://github.com/Yaekai" },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which OWCraft is built on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/Yaekai/OWCraft/blob/v0.1.1/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/Yaekai/OWCraft",
+    "manualInstall": "https://github.com/Yaekai/OWCraft#install-players"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Glass, water and ice look solid instead of see-through.",
+    "Your Outer Wilds character doesn't bump into placed blocks yet; only the Minecraft player does.",
+    "Minecraft's day and night don't follow Outer Wilds.",
+    "The Nether and other dimensions aren't supported.",
+    "Mobs only find the planet's ground within about 40 blocks of you.",
+    "Minecraft keeps running after Outer Wilds closes."
+  ]
+}

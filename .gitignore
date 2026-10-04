@@ -1,0 +1,8 @@
+# Private keys never belong here.
+*.key
+*private*.pem
+*signing-key*.pem
+keys/
+.env
+node_modules/
+.DS_Store

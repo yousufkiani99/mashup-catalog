@@ -1,0 +1,7 @@
+* text=auto eol=lf
+# Signed bytes must be identical on every machine: never convert their line endings.
+# (Later lines win, so these come after the default above.)
+recipes/*.json -text
+index.json -text
+index.json.sig -text
+public-key.pem -text

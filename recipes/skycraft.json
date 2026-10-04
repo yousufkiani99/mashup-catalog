@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "id": "skycraft",
+  "title": "SkyCraft",
+  "tagline": "Play Skyrim as a Minecraft player: place blocks, dig and fight in Skyrim's world.",
+  "description": "Walk through Skyrim with Minecraft's movement, inventory and HUD. Place and break blocks anywhere, dig into the ground, light the world with torches, and fight Skyrim's people and creatures with Minecraft weapons while they fight back. Your Skyrim skills still level up as you play. Both games run at the same time: Minecraft runs hidden and Skyrim draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "skyrim-se",
+      "name": "The Elder Scrolls V: Skyrim Special Edition",
+      "store": "steam",
+      "steamAppId": "489830",
+      "version": {
+        "kind": "exeVersions",
+        "values": ["1.7.104.0"],
+        "note": "Needs the Anniversary Edition runtime. Developed and tested on 1.7.104. Not 1.5.97, not VR."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["skycraft-fabric", "fabric-api"],
+    "instanceName": "SkyCraft",
+    "jvmArgs": ["--enable-native-access=ALL-UNNAMED", "-Dskycraft.startHidden=true"],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "skycraft",
+      "name": "SkyCraft 0.1.2 (Skyrim side)",
+      "url": "https://github.com/chasmlol/SkyCraft/releases/download/v0.1.2/SkyCraft-0.1.2.zip",
+      "sha256": "1133ecde384d70d5261cbc9ba149bc7b544e1653b78846a1623b56241bb392c3",
+      "sizeBytes": 25111237,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "SkyCraft-0.1.2.zip"
+    },
+    {
+      "id": "skycraft-fabric",
+      "name": "SkyCraft 0.1.2 (Minecraft side)",
+      "url": "https://github.com/chasmlol/SkyCraft/releases/download/v0.1.2/skycraft-fabric-0.1.2.jar",
+      "sha256": "ea429c73dcec49d39b6a0bb9b17ad08a6b0290a39a96ccf6f6c07d581cf992d9",
+      "sizeBytes": 247869,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "skycraft-fabric-0.1.2.jar"
+    },
+    {
+      "id": "skse64",
+      "name": "Skyrim Script Extender (SKSE64) 2.3.1",
+      "url": "https://www.nexusmods.com/skyrimspecialedition/mods/30379?tab=files",
+      "sha256": "TODO",
+      "kind": "loader",
+      "source": "nexus",
+      "nexus": { "gameDomain": "skyrimspecialedition", "modId": 30379 },
+      "licence": "SKSE licence: free, no re-hosting (official site skse.silverlock.org)",
+      "fileName": "skse64_2_03_01.7z"
+    },
+    {
+      "id": "address-library",
+      "name": "Address Library for SKSE Plugins (All in one, Anniversary Edition)",
+      "url": "https://www.nexusmods.com/skyrimspecialedition/mods/32444?tab=files",
+      "sha256": "TODO",
+      "kind": "dependency",
+      "source": "nexus",
+      "nexus": { "gameDomain": "skyrimspecialedition", "modId": 32444 },
+      "licence": "Nexus Mods permissions (meh321)",
+      "fileName": "address-library-all-in-one-ae.zip"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "skse64",
+      "to": "{game:skyrim-se}",
+      "stripTopFolder": true,
+      "only": ["*.exe", "*.dll", "Data/**"]
+    },
+    {
+      "action": "extract",
+      "download": "address-library",
+      "to": "{game:skyrim-se}/Data"
+    },
+    {
+      "action": "extract",
+      "download": "skycraft",
+      "to": "{game:skyrim-se}/Data",
+      "only": [
+        "SKSE/Plugins/SkyCraft.dll",
+        "SKSE/Plugins/SkyCraft.ini",
+        "SKSE/Plugins/SkyCraft/LICENSE.txt",
+        "SKSE/Plugins/SkyCraft/THIRD-PARTY-NOTICES.md"
+      ]
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:skyrim-se}/Data/SKSE/Plugins/SkyCraft.ini",
+      "section": "Minecraft",
+      "key": "bStartWithSkyrim",
+      "value": "0"
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "skyrim-se",
+        "via": "loader",
+        "exe": "{game:skyrim-se}/skse64_loader.exe"
+      }
+    ],
+    "ready": {
+      "logFile": "{documents}/My Games/Skyrim Special Edition/SKSE/SkyCraft.log",
+      "pattern": "Minecraft connected"
+    }
+  },
+  "saves": [
+    { "gameKey": "skyrim-se", "path": "{documents}/My Games/Skyrim Special Edition/Saves" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft, about 1.5 GB of disk for Minecraft's files, and a graphics card that runs Minecraft 26.3."
+  },
+  "credits": [
+    { "name": "chasmlol", "role": "Creator of SkyCraft", "url": "https://github.com/chasmlol" }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/chasmlol/SkyCraft/blob/v0.1.2/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/chasmlol/SkyCraft",
+    "manualInstall": "https://github.com/chasmlol/SkyCraft#installing"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Skyrim's opening (the cart ride and Helgen) can leave you stuck. Play from a save made after Helgen, or use the Alternate Start mod.",
+    "Skyrim's inventory, magic, shouts and perks can't be opened while Minecraft is in control.",
+    "Minecraft weapons hit Skyrim's people and creatures, but not objects such as the web in Bleak Falls Barrow.",
+    "Text on signs isn't drawn yet.",
+    "All Skyrim interiors share one Minecraft world, so blocks placed in one interior can show up in another.",
+    "Mods that also control the camera (Improved Camera SE, SmoothCam, True Directional Movement) don't work alongside it."
+  ]
+}
