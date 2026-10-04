@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-04T19:50:27.270Z",
+  "generatedAt": "2026-10-04T20:26:28.662Z",
   "recipes": [
     {
       "id": "falloutcraft",
@@ -15,12 +15,12 @@
     {
       "id": "minecraft-gta-v",
       "path": "recipes/minecraft-gta-v.json",
-      "sha256": "986dfe0d6943b88d6fe6421e0578010375db4e58100b8b65fcf993b805b942b3"
+      "sha256": "8d6b1034acdff2824f31c90bafb9911af662138ec17f797aec9629cc304d3a0d"
     },
     {
       "id": "minecraft-in-death-stranding",
       "path": "recipes/minecraft-in-death-stranding.json",
-      "sha256": "bd6d9349d12bd4000ec3ecd8c460875a6d26892c9d27602bf7a9d63f122c13ff"
+      "sha256": "3539e86b749baf0ce11c6260b87621f5662b0afa4b0e1f5d949c6468b011ccc9"
     },
     {
       "id": "minecraft-passthrough-iv",
@@ -30,7 +30,7 @@
     {
       "id": "minepunk",
       "path": "recipes/minepunk.json",
-      "sha256": "477ceda23e15dafbad34188e2dc7e276310d4972a8dab372a9438163464813cc"
+      "sha256": "175eb03fb274fb258d45e214bdec58d0de36fc1d8dac53bd1783d32f8b255ecd"
     },
     {
       "id": "owcraft",

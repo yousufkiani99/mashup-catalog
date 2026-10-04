@@ -65,7 +65,7 @@
       "id": "reshade-setup",
       "name": "ReShade 6.8.0 with full add-on support",
       "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
-      "sha256": "TODO",
+      "sha256": "afe4c8f13048306307983b8b3d41d5bf00a86820440b0e57dea10950e1176445",
       "kind": "loader",
       "source": "official-site",
       "licence": "ReShade: free; binaries are downloaded from reshade.me only",
