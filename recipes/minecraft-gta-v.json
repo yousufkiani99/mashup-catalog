@@ -844,10 +844,184 @@
         ]
       },
       {
+        "id": "police",
+        "title": "Police",
+        "hint": "They go after your creatures first. With no creatures around they come for you, but you can't be hurt.",
+        "items": [
+          {
+            "id": "police-squad",
+            "label": "Police squad",
+            "hint": "Fights your creatures, leaves you alone",
+            "icon": {
+              "kind": "symbol",
+              "name": "siren",
+              "color": "#5b8cff"
+            },
+            "done": "The police are on their way",
+            "send": [
+              {
+                "t": "gta",
+                "op": "cops",
+                "cars": 3,
+                "dist": 40
+              }
+            ]
+          },
+          {
+            "id": "wanted-1",
+            "label": "1 star",
+            "hint": "A patrol car or two",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 1
+            },
+            "done": "Wanted level: 1 star",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 1
+              }
+            ]
+          },
+          {
+            "id": "wanted-2",
+            "label": "2 stars",
+            "hint": "More cars, more cops",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 2
+            },
+            "done": "Wanted level: 2 stars",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 2
+              }
+            ]
+          },
+          {
+            "id": "wanted-3",
+            "label": "3 stars",
+            "hint": "Police helicopters join in",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 3
+            },
+            "done": "Wanted level: 3 stars",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 3
+              }
+            ]
+          },
+          {
+            "id": "wanted-4",
+            "label": "4 stars",
+            "hint": "SWAT vans and helicopters",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 4
+            },
+            "done": "Wanted level: 4 stars",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 4
+              }
+            ]
+          },
+          {
+            "id": "wanted-5",
+            "label": "5 stars",
+            "hint": "Everything, plus army tanks and attack helicopters",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 5
+            },
+            "done": "5 stars. The army is coming.",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 5
+              },
+              {
+                "t": "gta",
+                "op": "army",
+                "tanks": 2,
+                "helis": 2,
+                "dist": 70
+              }
+            ]
+          },
+          {
+            "id": "military",
+            "label": "Military",
+            "hint": "Tanks and attack helicopters",
+            "icon": {
+              "kind": "symbol",
+              "name": "heli",
+              "color": "#9bbf6a"
+            },
+            "done": "The army is on its way",
+            "send": [
+              {
+                "t": "gta",
+                "op": "army",
+                "tanks": 2,
+                "helis": 2,
+                "dist": 70
+              }
+            ]
+          },
+          {
+            "id": "police-off",
+            "label": "Call it off",
+            "hint": "No wanted level, everyone sent away",
+            "icon": {
+              "kind": "symbol",
+              "name": "sweep"
+            },
+            "done": "All clear",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 0
+              },
+              {
+                "t": "gta",
+                "op": "copsclear"
+              },
+              {
+                "t": "gta",
+                "op": "army",
+                "clear": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "action",
         "title": "Action",
         "tabItem": "elytra",
-        "hint": "Flying, and backup for your mob fights.",
+        "hint": "Flying.",
         "items": [
           {
             "id": "wings",
@@ -890,40 +1064,6 @@
               {
                 "t": "glide",
                 "on": false
-              }
-            ]
-          },
-          {
-            "id": "police",
-            "label": "Police vs mobs",
-            "hint": "A squad arrives to fight your creatures",
-            "icon": {
-              "kind": "symbol",
-              "name": "siren",
-              "color": "#5b8cff"
-            },
-            "done": "The police are on their way",
-            "send": [
-              {
-                "t": "gta",
-                "op": "cops",
-                "cars": 3,
-                "dist": 40
-              }
-            ]
-          },
-          {
-            "id": "police-clear",
-            "label": "Send police away",
-            "icon": {
-              "kind": "symbol",
-              "name": "sweep"
-            },
-            "done": "Police gone",
-            "send": [
-              {
-                "t": "gta",
-                "op": "copsclear"
               }
             ]
           }
