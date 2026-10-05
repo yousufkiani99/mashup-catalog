@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-05T21:31:51.342Z",
+  "generatedAt": "2026-10-05T21:55:05.933Z",
   "recipes": [
     {
       "id": "falloutcraft",
@@ -20,7 +20,7 @@
     {
       "id": "minecraft-passthrough-iv",
       "path": "recipes/minecraft-passthrough-iv.json",
-      "sha256": "48d11431d35abb49c5b762f75ad76609b20ade7b0fb4dfff3818ed245f9744ee"
+      "sha256": "1c00ab2923d7203d25702385926afc5ebe471f422dd9f206f853d128818aa00a"
     },
     {
       "id": "minepunk",

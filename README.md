@@ -54,3 +54,12 @@ install it until every download has a real SHA-256.
 
 See [LICENSE](LICENSE). Recipes are instructions and links only; each linked file keeps its own
 creator's licence.
+
+## Same-day changes if a rights holder asks (kill switch)
+
+The app reads this catalog every time it starts, so these reach every player without an app update:
+
+- **Make a mashup free:** set its `"tier"` to `"free"`, then sign and push.
+- **Take a mashup out:** `git mv recipes/<id>.json held/`, then sign and push. It disappears from the app and
+  stays gone offline (the app keeps the newest signed list it has seen).
+- Sign: `node scripts/sign.mjs --key <path to the private key>`, check: `node scripts/verify.mjs`.

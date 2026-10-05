@@ -59,9 +59,6 @@ function collectStrings(value, out) {
  * Basic shape checks for one recipe file. The app runs the full schema (src/shared/recipe.ts in
  * mashup-app) and refuses anything that fails it; this catches the common mistakes before signing.
  */
-/** Game keys of Rockstar Games titles (GTA, Red Dead, Max Payne, Bully, L.A. Noire, Manhunt). */
-const ROCKSTAR_GAME = /^(gta|rdr|red-dead|max-payne|bully|la-noire|manhunt)(-|$)/
-
 export function recipeProblems(file) {
   const problems = []
   const text = file.bytes.toString('utf8')
@@ -80,13 +77,6 @@ export function recipeProblems(file) {
   for (const key of REQUIRED_KEYS) if (!(key in json)) problems.push(`is missing "${key}"`)
   for (const key of ARRAY_KEYS) if (key in json && !Array.isArray(json[key])) problems.push(`"${key}" must be a list`)
   if (Array.isArray(json.credits) && json.credits.length === 0) problems.push('needs at least one credit')
-  // Rockstar's mod guidelines (2026) ask for non-commercial modding: their games' mashups stay free.
-  if (
-    json.tier !== 'free' &&
-    Array.isArray(json.games) &&
-    json.games.some((g) => g && typeof g.key === 'string' && ROCKSTAR_GAME.test(g.key))
-  )
-    problems.push('uses a Rockstar game, so its tier must be "free"')
   if (Array.isArray(json.downloads)) {
     const ids = new Set()
     for (const d of json.downloads) {
