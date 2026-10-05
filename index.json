@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-05T03:47:54.333Z",
+  "generatedAt": "2026-10-05T18:31:08.936Z",
   "recipes": [
     {
       "id": "falloutcraft",
@@ -10,7 +10,7 @@
     {
       "id": "gta-san-anskateas",
       "path": "recipes/gta-san-anskateas.json",
-      "sha256": "531d41d952c52f84192e50d0f9af638e98ae76e2f82906f4c7c49a46891a117f"
+      "sha256": "299ad3fb9cfa136aecc2a49f757550f2bd0e143d333f8de332a16ffdf5c2b4d3"
     },
     {
       "id": "minecraft-gta-v",
@@ -25,7 +25,7 @@
     {
       "id": "minecraft-passthrough-iv",
       "path": "recipes/minecraft-passthrough-iv.json",
-      "sha256": "1c00ab2923d7203d25702385926afc5ebe471f422dd9f206f853d128818aa00a"
+      "sha256": "48d11431d35abb49c5b762f75ad76609b20ade7b0fb4dfff3818ed245f9744ee"
     },
     {
       "id": "minepunk",
