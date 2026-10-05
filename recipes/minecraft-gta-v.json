@@ -70,7 +70,10 @@
       "source": "official-site",
       "licence": "ReShade: free; binaries are downloaded from reshade.me only",
       "fileName": "ReShade_Setup_6.8.0_Addon.exe",
-      "pins": { "version": "6.8.0" }
+      "pins": {
+        "version": "6.8.0",
+        "fileSha256": ["0cee63f9c9f13f3ac909c5b4903f4dbb4b719a7ab3b4f13b0deaf83c814b94f7"]
+      }
     },
     {
       "id": "reshade-fxh",
