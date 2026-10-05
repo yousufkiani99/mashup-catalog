@@ -1,16 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-05T18:31:08.936Z",
+  "generatedAt": "2026-10-05T21:31:51.342Z",
   "recipes": [
     {
       "id": "falloutcraft",
       "path": "recipes/falloutcraft.json",
       "sha256": "a67e608025ddfdd00c3b3f590e827d91b7fca3722c575a492eee5e1a25443a9f"
-    },
-    {
-      "id": "gta-san-anskateas",
-      "path": "recipes/gta-san-anskateas.json",
-      "sha256": "299ad3fb9cfa136aecc2a49f757550f2bd0e143d333f8de332a16ffdf5c2b4d3"
     },
     {
       "id": "minecraft-gta-v",
@@ -36,11 +31,6 @@
       "id": "owcraft",
       "path": "recipes/owcraft.json",
       "sha256": "04136238049c9c738516b28a95bf1979f0ab5d4c61ebcbc5184b8885e6aab933"
-    },
-    {
-      "id": "rust-rewrite-2010",
-      "path": "recipes/rust-rewrite-2010.json",
-      "sha256": "c3135f34f474a6bc902c845a656b5150dbe45bdb8d73a8c78c96cd086905c21e"
     },
     {
       "id": "skycraft",
