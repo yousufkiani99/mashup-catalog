@@ -227,6 +227,13 @@
     },
     {
       "action": "prism-instance"
+    },
+    {
+      "action": "xml-set",
+      "file": "{documents}/Rockstar Games/GTA V/settings.xml",
+      "element": "PauseOnFocusLoss",
+      "attribute": "value",
+      "value": "0"
     }
   ],
   "launch": {
