@@ -387,8 +387,8 @@
         },
         {
           "slot": "hotbar.3",
-          "item": "bow",
-          "components": "[enchantments={power:5,infinity:1}]"
+          "item": "wither_spawn_egg",
+          "count": 64
         },
         {
           "slot": "hotbar.4",
@@ -406,13 +406,19 @@
         },
         {
           "slot": "hotbar.7",
-          "item": "grass_block",
+          "item": "obsidian",
           "count": 64
         },
         {
           "slot": "hotbar.8",
           "item": "firework_rocket",
           "count": 64
+        },
+        {
+          "slot": "weapon.offhand",
+          "item": "firework_rocket",
+          "count": 64,
+          "components": "[fireworks={flight_duration:3,explosions:[{shape:\"large_ball\",colors:[16733525,16755200],has_trail:true}]}]"
         }
       ]
     },
@@ -1113,6 +1119,24 @@
               {
                 "t": "glide",
                 "on": false
+              }
+            ]
+          },
+          {
+            "id": "fly-speed",
+            "label": "Flying speed",
+            "hint": "How fast the wings fly",
+            "slider": {
+              "min": 1,
+              "max": 2.5,
+              "step": 0.1,
+              "default": 1,
+              "format": "x"
+            },
+            "send": [
+              {
+                "t": "flyspeed",
+                "m": "=value"
               }
             ]
           }
