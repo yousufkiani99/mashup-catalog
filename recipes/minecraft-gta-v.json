@@ -43,13 +43,13 @@
   "downloads": [
     {
       "id": "minecraft-gta5",
-      "name": "Minecraft x GTA V 0.1.0 (GTA side, community build)",
-      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.0/minecraft-gta5-0.1.0.zip",
-      "sha256": "4ab5c8c53aac656d84e8a5d4f11934f3a318c066a9e9b6d9309ecf8ff95b234f",
+      "name": "Minecraft x GTA V 0.1.1 (GTA side, community build)",
+      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.1/minecraft-gta5-0.1.1.zip",
+      "sha256": "962a762b50ea90184442ef39e17ffc03e02af0cb8ca81a061fa7a75bebb2725e",
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "minecraft-gta5-0.1.0.zip"
+      "fileName": "minecraft-gta5-0.1.1.zip"
     },
     {
       "id": "minecraft-gta5-fabric",
@@ -234,6 +234,13 @@
       "element": "PauseOnFocusLoss",
       "attribute": "value",
       "value": "0"
+    },
+    {
+      "action": "xml-set",
+      "file": "{documents}/Rockstar Games/GTA V/settings.xml",
+      "element": "Windowed",
+      "attribute": "value",
+      "value": "2"
     }
   ],
   "launch": {
@@ -777,6 +784,48 @@
             ]
           },
           {
+            "id": "wither",
+            "label": "The Wither",
+            "hint": "Blows up blocks. Clear it when you're done",
+            "icon": {
+              "kind": "badge",
+              "color": "#2b2b33"
+            },
+            "done": "The Wither is here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "wither",
+                "n": 1,
+                "rmin": 12,
+                "rmax": 18,
+                "arc": 30,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "ender-dragon",
+            "label": "Ender Dragon",
+            "hint": "Flies off on its own",
+            "icon": {
+              "kind": "badge",
+              "color": "#1d1630"
+            },
+            "done": "The Ender Dragon is here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "ender_dragon",
+                "n": 1,
+                "rmin": 20,
+                "rmax": 30,
+                "arc": 30,
+                "yaw": 0
+              }
+            ]
+          },
+          {
             "id": "clear-creatures",
             "label": "Clear creatures",
             "hint": "Removes the ones you spawned",
@@ -1212,6 +1261,46 @@
                 "t": "gta",
                 "op": "weather",
                 "w": "FOGGY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mode",
+        "title": "Game mode",
+        "tabItem": "totem_of_undying",
+        "hint": "How Minecraft plays inside GTA V.",
+        "items": [
+          {
+            "id": "creative",
+            "label": "Creative",
+            "hint": "Fly, never get hurt, blocks never run out",
+            "icon": {
+              "kind": "badge",
+              "color": "#5aa0d8"
+            },
+            "done": "Creative mode",
+            "send": [
+              {
+                "t": "cmd",
+                "c": "gamemode creative @a"
+              }
+            ]
+          },
+          {
+            "id": "survival",
+            "label": "Survival",
+            "hint": "You can get hurt and blocks get used up",
+            "icon": {
+              "kind": "badge",
+              "color": "#c0503a"
+            },
+            "done": "Survival mode",
+            "send": [
+              {
+                "t": "cmd",
+                "c": "gamemode survival @a"
               }
             ]
           }
