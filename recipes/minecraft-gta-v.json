@@ -43,23 +43,23 @@
   "downloads": [
     {
       "id": "minecraft-gta5",
-      "name": "Minecraft x GTA V 0.1.2 (GTA side, community build)",
-      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.2/minecraft-gta5-0.1.2.zip",
-      "sha256": "b5acb5418678c078470f26a8cd1343a5fa7adc77e19117b4a2307e5dbb7eb77c",
+      "name": "Minecraft x GTA V 0.1.3 (GTA side, community build)",
+      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.3/minecraft-gta5-0.1.3.zip",
+      "sha256": "19dff9099906ad3000b2b08aa36db5ebd2dc2e75d5ea26ba5266a09aa1b4375a",
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "minecraft-gta5-0.1.2.zip"
+      "fileName": "minecraft-gta5-0.1.3.zip"
     },
     {
       "id": "minecraft-gta5-fabric",
-      "name": "Minecraft x GTA V 0.1.2 (Minecraft side, community build)",
-      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.2/minecraft-gta5-fabric-0.1.2.jar",
-      "sha256": "f90cb3a6da8563fe379e68726757195ecde85f7cd36206c08fb6428ecb1fc055",
+      "name": "Minecraft x GTA V 0.1.3 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.3/minecraft-gta5-fabric-0.1.3.jar",
+      "sha256": "7791895a3bae7dc9434bc570c11d86405792fd435214c8a4c9a9fd5fb6378a9a",
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "minecraft-gta5-fabric-0.1.2.jar"
+      "fileName": "minecraft-gta5-fabric-0.1.3.jar"
     },
     {
       "id": "reshade-setup",
