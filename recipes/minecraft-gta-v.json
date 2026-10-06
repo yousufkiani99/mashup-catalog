@@ -43,23 +43,23 @@
   "downloads": [
     {
       "id": "minecraft-gta5",
-      "name": "Minecraft x GTA V 0.1.1 (GTA side, community build)",
-      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.1/minecraft-gta5-0.1.1.zip",
-      "sha256": "962a762b50ea90184442ef39e17ffc03e02af0cb8ca81a061fa7a75bebb2725e",
+      "name": "Minecraft x GTA V 0.1.2 (GTA side, community build)",
+      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.2/minecraft-gta5-0.1.2.zip",
+      "sha256": "b5acb5418678c078470f26a8cd1343a5fa7adc77e19117b4a2307e5dbb7eb77c",
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "minecraft-gta5-0.1.1.zip"
+      "fileName": "minecraft-gta5-0.1.2.zip"
     },
     {
       "id": "minecraft-gta5-fabric",
-      "name": "Minecraft x GTA V 0.1.0 (Minecraft side, community build)",
-      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.0/minecraft-gta5-fabric-0.1.0.jar",
-      "sha256": "0f879781e01997f7174957b23f2842283fd40bcf7ca7115cd8652aabe8190914",
+      "name": "Minecraft x GTA V 0.1.2 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/minecraft-gta5-builds/releases/download/v0.1.2/minecraft-gta5-fabric-0.1.2.jar",
+      "sha256": "f90cb3a6da8563fe379e68726757195ecde85f7cd36206c08fb6428ecb1fc055",
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "minecraft-gta5-fabric-0.1.0.jar"
+      "fileName": "minecraft-gta5-fabric-0.1.2.jar"
     },
     {
       "id": "reshade-setup",
@@ -807,7 +807,7 @@
           {
             "id": "ender-dragon",
             "label": "Ender Dragon",
-            "hint": "Flies off on its own",
+            "hint": "Flies around, doesn't fight",
             "icon": {
               "kind": "badge",
               "color": "#1d1630"
@@ -1291,7 +1291,7 @@
           {
             "id": "survival",
             "label": "Survival",
-            "hint": "You can get hurt and blocks get used up",
+            "hint": "GTA can hurt you. If you die, it's Wasted and you wake up at the hospital",
             "icon": {
               "kind": "badge",
               "color": "#c0503a"
