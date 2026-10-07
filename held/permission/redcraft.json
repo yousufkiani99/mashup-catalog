@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "id": "redcraft",
+  "title": "RedCraft",
+  "tagline": "Play Red Dead Redemption 2 as a Minecraft player: build, break and fight in the Wild West.",
+  "description": "Walk Red Dead Redemption 2's world with Minecraft's movement, hand and hotbar. Build on its plains and towns, break blocks, fight its people and animals with Minecraft weapons and set off TNT as real explosions. What the game does to Arthur (bullets, animals, fire) comes off Minecraft's hearts, and your blocks take the game's light, turning blue at night and dark in the rain. Hold Left Alt to be Arthur for a moment: talk, loot or mount a horse. Story mode only. Both games run at the same time: Minecraft runs hidden and RDR2 draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "rdr2",
+      "name": "Red Dead Redemption 2",
+      "store": "steam",
+      "steamAppId": "1174180",
+      "version": {
+        "kind": "any",
+        "note": "Story mode, DirectX 12. Script Hook RDR2 must support your game version: after a game update, wait for a new Script Hook RDR2."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "skycraft-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "RedCraft",
+    "jvmArgs": [
+      "--enable-native-access=ALL-UNNAMED",
+      "-Dskycraft.startHidden=true"
+    ],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "redcraft",
+      "name": "RedCraft 3.0.0 (RDR2 side)",
+      "url": "https://github.com/Keel62155/Minecraft-X-Games/releases/download/3.0.0-RedCraft/RedCraft.zip",
+      "sha256": "f003eb89654b7d3ac09c6fd211cf9902c46c7c68d4f18156bcfb9b63038901d1",
+      "sizeBytes": 149274,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence: used only with the creator's written permission",
+      "fileName": "RedCraft.zip"
+    },
+    {
+      "id": "skycraft-fabric",
+      "name": "SkyCraft 0.1.2 (Minecraft side, shared by every Minecraft X Games mod)",
+      "url": "https://github.com/chasmlol/SkyCraft/releases/download/v0.1.2/skycraft-fabric-0.1.2.jar",
+      "sha256": "ea429c73dcec49d39b6a0bb9b17ad08a6b0290a39a96ccf6f6c07d581cf992d9",
+      "sizeBytes": 247869,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "skycraft-fabric-0.1.2.jar"
+    },
+    {
+      "id": "reshade-setup",
+      "name": "ReShade 6.8.0 with full add-on support",
+      "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
+      "sha256": "afe4c8f13048306307983b8b3d41d5bf00a86820440b0e57dea10950e1176445",
+      "kind": "loader",
+      "source": "official-site",
+      "licence": "ReShade: free; binaries are downloaded from reshade.me only",
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": {
+        "version": "6.8.0",
+        "fileSha256": [
+          "0cee63f9c9f13f3ac909c5b4903f4dbb4b719a7ab3b4f13b0deaf83c814b94f7"
+        ]
+      }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "input": "script-hook-rdr2",
+      "to": "{game:rdr2}",
+      "only": [
+        "**/ScriptHookRDR2.dll",
+        "**/dinput8.dll"
+      ],
+      "flatten": true
+    },
+    {
+      "action": "run",
+      "download": "reshade-setup",
+      "args": [
+        "{exe:rdr2}",
+        "--api",
+        "dxgi",
+        "--headless"
+      ],
+      "waitForExit": true,
+      "note": "Installs ReShade (the version with add-on support) into Red Dead Redemption 2 as dxgi.dll. Nothing shows on screen."
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:rdr2}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "EffectSearchPaths",
+      "value": ".\\reshade-shaders\\Shaders"
+    },
+    {
+      "action": "extract",
+      "download": "redcraft",
+      "to": "{game:rdr2}",
+      "from": "RedCraft",
+      "only": [
+        "RedCraft.asi",
+        "reshade-shaders/Shaders/RedCraft.fx"
+      ]
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "SkyCraft: game window hidden",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "rdr2",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "SkyCraft: linked to"
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "rdr2",
+      "path": "{documents}/Rockstar Games/Red Dead Redemption 2/Profiles"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft, and a PC that runs RDR2 comfortably on its own."
+  },
+  "credits": [
+    {
+      "name": "Keel62155",
+      "role": "Creator of RedCraft",
+      "url": "https://github.com/Keel62155"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, whose Minecraft side this mashup runs on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    },
+    {
+      "name": "Alexander Blade",
+      "role": "Script Hook RDR2 and its ASI loader",
+      "url": "https://www.dev-c.com/rdr2/scripthookrdr2/"
+    },
+    {
+      "name": "crosire",
+      "role": "ReShade and its add-on API",
+      "url": "https://reshade.me"
+    }
+  ],
+  "licence": {
+    "spdx": "none",
+    "url": "https://github.com/Keel62155/Minecraft-X-Games",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/Keel62155/Minecraft-X-Games",
+    "manualInstall": "https://github.com/Keel62155/Minecraft-X-Games/releases/tag/3.0.0-RedCraft"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Story mode only. Script Hook RDR2 closes the game if you go into Red Dead Online.",
+    "Load a save where Arthur is on foot. Riding, driving and cutscenes hand him back to the game until he's on foot again.",
+    "Minecraft takes about half a minute to take over; its hotbar appears when it's ready.",
+    "Hold Left Alt to be Arthur for a moment (talk, loot, mount). F10 gives him back to the game, and back to Minecraft.",
+    "If blocks show through trees and walls, press Home, open Add-ons, then Generic Depth, and tick the depth buffer that shows the scene.",
+    "With HDR on, blocks can lag a frame behind the game's picture.",
+    "Only one Minecraft X Games mashup can run at a time: they all drive the same kind of hidden Minecraft.",
+    "A prototype: expect rough edges."
+  ],
+  "important": [
+    {
+      "text": "Script Hook RDR2 links the game with Minecraft. It comes only from its author's own site, so you press Download there. We do everything else.",
+      "link": "https://www.dev-c.com/rdr2/scripthookrdr2/",
+      "linkLabel": "Get Script Hook RDR2",
+      "blocksInstall": true,
+      "input": {
+        "id": "script-hook-rdr2",
+        "kind": "zip",
+        "name": "Script Hook RDR2",
+        "label": "The Script Hook RDR2 zip",
+        "mustContain": [
+          "ScriptHookRDR2.dll",
+          "dinput8.dll"
+        ],
+        "find": {
+          "folder": "downloads",
+          "name": "^ScriptHookRDR2_.*\\.zip$",
+          "exclude": "SDK"
+        },
+        "wrongFiles": [
+          {
+            "name": "SDK",
+            "message": "That's the Script Hook RDR2 developer kit, not Script Hook RDR2 itself. On the author's page, use the Download link just above it."
+          }
+        ],
+        "origin": {
+          "hosts": [
+            "dev-c.com"
+          ]
+        }
+      }
+    },
+    {
+      "text": "In RDR2, open Settings, Graphics, Advanced and set Graphics API to DirectX 12. On Vulkan nothing of Minecraft shows.",
+      "blocksInstall": false
+    }
+  ]
+}

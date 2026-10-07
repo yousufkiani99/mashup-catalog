@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 1,
+  "id": "gtacraft",
+  "title": "GTACraft",
+  "tagline": "Play GTA V Enhanced as a Minecraft player: build, break and blow things up in Los Santos.",
+  "description": "Walk Los Santos with Minecraft's movement, hand and hotbar. Build on its streets, and your blocks become solid to GTA's people and cars. Break blocks, hit people with Minecraft weapons and set off TNT as real explosions. What GTA does to your character (bullets, fire) comes off Minecraft's hearts, and your blocks take the game's light, turning blue at night and dark in the rain. Hold Left Alt to be the character for a moment: talk, pick things up or get into a car. Story mode only. Both games run at the same time: Minecraft runs hidden and GTA V draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "gta-v-enhanced",
+      "name": "Grand Theft Auto V Enhanced",
+      "store": "steam",
+      "steamAppId": "3240220",
+      "version": {
+        "kind": "any",
+        "note": "GTA V Enhanced (not Legacy). After a GTA update it waits for Script Hook V to catch up."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "skycraft-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "GTACraft",
+    "jvmArgs": [
+      "--enable-native-access=ALL-UNNAMED",
+      "-Dskycraft.startHidden=true"
+    ],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "gtacraft",
+      "name": "GTACraft 1.0.0 (GTA side)",
+      "url": "https://github.com/Keel62155/Minecraft-X-Games/releases/download/1.0.0-GTACraft/GTACraft.zip",
+      "sha256": "b63cf30f3436a8a6ccb29a77308a894bd0aae2d3641284e27fdb6da2337d3c72",
+      "sizeBytes": 163162,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence: used only with the creator's written permission",
+      "fileName": "GTACraft.zip"
+    },
+    {
+      "id": "skycraft-fabric",
+      "name": "SkyCraft 0.1.2 (Minecraft side, shared by every Minecraft X Games mod)",
+      "url": "https://github.com/chasmlol/SkyCraft/releases/download/v0.1.2/skycraft-fabric-0.1.2.jar",
+      "sha256": "ea429c73dcec49d39b6a0bb9b17ad08a6b0290a39a96ccf6f6c07d581cf992d9",
+      "sizeBytes": 247869,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "skycraft-fabric-0.1.2.jar"
+    },
+    {
+      "id": "reshade-setup",
+      "name": "ReShade 6.8.0 with full add-on support",
+      "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
+      "sha256": "afe4c8f13048306307983b8b3d41d5bf00a86820440b0e57dea10950e1176445",
+      "kind": "loader",
+      "source": "official-site",
+      "licence": "ReShade: free; binaries are downloaded from reshade.me only",
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": {
+        "version": "6.8.0",
+        "fileSha256": [
+          "0cee63f9c9f13f3ac909c5b4903f4dbb4b719a7ab3b4f13b0deaf83c814b94f7"
+        ]
+      }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "input": "script-hook-v",
+      "to": "{game:gta-v-enhanced}",
+      "only": [
+        "**/ScriptHookV.dll",
+        "**/dinput8.dll"
+      ],
+      "flatten": true
+    },
+    {
+      "action": "run",
+      "download": "reshade-setup",
+      "args": [
+        "{exe:gta-v-enhanced}",
+        "--api",
+        "dxgi",
+        "--headless"
+      ],
+      "waitForExit": true,
+      "note": "Installs ReShade (the version with add-on support) into GTA V Enhanced as dxgi.dll. Nothing shows on screen."
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "EffectSearchPaths",
+      "value": ".\\reshade-shaders\\Shaders"
+    },
+    {
+      "action": "extract",
+      "download": "gtacraft",
+      "to": "{game:gta-v-enhanced}",
+      "from": "GTACraft",
+      "only": [
+        "GTACraft.asi",
+        "reshade-shaders/Shaders/GTACraft.fx"
+      ]
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "SkyCraft: game window hidden",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "gta-v-enhanced",
+        "via": "steam",
+        "args": [
+          "-nobattleye"
+        ]
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "SkyCraft: linked to"
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "gta-v-enhanced",
+      "path": "{documents}/Rockstar Games/GTAV Enhanced/Profiles"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft, and a PC that runs GTA V Enhanced comfortably on its own."
+  },
+  "offlineOnly": true,
+  "credits": [
+    {
+      "name": "Keel62155",
+      "role": "Creator of GTACraft",
+      "url": "https://github.com/Keel62155"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, whose Minecraft side this mashup runs on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    },
+    {
+      "name": "Alexander Blade",
+      "role": "Script Hook V and its ASI loader",
+      "url": "https://www.dev-c.com/gtav/scripthookv/"
+    },
+    {
+      "name": "crosire",
+      "role": "ReShade and its add-on API",
+      "url": "https://reshade.me"
+    }
+  ],
+  "licence": {
+    "spdx": "none",
+    "url": "https://github.com/Keel62155/Minecraft-X-Games",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/Keel62155/Minecraft-X-Games",
+    "manualInstall": "https://github.com/Keel62155/Minecraft-X-Games/releases/tag/1.0.0-GTACraft"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "First build: its creator hasn't played it in the game yet, so expect things to be wrong.",
+    "Story mode only. GTA starts with BattlEye off, which keeps GTA Online out; never take a modded game online.",
+    "Load a story save past the opening mission, on foot. Driving and cutscenes hand the character back to GTA until you're on foot.",
+    "Minecraft takes about half a minute to take over; its hotbar appears when it's ready.",
+    "Hold Left Alt to be the character for a moment. F10 gives him back to GTA, and back to Minecraft.",
+    "A GTA update stops it until a new Script Hook V comes out.",
+    "If blocks show through buildings, press Home, open Add-ons, then Generic Depth, and tick the depth buffer that shows the scene.",
+    "Only one Minecraft X Games mashup can run at a time: they all drive the same kind of hidden Minecraft."
+  ],
+  "important": [
+    {
+      "text": "Script Hook V links GTA V with Minecraft. It comes only from its author's own site, so you press Download there. We do everything else.",
+      "link": "https://www.dev-c.com/gtav/scripthookv/",
+      "linkLabel": "Get Script Hook V",
+      "blocksInstall": true,
+      "input": {
+        "id": "script-hook-v",
+        "kind": "zip",
+        "name": "Script Hook V",
+        "label": "The Script Hook V zip",
+        "mustContain": [
+          "ScriptHookV.dll",
+          "dinput8.dll"
+        ],
+        "find": {
+          "folder": "downloads",
+          "name": "^ScriptHookV_.*\\.zip$",
+          "exclude": "DotNet"
+        },
+        "wrongFiles": [
+          {
+            "name": "_SDK_",
+            "contains": [
+              "ScriptHookV.lib",
+              "main.h"
+            ],
+            "message": "That's the Script Hook V developer kit, not Script Hook V itself. On the author's page, use the Download link just above it."
+          }
+        ],
+        "origin": {
+          "hosts": [
+            "dev-c.com"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,375 @@
+{
+  "schemaVersion": 1,
+  "id": "gta-v-enhanced-steve",
+  "title": "Steve in GTA V Enhanced",
+  "tagline": "Real Minecraft in GTA V Enhanced: build walls that stop traffic, blow up TNT and fly an elytra.",
+  "description": "Play GTA V Enhanced's story as Steve. Blocks you place become solid in Los Santos, so people and cars stop at your walls. TNT and creepers blow up in both games, crossbow fireworks burst as GTA rockets, sword swings send people flying and ender pearls move you. Glide with an elytra, set Minecraft's mobs on the police and walk through a lit Nether portal to turn the streets into the Nether. Switch to Survival and GTA's bullets hurt Steve, unless he holds up his shield. Both games run at the same time and GTA V blends Minecraft into its own picture.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "gta-v-enhanced",
+      "name": "Grand Theft Auto V Enhanced",
+      "store": "steam",
+      "steamAppId": "3240220",
+      "version": {
+        "kind": "exeVersions",
+        "values": [
+          "1.0.1158.13"
+        ],
+        "note": "GTA V Enhanced (not Legacy), built and tested by its creator on 1.0.1158.13. After a GTA update it waits for Script Hook V to catch up."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "steve-passthrough-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "Steve in GTA V Enhanced"
+  },
+  "downloads": [
+    {
+      "id": "steve-passthrough-asi",
+      "name": "Steve Passthrough (GTA side, MCPassthrough.asi, commit 32f457c)",
+      "url": "https://raw.githubusercontent.com/utku6767/Gta-V-Enhanced-Minecraft-Steve-Passthrough/32f457cffb8937528556f6fe54e621402fafafd0/mods/GTA_V/MCPassthrough.asi",
+      "sha256": "822f1c4340a26718a71e320c5e1fb175337964911d43249f39be21c3d9367e4a",
+      "sizeBytes": 353792,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence for utku6767's changes (based on universal-modder, MIT; the creator removed his MIT licence on 5 Oct): used only with the creator's written permission",
+      "fileName": "MCPassthrough.asi"
+    },
+    {
+      "id": "steve-passthrough-fabric",
+      "name": "Steve Passthrough 0.1.0 (Minecraft side, commit 32f457c)",
+      "url": "https://raw.githubusercontent.com/utku6767/Gta-V-Enhanced-Minecraft-Steve-Passthrough/32f457cffb8937528556f6fe54e621402fafafd0/mods/Minecraft/passthrough-0.1.0.jar",
+      "sha256": "8075a99ae8ee9e7aa9ec29ddedf059fb3a6d820b0cdfc07420429ca355eb5ce1",
+      "sizeBytes": 208482,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence for utku6767's changes (based on universal-modder, MIT; the creator removed his MIT licence on 5 Oct): used only with the creator's written permission",
+      "fileName": "passthrough-0.1.0.jar"
+    },
+    {
+      "id": "steve-passthrough-fx",
+      "name": "MCPassthrough.fx (the ReShade effect, commit 32f457c)",
+      "url": "https://raw.githubusercontent.com/utku6767/Gta-V-Enhanced-Minecraft-Steve-Passthrough/32f457cffb8937528556f6fe54e621402fafafd0/mods/GTA_V/reshade-shaders/Shaders/MCPassthrough.fx",
+      "sha256": "472e95f7a4d2a164310b4b0ddd034629cd4744da7cf89074be017b36bbb959fd",
+      "sizeBytes": 17282,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence for utku6767's changes (based on universal-modder, MIT; the creator removed his MIT licence on 5 Oct): used only with the creator's written permission",
+      "fileName": "MCPassthrough.fx"
+    },
+    {
+      "id": "reshade-setup",
+      "name": "ReShade 6.8.0 with full add-on support",
+      "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
+      "sha256": "afe4c8f13048306307983b8b3d41d5bf00a86820440b0e57dea10950e1176445",
+      "kind": "loader",
+      "source": "official-site",
+      "licence": "ReShade: free; binaries are downloaded from reshade.me only",
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": {
+        "version": "6.8.0",
+        "fileSha256": [
+          "0cee63f9c9f13f3ac909c5b4903f4dbb4b719a7ab3b4f13b0deaf83c814b94f7"
+        ]
+      }
+    },
+    {
+      "id": "reshade-fxh",
+      "name": "ReShade.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShade.fxh",
+      "sha256": "6dabfbbaf968c3871905d2ea17f96572ff7b1cec01310b5d0e5252b66b30174f",
+      "sizeBytes": 4250,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "CC0-1.0",
+      "fileName": "ReShade.fxh"
+    },
+    {
+      "id": "reshadeui-fxh",
+      "name": "ReShadeUI.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShadeUI.fxh",
+      "sha256": "78adf672df47460297eb9fe6dd238d2aafa24510b52b84feb1a745dff70eb901",
+      "sizeBytes": 9930,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "crosire/reshade-shaders (no licence file; fetched from the official repository)",
+      "fileName": "ReShadeUI.fxh"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "input": "script-hook-v",
+      "to": "{game:gta-v-enhanced}",
+      "only": [
+        "**/ScriptHookV.dll",
+        "**/dinput8.dll"
+      ],
+      "flatten": true
+    },
+    {
+      "action": "run",
+      "download": "reshade-setup",
+      "args": [
+        "{exe:gta-v-enhanced}",
+        "--api",
+        "dxgi",
+        "--headless"
+      ],
+      "waitForExit": true,
+      "note": "Installs ReShade (the version with add-on support) into GTA V Enhanced as dxgi.dll. Nothing shows on screen."
+    },
+    {
+      "action": "copy",
+      "download": "steve-passthrough-fx",
+      "to": "{game:gta-v-enhanced}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "copy",
+      "download": "reshade-fxh",
+      "to": "{game:gta-v-enhanced}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "copy",
+      "download": "reshadeui-fxh",
+      "to": "{game:gta-v-enhanced}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "EffectSearchPaths",
+      "value": ".\\reshade-shaders\\Shaders"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PresetPath",
+      "value": ".\\ReShadePreset.ini"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "StartupPresetPath",
+      "value": ".\\ReShadePreset.ini"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "TutorialProgress",
+      "value": "4"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "ShowFPS",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShadePreset.ini",
+      "section": "",
+      "key": "Techniques",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShadePreset.ini",
+      "section": "",
+      "key": "TechniqueSorting",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
+      "action": "copy",
+      "download": "steve-passthrough-asi",
+      "to": "{game:gta-v-enhanced}"
+    },
+    {
+      "action": "prism-instance"
+    },
+    {
+      "action": "xml-set",
+      "file": "{documents}/Rockstar Games/GTAV Enhanced/settings.xml",
+      "element": "PauseOnFocusLoss",
+      "attribute": "value",
+      "value": "0"
+    },
+    {
+      "action": "xml-set",
+      "file": "{documents}/Rockstar Games/GTAV Enhanced/settings.xml",
+      "element": "Windowed",
+      "attribute": "value",
+      "value": "2"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "host link listening",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "gta-v-enhanced",
+        "via": "steam",
+        "args": [
+          "-nobattleye"
+        ]
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "host connected from"
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "gta-v-enhanced",
+      "path": "{documents}/Rockstar Games/GTAV Enhanced/Profiles"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Both games render at once, so it needs a strong PC. GTA runs windowed with Pause on focus loss off; turn depth of field, TXAA and motion blur off in GTA's graphics settings. Minecraft's window stays open in the background."
+  },
+  "offlineOnly": true,
+  "credits": [
+    {
+      "name": "utku6767",
+      "role": "Ported the Minecraft x GTA V passthrough to GTA V Enhanced",
+      "url": "https://github.com/utku6767"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "The original Minecraft x GTA V passthrough it is based on",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    },
+    {
+      "name": "Alexander Blade",
+      "role": "Script Hook V and its ASI loader",
+      "url": "https://www.dev-c.com/gtav/scripthookv/"
+    },
+    {
+      "name": "crosire",
+      "role": "ReShade and its add-on API",
+      "url": "https://reshade.me"
+    }
+  ],
+  "licence": {
+    "spdx": "none",
+    "url": "https://github.com/utku6767/Gta-V-Enhanced-Minecraft-Steve-Passthrough",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/utku6767/Gta-V-Enhanced-Minecraft-Steve-Passthrough",
+    "manualInstall": "https://github.com/utku6767/Gta-V-Enhanced-Minecraft-Steve-Passthrough#install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "You play as Steve: GTA's own character is hidden and Steve stands in his place.",
+    "A Minecraft window opens too and stays open behind GTA V. It draws the blocks you see in GTA, so leave it open.",
+    "Press F7 in GTA to turn it on once you're in story mode.",
+    "Story mode only. GTA starts with BattlEye off, which keeps GTA Online out; never take a modded game online.",
+    "Pick Story Mode on GTA's start screen yourself.",
+    "A GTA update stops it until a new Script Hook V comes out.",
+    "Walking, driving and the camera stay GTA's own; Minecraft adds its hotbar, blocks and weapons.",
+    "Tab (GTA's weapons in Steve's hands) is experimental."
+  ],
+  "important": [
+    {
+      "text": "Script Hook V links GTA V with Minecraft. It comes only from its author's own site, so you press Download there. We do everything else.",
+      "link": "https://www.dev-c.com/gtav/scripthookv/",
+      "linkLabel": "Get Script Hook V",
+      "blocksInstall": true,
+      "input": {
+        "id": "script-hook-v",
+        "kind": "zip",
+        "name": "Script Hook V",
+        "label": "The Script Hook V zip",
+        "mustContain": [
+          "ScriptHookV.dll",
+          "dinput8.dll"
+        ],
+        "find": {
+          "folder": "downloads",
+          "name": "^ScriptHookV_.*\\.zip$",
+          "exclude": "DotNet"
+        },
+        "wrongFiles": [
+          {
+            "name": "_SDK_",
+            "contains": [
+              "ScriptHookV.lib",
+              "main.h"
+            ],
+            "message": "That's the Script Hook V developer kit, not Script Hook V itself. On the author's page, use the Download link just above it."
+          }
+        ],
+        "origin": {
+          "hosts": [
+            "dev-c.com"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "id": "peakcraft",
+  "title": "PeakCraft",
+  "tagline": "Climb PEAK as a Minecraft player: pillar up, dig in and build your way to the summit.",
+  "description": "Take on PEAK's mountain with Minecraft's movement, blocks, hand and hotbar. Pillar up cliffs, bridge gaps, break and place blocks and dig into the mountain. Press 9 or F10 to switch to PEAK's own climbing whenever you want, and back again. Every new climb starts with a fresh Minecraft world. Both games run at the same time: Minecraft runs hidden and PEAK draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "peak",
+      "name": "PEAK",
+      "store": "steam",
+      "steamAppId": "3527290",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version with BepInEx 5."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "skycraft-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "PeakCraft",
+    "jvmArgs": [
+      "--enable-native-access=ALL-UNNAMED",
+      "-Dskycraft.startHidden=true"
+    ],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "peakcraft",
+      "name": "PeakCraft 1.0.0 (PEAK side)",
+      "url": "https://github.com/Keel62155/Minecraft-X-Games/releases/download/1.0.0-PEAK/PeakCraft.zip",
+      "sha256": "ae3d79de78390c05e8964e018d5fa19170595ad8d144b918c9b65d81ef4747a9",
+      "sizeBytes": 96570,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence: used only with the creator's written permission",
+      "fileName": "PeakCraft.zip"
+    },
+    {
+      "id": "skycraft-fabric",
+      "name": "SkyCraft 0.1.2 (Minecraft side, shared by every Minecraft X Games mod)",
+      "url": "https://github.com/chasmlol/SkyCraft/releases/download/v0.1.2/skycraft-fabric-0.1.2.jar",
+      "sha256": "ea429c73dcec49d39b6a0bb9b17ad08a6b0290a39a96ccf6f6c07d581cf992d9",
+      "sizeBytes": 247869,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "skycraft-fabric-0.1.2.jar"
+    },
+    {
+      "id": "bepinexpack-peak",
+      "name": "BepInExPack for PEAK 5.4.75301",
+      "url": "https://thunderstore.io/package/download/BepInEx/BepInExPack_PEAK/5.4.75301/",
+      "sha256": "TODO",
+      "kind": "loader",
+      "source": "thunderstore",
+      "licence": "LGPL-2.1 (BepInEx)",
+      "fileName": "BepInEx-BepInExPack_PEAK-5.4.75301.zip"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinexpack-peak",
+      "to": "{game:peak}",
+      "from": "BepInExPack_PEAK"
+    },
+    {
+      "action": "extract",
+      "download": "peakcraft",
+      "to": "{game:peak}/BepInEx/plugins/PeakCraft",
+      "from": "PeakCraft",
+      "only": [
+        "PeakCraft.dll"
+      ]
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "SkyCraft: game window hidden",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "peak",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "SkyCraft: linked to"
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "peak",
+      "path": "{locallow}/LandCrab/PEAK"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft."
+  },
+  "credits": [
+    {
+      "name": "Keel62155",
+      "role": "Creator of PeakCraft",
+      "url": "https://github.com/Keel62155"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, whose Minecraft side this mashup runs on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    },
+    {
+      "name": "BepInEx team",
+      "role": "BepInEx, PEAK's plugin loader",
+      "url": "https://github.com/BepInEx/BepInEx"
+    }
+  ],
+  "licence": {
+    "spdx": "none",
+    "url": "https://github.com/Keel62155/Minecraft-X-Games",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/Keel62155/Minecraft-X-Games",
+    "manualInstall": "https://github.com/Keel62155/Minecraft-X-Games/releases/tag/1.0.0-PEAK"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Play solo: choose Offline on PEAK's start screen. In a lobby, other players see your scout slide about stiffly.",
+    "PEAK's own sound can go quiet while Minecraft has the scout.",
+    "Digging into the mountain itself has had little testing.",
+    "Blocks you place don't carry over to the next climb: each one starts a fresh Minecraft world.",
+    "Keys 6, 7 and 8 use the scout's own three item slots; F picks things up and opens luggage.",
+    "Only one Minecraft X Games mashup can run at a time: they all drive the same kind of hidden Minecraft.",
+    "A prototype: expect rough edges."
+  ]
+}

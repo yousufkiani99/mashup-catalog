@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "id": "raccoon-city-skylines",
+  "title": "Raccoon City Skylines",
+  "tagline": "Your Cities: Skylines city rises in Resident Evil 2's sky, and RE2 fights its T-virus outbreak.",
+  "description": "Run Resident Evil 2 and Cities: Skylines together. Your city's towers fill RE2's sky above the police station, following RE2's camera. A T-virus outbreak spreads through your districts: police and healthcare slow it, blackouts speed it up, and every zombie you kill in RE2 pushes it back. Mr. X and G cause surges, a rising outbreak makes RE2 harder and greener, and a city blackout darkens RE2. Press F9 in Cities: Skylines to build, with RE2's bodycam in the corner.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "resident-evil-2",
+      "name": "Resident Evil 2",
+      "store": "steam",
+      "steamAppId": "883710",
+      "version": {
+        "kind": "any",
+        "note": "The 2019 remake, current Steam version."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "cities-skylines",
+      "name": "Cities: Skylines",
+      "store": "steam",
+      "steamAppId": "255710",
+      "version": {
+        "kind": "any",
+        "note": "The original 2015 game, not Cities: Skylines II."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "raccoon-city-skylines",
+      "name": "Raccoon City Skylines 0.1 (both games, commit 720173b)",
+      "url": "https://raw.githubusercontent.com/mmcvey02/ResidentEternal/720173ba9755a5f1f8a0490322ffa15c5499f36f/dist/RaccoonCitySkylines-v0.1.zip",
+      "sha256": "e917f6d7f2dcca090b6e6169c9e2de38e5910576b6d24d88618d15ebc5984bb1",
+      "sizeBytes": 836797,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "No licence: used only with the creator's written permission",
+      "fileName": "RaccoonCitySkylines-v0.1.zip"
+    },
+    {
+      "id": "reframework",
+      "name": "REFramework nightly 01424 (all RE Engine games, one dinput8.dll)",
+      "url": "https://github.com/praydog/REFramework-nightly/releases/download/nightly-01424-d1461375aee4ec3f313170f8eaad12064eb542d9/REFramework.zip",
+      "sha256": "f035f1da6c9b199ef8348256abfd6bacef4a903485f75d9ab73be5249ae2b14c",
+      "sizeBytes": 13270063,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "REFramework-nightly-01424.zip",
+      "pins": {
+        "version": "nightly-01424"
+      }
+    },
+    {
+      "id": "reshade-setup",
+      "name": "ReShade 6.8.0 with full add-on support",
+      "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
+      "sha256": "afe4c8f13048306307983b8b3d41d5bf00a86820440b0e57dea10950e1176445",
+      "kind": "loader",
+      "source": "official-site",
+      "licence": "ReShade: free; binaries are downloaded from reshade.me only",
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": {
+        "version": "6.8.0",
+        "fileSha256": [
+          "0cee63f9c9f13f3ac909c5b4903f4dbb4b719a7ab3b4f13b0deaf83c814b94f7"
+        ]
+      }
+    },
+    {
+      "id": "reshade-fxh",
+      "name": "ReShade.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShade.fxh",
+      "sha256": "6dabfbbaf968c3871905d2ea17f96572ff7b1cec01310b5d0e5252b66b30174f",
+      "sizeBytes": 4250,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "CC0-1.0",
+      "fileName": "ReShade.fxh"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "reframework",
+      "to": "{game:resident-evil-2}",
+      "only": [
+        "dinput8.dll"
+      ]
+    },
+    {
+      "action": "run",
+      "download": "reshade-setup",
+      "args": [
+        "{exe:resident-evil-2}",
+        "--api",
+        "dxgi",
+        "--headless"
+      ],
+      "waitForExit": true,
+      "note": "Installs ReShade (the version with add-on support) into Resident Evil 2 as dxgi.dll. Nothing shows on screen."
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:resident-evil-2}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "EffectSearchPaths",
+      "value": ".\\reshade-shaders\\Shaders"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:resident-evil-2}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PresetPath",
+      "value": ".\\ReShadePreset.ini"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:resident-evil-2}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PreprocessorDefinitions",
+      "value": "RESHADE_DEPTH_INPUT_IS_REVERSED=1"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:resident-evil-2}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "TutorialProgress",
+      "value": "4"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:resident-evil-2}/ReShadePreset.ini",
+      "section": "",
+      "key": "Techniques",
+      "value": "RaccoonSkylines@RaccoonSkylines.fx"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:resident-evil-2}/ReShadePreset.ini",
+      "section": "",
+      "key": "TechniqueSorting",
+      "value": "RaccoonSkylines@RaccoonSkylines.fx"
+    },
+    {
+      "action": "copy",
+      "download": "reshade-fxh",
+      "to": "{game:resident-evil-2}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "extract",
+      "download": "raccoon-city-skylines",
+      "to": "{game:resident-evil-2}",
+      "from": "RaccoonCitySkylines/Resident_Evil_2",
+      "only": [
+        "reframework/plugins/RaccoonSkylines.dll",
+        "reframework/autorun/raccoon_skylines.lua",
+        "reshade-shaders/Shaders/RaccoonSkylines.fx"
+      ]
+    },
+    {
+      "action": "mkdir",
+      "path": "{localappdata}/Colossal Order/Cities_Skylines/Addons/Mods/RaccoonCitySkylines"
+    },
+    {
+      "action": "extract",
+      "download": "raccoon-city-skylines",
+      "to": "{localappdata}/Colossal Order/Cities_Skylines/Addons/Mods/RaccoonCitySkylines",
+      "from": "RaccoonCitySkylines/Cities_Skylines/RaccoonCitySkylines"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "cities-skylines",
+        "via": "steam",
+        "args": [
+          "--continuelastsave",
+          "-screen-fullscreen",
+          "0",
+          "-screen-width",
+          "960",
+          "-screen-height",
+          "540"
+        ],
+        "waitSeconds": 60
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "resident-evil-2",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{game:resident-evil-2}/reframework/data/raccoon_skylines/plugin.log",
+      "pattern": "link: connected to the city"
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "cities-skylines",
+      "path": "{localappdata}/Colossal Order/Cities_Skylines/Saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Both games run at once, so a PC that runs each comfortably on its own. Cities: Skylines runs in a small 960x540 window, which keeps it light."
+  },
+  "credits": [
+    {
+      "name": "mmcvey02",
+      "role": "Creator of Raccoon City Skylines",
+      "url": "https://github.com/mmcvey02"
+    },
+    {
+      "name": "praydog",
+      "role": "REFramework, Resident Evil 2's plugin loader",
+      "url": "https://github.com/praydog/REFramework"
+    },
+    {
+      "name": "crosire",
+      "role": "ReShade and its add-on API",
+      "url": "https://reshade.me"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "The passthrough technique it adapts",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    }
+  ],
+  "licence": {
+    "spdx": "none",
+    "url": "https://github.com/mmcvey02/ResidentEternal",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/mmcvey02/ResidentEternal",
+    "manualInstall": "https://github.com/mmcvey02/ResidentEternal/blob/main/docs/SETUP_GUIDE.md"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Experimental: it has been built and tested without the games, but not yet run inside them.",
+    "Leave Cities: Skylines' window open and not minimised: it's what draws the skyline.",
+    "Go somewhere with open sky in RE2 (the police station's front gate and courtyard, the streets) to see your city.",
+    "If the towers drift as you turn, change \"RE2 vertical FOV override\" in ReShade's RaccoonSkylines settings (Home key).",
+    "If turning left in RE2 turns the city right, untick Mirror Z in Cities: Skylines' Raccoon City Skylines options.",
+    "Kill and Mr. X events may not fire on every RE2 version; the rest still works.",
+    "The first start of Cities: Skylines after installing compiles the mod, which takes a little longer."
+  ],
+  "important": [
+    {
+      "text": "In Cities: Skylines, open Content Manager, then Mods, and tick Raccoon City Skylines. Then load a city that has at least one police station.",
+      "blocksInstall": false
+    },
+    {
+      "text": "In Resident Evil 2's Graphics options, set Rendering mode to DirectX 11.",
+      "blocksInstall": false
+    }
+  ]
+}
