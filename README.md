@@ -43,6 +43,14 @@ fails is refused. An unsigned or changed catalog can't reach players.
 `sha256: "TODO"` marks a download nobody has hashed yet. The app reads such a recipe but won't
 install it until every download has a real SHA-256.
 
+## Switching off a tester key
+
+Free tester keys (mashup-app decision D28) are made with mashup-app's
+`scripts/make-tester-key.mjs`, which prints each key's id. To switch one off, add its id to
+`revoked-tester-keys.json` (a JSON list, e.g. `["k7f3q9xa2b"]`; create the file if it isn't there)
+and sign again. `sign.mjs` copies the ids into `index.json` as `revokedTesterKeys`; the app locks
+that key on its next catalog check, for good on that PC. `verify.mjs` checks both match.
+
 ## The signing key
 
 - The **private key never goes in git or GitHub**. It lives with the founder, outside every repo.

@@ -8,13 +8,24 @@
 //   --key <path>   private key PEM file (otherwise the CATALOG_SIGNING_KEY environment variable)
 //   --force        re-sign even when the recipes haven't changed
 //
+// Switching off a free tester key (mashup-app decision D28): add its id to revoked-tester-keys.json
+// (a JSON list, e.g. ["k7f3q9xa2b"]) and sign again. The ids go into index.json as
+// "revokedTesterKeys"; the app refuses those keys on its next catalog check.
+//
 // Writes index.json (stable key order, LF) and index.json.sig (base64 signature over the exact
 // bytes of index.json). The private key is only read, never written anywhere.
 import { createPrivateKey, createPublicKey, sign, verify } from 'node:crypto'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { buildIndex, indexBytes, listRecipeFiles, recipeProblems } from './lib.mjs'
+import {
+  buildIndex,
+  indexBytes,
+  listRecipeFiles,
+  readRevokedTesterKeys,
+  recipeProblems,
+  REVOKED_TESTER_KEYS_FILE
+} from './lib.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -56,7 +67,12 @@ for (const file of files) {
     bad = true
   }
 }
-if (bad) fail('fix the recipes above, then sign again')
+const revoked = readRevokedTesterKeys(root)
+for (const problem of revoked.problems) {
+  console.error(`sign: ${REVOKED_TESTER_KEYS_FILE} ${problem}`)
+  bad = true
+}
+if (bad) fail('fix the problems above, then sign again')
 
 const indexPath = join(root, 'index.json')
 const sigPath = join(root, 'index.json.sig')
@@ -66,10 +82,12 @@ if (!force && existsSync(indexPath) && existsSync(sigPath)) {
   try {
     const oldBytes = readFileSync(indexPath)
     const old = JSON.parse(oldBytes.toString('utf8'))
-    const same = indexBytes(buildIndex(files, old.generatedAt)).equals(oldBytes)
+    const same = indexBytes(buildIndex(files, old.generatedAt, revoked.ids)).equals(oldBytes)
     const sig = Buffer.from(readFileSync(sigPath, 'utf8').trim(), 'base64')
     if (same && verify(null, oldBytes, createPublicKey(publicPem), sig)) {
-      console.log(`sign: index.json is up to date (${files.length} recipes); nothing to do`)
+      console.log(
+        `sign: index.json is up to date (${files.length} recipes, ${revoked.ids.length} switched-off tester keys); nothing to do`
+      )
       process.exit(0)
     }
   } catch {
@@ -77,9 +95,10 @@ if (!force && existsSync(indexPath) && existsSync(sigPath)) {
   }
 }
 
-const bytes = indexBytes(buildIndex(files, new Date().toISOString()))
+const bytes = indexBytes(buildIndex(files, new Date().toISOString(), revoked.ids))
 const signature = sign(null, bytes, privateKey).toString('base64')
 writeFileSync(indexPath, bytes)
 writeFileSync(sigPath, signature + '\n')
 console.log(`sign: signed index.json with ${files.length} recipes`)
 for (const f of files) console.log(`  ${f.path}`)
+if (revoked.ids.length > 0) console.log(`  switched-off tester keys: ${revoked.ids.join(', ')}`)

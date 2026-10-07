@@ -1,9 +1,13 @@
 // Shared helpers for sign.mjs and verify.mjs. Node built-ins only.
 import { createHash } from 'node:crypto'
-import { readdirSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 export const KEBAB = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+/** A free tester key's id (mashup-app scripts/make-tester-key.mjs, decision D28). */
+export const TESTER_ID = /^[a-z0-9]{6,32}$/
+/** Ids of switched-off tester keys, one JSON list: ["k7f3q9xa2b", ...]. Optional. */
+export const REVOKED_TESTER_KEYS_FILE = 'revoked-tester-keys.json'
 
 export function sha256Hex(bytes) {
   return createHash('sha256').update(bytes).digest('hex')
@@ -100,13 +104,47 @@ export function recipeProblems(file) {
   return problems
 }
 
-/** The index object, with a fixed key order so the bytes are stable. */
-export function buildIndex(files, generatedAt) {
-  return {
-    schemaVersion: 1,
-    generatedAt,
-    recipes: files.map((f) => ({ id: f.id, path: f.path, sha256: sha256Hex(f.bytes) }))
+/** Problems with a revokedTesterKeys list: must be unique tester ids, sorted. */
+export function revokedListProblems(list) {
+  if (!Array.isArray(list)) return ['must be a list of tester key ids']
+  const problems = []
+  for (const id of list) {
+    if (typeof id !== 'string' || !TESTER_ID.test(id)) problems.push(`"${id}" isn't a tester key id (6-32 lowercase letters/digits)`)
   }
+  if (new Set(list).size !== list.length) problems.push('lists an id twice')
+  if (list.some((id, i) => i > 0 && String(list[i - 1]) > String(id))) problems.push('must be sorted')
+  return problems
+}
+
+/**
+ * Switched-off tester key ids from revoked-tester-keys.json (sorted, without duplicates), or [] when
+ * the file doesn't exist. Returns { ids, problems }.
+ */
+export function readRevokedTesterKeys(root) {
+  const file = join(root, REVOKED_TESTER_KEYS_FILE)
+  if (!existsSync(file)) return { ids: [], problems: [] }
+  let list
+  try {
+    list = JSON.parse(readFileSync(file, 'utf8'))
+  } catch (err) {
+    return { ids: [], problems: [`isn't valid JSON: ${err.message}`] }
+  }
+  if (!Array.isArray(list)) return { ids: [], problems: ['must be a JSON list of tester key ids'] }
+  const ids = [...new Set(list.map((id) => (typeof id === 'string' ? id.trim() : id)))].sort()
+  return { ids, problems: revokedListProblems(ids) }
+}
+
+/**
+ * The index object, with a fixed key order so the bytes are stable. `revokedTesterKeys` (sorted
+ * tester key ids the app must refuse) is only written when there is at least one, so the index is
+ * byte-for-byte unchanged for catalogs that never revoke a key. Index stays schemaVersion 1: older
+ * apps ignore the field.
+ */
+export function buildIndex(files, generatedAt, revokedTesterKeys = []) {
+  const index = { schemaVersion: 1, generatedAt }
+  if (revokedTesterKeys.length > 0) index.revokedTesterKeys = [...revokedTesterKeys]
+  index.recipes = files.map((f) => ({ id: f.id, path: f.path, sha256: sha256Hex(f.bytes) }))
+  return index
 }
 
 /** index.json bytes: 2-space JSON, LF line endings, trailing newline. */
