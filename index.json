@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-07T03:10:11.395Z",
+  "generatedAt": "2026-10-07T06:13:40.779Z",
   "recipes": [
     {
       "id": "beamcraft",
@@ -10,7 +10,7 @@
     {
       "id": "falloutcraft",
       "path": "recipes/falloutcraft.json",
-      "sha256": "a9a81f923d0899f8df5d596e7651f3ebee9ed2382772a4dd253d6dd49b5db696"
+      "sha256": "32c70aa0676305c5e4d1bdc3e857259cac2befb8a758c62791dd5cac544ad52d"
     },
     {
       "id": "garrys-redemption",
@@ -20,7 +20,12 @@
     {
       "id": "killcraft",
       "path": "recipes/killcraft.json",
-      "sha256": "8b07a331ff9cf80cddf014f1a994c202be0cef01ac68f1b0834422f12b6aa803"
+      "sha256": "a3a8f740e965857d16c154da7a61b3d52b1125efdae8dd8bd18aa35ce24cd748"
+    },
+    {
+      "id": "lethalcraft",
+      "path": "recipes/lethalcraft.json",
+      "sha256": "b961c7b569f078a3428fe2ed23900ef49c6adedb21d02be96870c445585ea252"
     },
     {
       "id": "minecraft-gta-enhanced",
@@ -40,7 +45,7 @@
     {
       "id": "minecraft-passthrough-iv",
       "path": "recipes/minecraft-passthrough-iv.json",
-      "sha256": "1c00ab2923d7203d25702385926afc5ebe471f422dd9f206f853d128818aa00a"
+      "sha256": "65b13fe24f49970f0ae646d266edb5b9d8217cf9d995e711132e51621410b8cc"
     },
     {
       "id": "minecraft-ring",
@@ -58,19 +63,34 @@
       "sha256": "04136238049c9c738516b28a95bf1979f0ab5d4c61ebcbc5184b8885e6aab933"
     },
     {
+      "id": "repocraft",
+      "path": "recipes/repocraft.json",
+      "sha256": "7d6f75c64bf7b47658b25d25d6fbced8557cbd13a798952de10662dfb08b3b5e"
+    },
+    {
+      "id": "saintscraft",
+      "path": "recipes/saintscraft.json",
+      "sha256": "d4574eecd496745ca41da42b1f049d9c6b17e72ac192a3de768951a220da087f"
+    },
+    {
       "id": "skycraft",
       "path": "recipes/skycraft.json",
-      "sha256": "489bce2a0c4d0d387e4fef4bc6e20e600727f866404f68f9771a0a8bf914ae50"
+      "sha256": "af237b7f7f300579881dde748c2e7565736e5c30c39f153b602a2b3a17850c24"
     },
     {
       "id": "ultracraft",
       "path": "recipes/ultracraft.json",
-      "sha256": "8fc10d5da36959a529b38c802f00b438a936b9d7de4337bfd64b81528e445075"
+      "sha256": "cab9d0fe9c33c88d77027f58203a5ecc67e005fde342853cd8cc2df0613339dd"
+    },
+    {
+      "id": "valcraft-strangemap",
+      "path": "recipes/valcraft-strangemap.json",
+      "sha256": "d40330ed38d6b53dbb0ad83b3094eebf5f3abd322f19e28278ccc0027965a760"
     },
     {
       "id": "valcraft",
       "path": "recipes/valcraft.json",
-      "sha256": "2934efcc3a9cf3382d73ab65c668748b36e7883b95938110dc76bd35cf9bf72a"
+      "sha256": "7ced2705a6aa08c211454142284fd140914f1dcea259b0f0cda3f8a7099fe395"
     },
     {
       "id": "vegascraft",

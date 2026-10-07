@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 3,
+  "id": "valcraft-strangemap",
+  "title": "ValCraft (strangemap)",
+  "tagline": "Real Minecraft drawn into Valheim: build, mine and fight trolls as a Minecraft player in Valheim's world.",
+  "description": "Real Minecraft runs next to Valheim and is painted into Valheim's own picture. Explore Valheim as a Minecraft player: build and break blocks that Valheim's creatures bump into, fight trolls with Minecraft swords, bows, TNT and ender pearls, mine rocks and dig the ground with pickaxes and fell trees with axes. Press R to switch between Minecraft's hands and your Viking's own weapons, and F5 to see yourself. Fly in creative, or play survival where Valheim's hits land on Minecraft's hearts. Minecraft runs hidden on your own account, with your name and skin. A different mashup from LoAlCo's ValCraft.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "valheim",
+      "name": "Valheim",
+      "store": "steam",
+      "steamAppId": "892970",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version. It runs on DirectX 11 for this mashup."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["fabric-api"],
+    "instanceName": "ValCraft strangemap",
+    "jvmArgs": ["--enable-native-access=ALL-UNNAMED", "-Dpassthrough.startHidden=true"],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "valcraft-strangemap",
+      "name": "ValCraft 0.1.0 by strangemap (both sides)",
+      "url": "https://github.com/strangemap/valcraft/releases/download/v0.1.0/ValCraft-0.1.0.zip",
+      "sha256": "60e07ee7c5249b97e90b35bae9a5522e3d9e66fd041a0207276fce9de19169b7",
+      "sizeBytes": 350756,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (strangemap; built on universal-modder's Minecraft passthrough, MIT)",
+      "fileName": "ValCraft-0.1.0.zip"
+    },
+    {
+      "id": "bepinexpack-valheim",
+      "name": "BepInExPack for Valheim 5.4.2350",
+      "url": "https://thunderstore.io/package/download/denikson/BepInExPack_Valheim/5.4.2350/",
+      "sha256": "37a91c000b4e88f2ed7a4bd7d812239852d2e36cbf0ff0a9f5faacfba46b105f",
+      "sizeBytes": 706129,
+      "kind": "loader",
+      "source": "thunderstore",
+      "licence": "LGPL-2.1 (BepInEx)",
+      "fileName": "denikson-BepInExPack_Valheim-5.4.2350.zip"
+    },
+    {
+      "id": "reshade-setup",
+      "name": "ReShade 6.8.0 with full add-on support",
+      "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
+      "sha256": "afe4c8f13048306307983b8b3d41d5bf00a86820440b0e57dea10950e1176445",
+      "kind": "loader",
+      "source": "official-site",
+      "licence": "ReShade: free; binaries are downloaded from reshade.me only",
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": {
+        "version": "6.8.0",
+        "fileSha256": ["0cee63f9c9f13f3ac909c5b4903f4dbb4b719a7ab3b4f13b0deaf83c814b94f7"]
+      }
+    },
+    {
+      "id": "reshade-fxh",
+      "name": "ReShade.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShade.fxh",
+      "sha256": "6dabfbbaf968c3871905d2ea17f96572ff7b1cec01310b5d0e5252b66b30174f",
+      "sizeBytes": 4250,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "CC0-1.0",
+      "fileName": "ReShade.fxh"
+    },
+    {
+      "id": "reshadeui-fxh",
+      "name": "ReShadeUI.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShadeUI.fxh",
+      "sha256": "78adf672df47460297eb9fe6dd238d2aafa24510b52b84feb1a745dff70eb901",
+      "sizeBytes": 9930,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "crosire/reshade-shaders (no licence file; fetched from the official repository)",
+      "fileName": "ReShadeUI.fxh"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinexpack-valheim",
+      "to": "{game:valheim}",
+      "from": "BepInExPack_Valheim"
+    },
+    {
+      "action": "run",
+      "download": "reshade-setup",
+      "args": ["{exe:valheim}", "--api", "dxgi", "--headless"],
+      "waitForExit": true,
+      "note": "Installs ReShade (the version with add-on support) into Valheim as dxgi.dll. Nothing shows on screen."
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "EffectSearchPaths",
+      "value": ".\\reshade-shaders\\Shaders\\"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "TextureSearchPaths",
+      "value": ".\\reshade-shaders\\Textures\\"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PresetPath",
+      "value": ".\\ReShadePreset.ini"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PreprocessorDefinitions",
+      "value": "RESHADE_DEPTH_INPUT_IS_REVERSED=1,RESHADE_DEPTH_INPUT_IS_UPSIDE_DOWN=0,RESHADE_DEPTH_INPUT_IS_LOGARITHMIC=0,RESHADE_DEPTH_LINEARIZATION_FAR_PLANE=1000"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShade.ini",
+      "section": "ADDON",
+      "key": "AddonPath",
+      "value": ".\\"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "TutorialProgress",
+      "value": "4"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "ShowClock",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "ShowFPS",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShadePreset.ini",
+      "section": "",
+      "key": "Techniques",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/ReShadePreset.ini",
+      "section": "",
+      "key": "TechniqueSorting",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
+      "action": "copy",
+      "download": "reshade-fxh",
+      "to": "{game:valheim}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "copy",
+      "download": "reshadeui-fxh",
+      "to": "{game:valheim}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "extract",
+      "download": "valcraft-strangemap",
+      "to": "{game:valheim}",
+      "from": "files",
+      "only": ["ValCraft.addon64"]
+    },
+    {
+      "action": "extract",
+      "download": "valcraft-strangemap",
+      "to": "{game:valheim}/reshade-shaders/Shaders",
+      "from": "files",
+      "only": ["MCPassthrough.fx"]
+    },
+    {
+      "action": "extract",
+      "download": "valcraft-strangemap",
+      "to": "{game:valheim}/BepInEx/plugins",
+      "from": "files",
+      "only": ["ValCraft.dll"]
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:valheim}/BepInEx/config/valcraft.passthrough.cfg",
+      "section": "Minecraft",
+      "key": "AutoStart",
+      "value": "false"
+    },
+    { "action": "prism-instance" },
+    {
+      "action": "extract",
+      "download": "valcraft-strangemap",
+      "to": "{prism-instance}/mods",
+      "from": "files",
+      "only": ["valcraft-mc.jar"]
+    }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "valheim",
+        "via": "steam",
+        "args": ["-force-d3d11"]
+      }
+    ],
+    "ready": {
+      "logFile": "{game:valheim}/BepInEx/LogOutput.log",
+      "pattern": "connected to Minecraft",
+      "message": "Starting Valheim and linking it to Minecraft. If Steam asks how to start Valheim, pick the normal option, not Vulkan.",
+      "timeoutSeconds": 1200
+    }
+  },
+  "saves": [
+    { "gameKey": "valheim", "path": "{locallow}/IronGate/Valheim" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft, about 1.5 GB of disk for Minecraft's files, and a graphics card that runs Valheim on DirectX 11."
+  },
+  "conflictsWith": ["valcraft"],
+  "credits": [
+    {
+      "name": "strangemap",
+      "role": "Creator of ValCraft (this one)",
+      "url": "https://github.com/strangemap"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "The Minecraft passthrough and picture blending ValCraft builds on",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    },
+    { "name": "crosire", "role": "ReShade and its add-on API", "url": "https://reshade.me" }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/strangemap/valcraft/blob/v0.1.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/strangemap/valcraft",
+    "manualInstall": "https://github.com/strangemap/valcraft/blob/v0.1.0/README.md#install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Brand new and experimental, so expect rough edges.",
+    "This is a different ValCraft from LoAlCo's. The two can't be installed at the same time, because both load into Valheim.",
+    "Valheim runs on DirectX 11 while you play this. If Steam asks how to start Valheim, pick the normal option, not Vulkan.",
+    "Valheim's ground, trees, rocks, buildings and creatures hide Minecraft's blocks behind them; grass and leaves don't.",
+    "Sometimes Minecraft shows the default skin instead of yours, when Minecraft's skin service is slow. Playing again usually fixes it.",
+    "On very big screens (1440p and 4K) it can stutter. A lower Valheim resolution makes it smoother.",
+    "Made for single-player."
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 3,
+  "id": "repocraft",
+  "title": "RepoCraft",
+  "tagline": "Play R.E.P.O. as a Minecraft player: build, dig and fight its monsters with Minecraft's moves and weapons.",
+  "description": "Run R.E.P.O.'s missions as a Minecraft player, with Minecraft's movement, inventory, hotbar and hearts. Place and break blocks in its facilities, dig through walls and floors, light the dark with torches and blow holes with TNT, and hit its monsters with Minecraft weapons while their attacks hit your hearts. R.E.P.O.'s own grab beam, loot, carts, map, chat and voice still work as usual. Play with friends: everyone who has RepoCraft shares the lobby host's Minecraft world, with the same blocks and holes. Both games run at the same time: Minecraft runs hidden and R.E.P.O. draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "repo",
+      "name": "R.E.P.O.",
+      "store": "steam",
+      "steamAppId": "3241660",
+      "version": { "kind": "any", "note": "Any current Steam version." }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["repocraft-fabric", "fabric-api", "e4mc"],
+    "instanceName": "RepoCraft",
+    "jvmArgs": ["--enable-native-access=ALL-UNNAMED", "-Drepocraft.startHidden=true"],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "repocraft",
+      "name": "RepoCraft 0.1.1 (R.E.P.O. side)",
+      "url": "https://github.com/petmav/RepoCraft/releases/download/v0.1.1/RepoCraft-0.1.1-plugin-only.zip",
+      "sha256": "c645b87c0090a8cd1c5287204bd687ced5a4259827e2a5f207e8e2eac7606a1e",
+      "sizeBytes": 23962404,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (RepoCraft contributors; includes SkyCraft, MIT, by chasmlol)",
+      "fileName": "RepoCraft-0.1.1-plugin-only.zip"
+    },
+    {
+      "id": "repocraft-fabric",
+      "name": "RepoCraft 0.1.1 (Minecraft side)",
+      "url": "https://github.com/petmav/RepoCraft/releases/download/v0.1.1/repocraft-fabric-0.1.1.jar",
+      "sha256": "bbad173ef35c13cc8a00d3eb33dc1b5f812d7dfe467c7a75dbbbfefb997cb821",
+      "sizeBytes": 260019,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (RepoCraft contributors; includes SkyCraft, MIT, by chasmlol)",
+      "fileName": "repocraft-fabric-0.1.1.jar"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": { "version": "5.4.23.5" }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    },
+    {
+      "id": "e4mc",
+      "name": "e4mc 6.2.2 for Fabric (friend play)",
+      "url": "https://cdn.modrinth.com/data/qANg5Jrr/versions/AouleFRY/e4mc-fabric-6.2.2-modern.jar",
+      "sha256": "1075e0b690c5cd615c43c7492009858656f88b38d0caf788c2e1cfdcb7ee7d5b",
+      "sizeBytes": 662785,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "MIT (skyevg; contains kaleido-config under its own licence)",
+      "fileName": "e4mc-fabric-6.2.2-modern.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinex",
+      "to": "{game:repo}"
+    },
+    {
+      "action": "extract",
+      "download": "repocraft",
+      "to": "{game:repo}/BepInEx/plugins/RepoCraft",
+      "from": "BepInEx/plugins/RepoCraft",
+      "only": ["RepoCraft.dll", "LICENSE.txt", "THIRD-PARTY-NOTICES.md", "README.md"]
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:repo}/BepInEx/config/dev.repocraft.cfg",
+      "section": "Minecraft",
+      "key": "StartWithRepo",
+      "value": "false"
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      { "order": 1, "target": "prism" },
+      { "order": 2, "target": "game", "gameKey": "repo", "via": "steam" }
+    ],
+    "ready": {
+      "logFile": "{game:repo}/BepInEx/LogOutput.log",
+      "pattern": "Minecraft connected"
+    }
+  },
+  "saves": [
+    { "gameKey": "repo", "path": "{locallow}/semiwork/Repo/saves" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft, about 1.5 GB of disk for Minecraft's files, and a graphics card that runs Minecraft 26.3."
+  },
+  "credits": [
+    { "name": "petmav", "role": "Creator of RepoCraft", "url": "https://github.com/petmav" },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which RepoCraft is a port of",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    },
+    {
+      "name": "skyevg",
+      "role": "e4mc, which opens the host's Minecraft world to friends",
+      "url": "https://github.com/vgskye/e4mc-minecraft-architectury"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/petmav/RepoCraft/blob/v0.1.1/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/petmav/RepoCraft",
+    "manualInstall": "https://github.com/petmav/RepoCraft/blob/v0.1.1/tools/INSTALL.txt"
+  },
+  "media": {},
+  "aiBuilt": false,
+  "knownIssues": [
+    "Early and experimental, so expect rough edges.",
+    "Start a game after R.E.P.O. opens: you become the Minecraft player once you're in a level.",
+    "Playing with friends: everyone who wants to be a Minecraft player needs RepoCraft, the same version. Friends without it can still join and play normally.",
+    "If the lobby's host doesn't have RepoCraft, your Minecraft hits don't hurt monsters and each player keeps their own blocks.",
+    "A R.E.P.O. update can stop the mashup until RepoCraft catches up."
+  ]
+}

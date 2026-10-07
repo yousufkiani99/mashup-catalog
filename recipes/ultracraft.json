@@ -3,7 +3,7 @@
   "id": "ultracraft",
   "title": "Ultracraft",
   "tagline": "Play the real ULTRAKILL inside Minecraft: become V1 and fight its enemies and bosses in Minecraft's world.",
-  "description": "Become V1 inside Minecraft 1.21.11. The real ULTRAKILL runs alongside and is drawn into Minecraft's window, while Minecraft's blocks and mobs become its world and enemies. Fight ULTRAKILL's enemies across Minecraft's biomes, beat bosses in arenas themed after each layer of Hell, spend P at a shop you craft, play the Cyber Grind and team up with friends on your home network. Press F8 to switch between V1 and Steve. Your own ULTRAKILL save is never changed.",
+  "description": "Become V1 inside Minecraft 1.21.11. The real ULTRAKILL runs alongside and is drawn into Minecraft's window, while Minecraft's blocks and mobs become its world and enemies. Fight ULTRAKILL's enemies across Minecraft's biomes, beat bosses in arenas themed after each layer of Hell, spend P at a shop you craft and play the Cyber Grind. Team up with friends: bosses fight every V1, fallen teammates can be revived, the Cyber Grind works in co-op, and you can duel each other. Press F8 to switch between V1 and Steve. Your own ULTRAKILL save is never changed.",
   "method": "passthrough",
   "tier": "unlocked",
   "testLabel": "beta",
@@ -35,19 +35,20 @@
     "javaMajor": 21,
     "mods": ["fabric-api"],
     "instanceName": "Ultracraft",
+    "jvmArgs": ["-Dultracraft.noInstall=true"],
     "maxMemoryMb": 4096
   },
   "downloads": [
     {
       "id": "ultracraft",
-      "name": "Ultracraft 0.1.8 (both sides)",
-      "url": "https://github.com/alfr0762/ultracraft/releases/download/v0.1.8/Ultracraft.zip",
-      "sha256": "6e0eaec49b276581f9f5c8ecd6d647641db9514371aa5294a249fe0505738385",
-      "sizeBytes": 409675,
+      "name": "Ultracraft 1.0.4 (both sides)",
+      "url": "https://github.com/alfr0762/ultracraft/releases/download/v1.0.4/Ultracraft.zip",
+      "sha256": "20dc99f88397afe0bdd5e6556bdc1102ba733f0739ca722eadf9130c20ada57a",
+      "sizeBytes": 1223998,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "Ultracraft-0.1.8.zip"
+      "fileName": "Ultracraft-1.0.4.zip"
     },
     {
       "id": "bepinex",
@@ -101,7 +102,7 @@
       "action": "extract",
       "download": "ultracraft",
       "to": "{prism-instance}/mods",
-      "only": ["ultracraft-0.1.8+1.21.11.jar"]
+      "only": ["ultracraft-1.0.4+1.21.11.jar"]
     }
   ],
   "launch": {
@@ -127,19 +128,19 @@
   ],
   "licence": {
     "spdx": "MIT",
-    "url": "https://github.com/alfr0762/ultracraft/blob/v0.1.8/LICENSE",
+    "url": "https://github.com/alfr0762/ultracraft/blob/v1.0.4/LICENSE",
     "permission": "pending"
   },
   "links": {
     "source": "https://github.com/alfr0762/ultracraft",
-    "manualInstall": "https://github.com/alfr0762/ultracraft/blob/v0.1.8/README.md#install"
+    "manualInstall": "https://github.com/alfr0762/ultracraft/blob/v1.0.4/README.md#install"
   },
   "media": {},
   "aiBuilt": true,
   "knownIssues": [
     "Open a Minecraft world after it starts: you become V1 once the world has loaded.",
     "Closing Minecraft closes the ULTRAKILL it started.",
-    "Playing together works on the same home network (Open to LAN). Everyone needs ULTRAKILL and the same mashup.",
+    "Playing together: open your world to LAN from Minecraft's pause menu and friends on the same home network join it. Everyone needs ULTRAKILL and the same mashup, and plays with their own Minecraft account.",
     "Killcraft and Ultracraft can't be installed at the same time, because both load into ULTRAKILL."
   ]
 }

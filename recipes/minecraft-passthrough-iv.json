@@ -3,7 +3,7 @@
   "id": "minecraft-passthrough-iv",
   "title": "Minecraft PassthroughIV",
   "tagline": "Real Minecraft inside GTA IV: build, blow things up and fly an elytra over Liberty City.",
-  "description": "Play as Steve in Liberty City, in first or third person. Build with Minecraft blocks that stop GTA's people and cars, set off TNT that explodes in both games, fight GTA's characters with Minecraft weapons and glide over the city with an elytra. Light a Nether portal and the streets around it turn into the Nether. Health is shared between both games. Both games run at the same time and GTA IV draws Minecraft into its own picture.",
+  "description": "Play as Steve in Liberty City, in first or third person. Build with Minecraft blocks that stop GTA's people and cars, set off TNT that explodes in both games, fight GTA's characters with Minecraft weapons and glide over the city with an elytra. Spawn zombies or creepers and they hunt GTA's people while the police shoot back at them. Light a Nether portal and the streets around it turn into the Nether. Health is shared between both games, and Steve's crimes earn wanted stars. Both games run at the same time and GTA IV draws Minecraft into its own picture, lit by GTA's own light.",
   "method": "passthrough",
   "tier": "unlocked",
   "testLabel": "beta",
@@ -43,14 +43,15 @@
   "downloads": [
     {
       "id": "passthrough-iv",
-      "name": "Minecraft PassthroughIV 0.1.0 (both sides)",
+      "name": "Minecraft PassthroughIV 0.2.2 (both sides)",
       "url": "https://www.nexusmods.com/gta4/mods/1498?tab=files",
-      "sha256": "TODO",
+      "sha256": "360ec6a4224a71bed32c02c301c4534793ac5a2f1e0c84b96dbd7bdae057b447",
+      "sizeBytes": 677207,
       "kind": "mashup",
       "source": "nexus",
-      "nexus": { "gameDomain": "gta4", "modId": 1498, "fileId": 3798 },
-      "licence": "Nexus Mods permissions (Akatoshthe2nd): no uploads elsewhere, no commercial use of its assets",
-      "fileName": "MinecraftPassthroughIV-0.1.0.zip"
+      "nexus": { "gameDomain": "gta4", "modId": 1498, "fileId": 3816 },
+      "licence": "MIT (LICENSE in the archive); Nexus Mods permissions (Akatoshthe2nd): no uploads elsewhere, no commercial use of its assets",
+      "fileName": "MinecraftPassthroughIV-0.2.2.zip"
     },
     {
       "id": "ultimate-asi-loader",
@@ -97,7 +98,7 @@
       "action": "extract",
       "download": "passthrough-iv",
       "to": "{game:gta-iv}",
-      "from": "GTAIV",
+      "from": "MinecraftPassthroughIV-0.2.2/GTAIV",
       "only": ["MCPassthroughIV.asi"]
     },
     { "action": "prism-instance" },
@@ -105,8 +106,8 @@
       "action": "extract",
       "download": "passthrough-iv",
       "to": "{prism-instance}/mods",
-      "from": "Minecraft/mods",
-      "only": ["*.jar"]
+      "from": "MinecraftPassthroughIV-0.2.2/Minecraft/mods",
+      "only": ["passthrough-0.1.0+gta4.jar"]
     }
   ],
   "launch": {
@@ -126,7 +127,7 @@
     { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
   ],
   "requirements": {
-    "notes": "Both games run at once in windowed or borderless mode. Minecraft's window stays open in the background."
+    "notes": "Both games run at once, GTA IV in a window. Minecraft's window stays open (not minimised) in the background."
   },
   "credits": [
     {
@@ -146,7 +147,7 @@
     }
   ],
   "licence": {
-    "spdx": "nexus-permissions",
+    "spdx": "MIT",
     "url": "https://www.nexusmods.com/gta4/mods/1498",
     "permission": "pending"
   },
@@ -157,10 +158,15 @@
   "media": {},
   "aiBuilt": true,
   "knownIssues": [
-    "Arrows and other projectiles fly through GTA's walls.",
-    "You can sink into the ground for a moment while flying.",
+    "Its creator tests on Linux. The latest Windows fixes (for Steam's overlay, and for Minecraft not being drawn) aren't confirmed on a Windows PC yet.",
+    "Arrows, fireworks, ender pearls and elytra flight go through GTA's walls. They still hit people, cars and the ground.",
+    "You can sink into the ground for a moment while flying, where GTA hasn't loaded the ground yet.",
     "GTA's explosions don't hurt Steve in survival mode.",
-    "The police can't aim at Minecraft mobs.",
-    "Its creator found it works better without FusionFix."
+    "Space is Minecraft's jump, so you can't climb fences or ledges. Build a step, or press F7 to switch Minecraft off for a moment.",
+    "Minecraft appears about four seconds after your save loads.",
+    "Only the police fight Minecraft mobs, and only up to 16 mobs close by.",
+    "Minecraft's last picture can stay on screen behind GTA's pause-menu map.",
+    "FusionFix works. Mods that change GTA's picture size or depth (such as DLSS mods) haven't been tried.",
+    "Close Minecraft when you're done: while it runs, other programs on your PC can send it commands."
   ]
 }

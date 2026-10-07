@@ -3,7 +3,7 @@
   "id": "killcraft",
   "title": "Killcraft",
   "tagline": "Play ULTRAKILL as a Minecraft player: swords, bows, blocks and TNT against Hell's machines.",
-  "description": "Take on ULTRAKILL's levels as a Minecraft player, with Minecraft's movement, health, hunger, hotbar and inventory. Fight ULTRAKILL's enemies with swords, bows, shields, armour and TNT, place blocks that light the level and stop enemy shots, and spawn Minecraft mobs that fight on your side. Build a Nether portal to fight ULTRAKILL's enemies in Minecraft's real Nether. Press F9 to switch back to V1 and your guns at any time. Both games run at the same time: Minecraft runs hidden and ULTRAKILL draws everything.",
+  "description": "Take on ULTRAKILL's levels as a Minecraft player, with Minecraft's movement, health, hunger, hotbar and inventory. Fight ULTRAKILL's enemies with swords, bows, shields, armour and TNT, place blocks that light the level and stop enemy shots, and spawn Minecraft mobs that fight on your side. Build a Nether portal to fight ULTRAKILL's enemies and mini-bosses in Minecraft's real Nether, and blast it apart with V1's guns. Drink a Potion of ULTRAKILL to move like V1, place SMILEOS shops anywhere and play in third person. Press F9 to switch back to V1 and your guns at any time. Both games run at the same time: Minecraft runs hidden and ULTRAKILL draws everything.",
   "method": "passthrough",
   "tier": "unlocked",
   "testLabel": "beta",
@@ -41,14 +41,17 @@
   "downloads": [
     {
       "id": "killcraft",
-      "name": "Killcraft 0.1.6",
-      "url": "https://github.com/goonsn/Killcraft/releases/download/v0.1.6/Killcraft-0.1.6.zip",
-      "sha256": "350748a8cef0722365922c1b05dc0df4e8d1adceb3d11a09e555b3dd8df5d578",
-      "sizeBytes": 23941178,
+      "name": "Killcraft 1.0.1",
+      "url": "https://github.com/goonsn/Killcraft/releases/download/v1.0.1/Killcraft-1.0.1.zip",
+      "sha256": "ceabd7242b620dd9356b722b7137f0c115778eae6b248372759f78a36005f1e1",
+      "sizeBytes": 23989872,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT (Killcraft; its bundled SkyCraft Minecraft is MIT too, by chasmlol)",
-      "fileName": "Killcraft-0.1.6.zip"
+      "fileName": "Killcraft-1.0.1.zip",
+      "pins": {
+        "fileSha256": ["89098e16fd4fa347ab94920d8fd955383a493af8f883ed6723309b681e04ec95"]
+      }
     },
     {
       "id": "bepinex",
@@ -75,6 +78,7 @@
       "to": "{game:ultrakill}/BepInEx/plugins",
       "only": [
         "Killcraft/Killcraft.dll",
+        "Killcraft/killcraft-mc.jar",
         "Killcraft/SkyCraft-Minecraft.zip",
         "Killcraft/SkyCraft-LICENSE.txt",
         "Killcraft/SkyCraft-THIRD-PARTY-NOTICES.md",
@@ -113,12 +117,12 @@
   ],
   "licence": {
     "spdx": "MIT",
-    "url": "https://github.com/goonsn/Killcraft/blob/v0.1.6/LICENSE",
+    "url": "https://github.com/goonsn/Killcraft/blob/v1.0.1/LICENSE",
     "permission": "pending"
   },
   "links": {
     "source": "https://github.com/goonsn/Killcraft",
-    "manualInstall": "https://github.com/goonsn/Killcraft/blob/v0.1.6/README.md#install"
+    "manualInstall": "https://github.com/goonsn/Killcraft/blob/v1.0.1/README.md#install"
   },
   "media": {},
   "aiBuilt": true,
@@ -126,8 +130,8 @@
     "While Minecraft has control, ULTRAKILL's own guns, movement tricks and style meter aren't used. Press F9 to switch back to V1.",
     "Minecraft blocks don't get the level's lighting, so they can look bright in dark levels.",
     "ULTRAKILL's enemies only go after you, not after Minecraft mobs, and mobs on your side walk straight at enemies instead of finding a way around walls.",
-    "There's no third-person view: the camera stays in V1's head.",
+    "If Discord is open on your PC, your Discord status shows you're playing Killcraft (and whether you're in the Nether), like other games do. Killcraft only tells the Discord app on your PC; Discord shows it to your friends.",
     "Killcraft and Ultracraft can't be installed at the same time, because both load into ULTRAKILL.",
-    "Removing Killcraft keeps its own copy of Minecraft and your Minecraft sign-in, so reinstalling is quick."
+    "Removing Killcraft keeps its own copy of Minecraft and your Minecraft sign-in, so reinstalling is quick. That Minecraft is shared with SkyCraft (Skyrim), so Remove only takes out what Killcraft added there: its Minecraft mod and its Discord setting. Killcraft's world stays."
   ]
 }

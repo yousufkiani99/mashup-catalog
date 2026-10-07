@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 3,
+  "id": "saintscraft",
+  "title": "SaintsCraft",
+  "tagline": "Real Minecraft inside Saints Row: The Third Remastered: walk the city as Steve and build on its streets.",
+  "description": "Steve walks the city where the Boss walks, in first person with Minecraft's hand, hotbar and hearts. Build with Minecraft blocks on Saints Row's streets and roofs, fly in creative mode, and fight: Minecraft swords and arrows hurt Saints Row's people, arrows set them on fire, and Minecraft TNT goes off as real Saints Row explosions. Saints Row keeps its cars, missions, minimap and money. Press F7 to switch between Minecraft and plain Saints Row; in a car it's always Saints Row. Both games run at the same time and Saints Row draws Minecraft into its own picture.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "saints-row-3r",
+      "name": "Saints Row: The Third Remastered",
+      "store": "steam",
+      "steamAppId": "978300",
+      "version": {
+        "kind": "buildIds",
+        "values": ["7026541"],
+        "note": "The Steam version (Steam build 7026541, SRTTR.exe 21,474,968 bytes), the one SaintsCraft was made for. The Epic version isn't supported."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["saintscraft-fabric", "fabric-api"],
+    "instanceName": "SaintsCraft",
+    "jvmArgs": ["--enable-native-access=ALL-UNNAMED"],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "saintscraft",
+      "name": "SaintsCraft 0.1.0 (Saints Row side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/saintscraft-v0.1.0/saintscraft-0.1.0-game-files.zip",
+      "sha256": "900633b863c1d9a861113fc51394ebe4b80651e92e82bbbcf71b780e8715eb0a",
+      "sizeBytes": 229629,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "saintscraft-0.1.0-game-files.zip",
+      "pins": {
+        "fileSha256": ["db72f191a5c806cb2317bc4eb2461782cf64ee718abcab8e5a0af0f94fa2b501"]
+      }
+    },
+    {
+      "id": "saintscraft-fabric",
+      "name": "SaintsCraft 0.1.0 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/saintscraft-v0.1.0/passthrough-0.1.0.jar",
+      "sha256": "a180e239ed256f6124a31291c0d905430e1b400713492e6e7f59d33e09164fce",
+      "sizeBytes": 221839,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "passthrough-0.1.0.jar"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "saintscraft",
+      "to": "{game:saints-row-3r}",
+      "only": ["dinput8.dll", "mcsr3/LICENSE.txt", "mcsr3/NOTICE.txt"]
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "host link listening",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      { "order": 2, "target": "game", "gameKey": "saints-row-3r", "via": "steam" }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "host connected from",
+      "message": "Linking Minecraft and Saints Row. Load your save: Minecraft's hotbar shows once they're linked."
+    }
+  },
+  "saves": [
+    { "gameKey": "saints-row-3r", "path": "{steam-userdata:978300}/remote" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 4,
+    "notes": "Both games run at once, so it needs a strong PC. Minecraft gets up to 4 GB of memory and draws at Saints Row's window size, following it when it changes."
+  },
+  "credits": [
+    {
+      "name": "SawyerTheNerd",
+      "role": "Creator of SaintsCraft (Minecraft X Saints Row: The Third Remastered)",
+      "url": "https://github.com/SawyerTheNerd"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "The Minecraft x GTA V passthrough its Minecraft mod and link started from",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, the idea of real Minecraft inside another game",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    },
+    {
+      "name": "Tsuda Kageyu",
+      "role": "MinHook, compiled into the link",
+      "url": "https://github.com/TsudaKageyu/minhook"
+    },
+    {
+      "name": "Nathnefo",
+      "role": "SaintExec, whose patterns find the game's script functions",
+      "url": "https://github.com/Nathnefo/SaintExec"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/SawyerTheNerd/Minecraft-X-SaintsRow3Remastered/blob/f608f6962ec809ce2b2d97df9898817998611bde/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/SawyerTheNerd/Minecraft-X-SaintsRow3Remastered",
+    "manualInstall": "https://github.com/SawyerTheNerd/Minecraft-X-SaintsRow3Remastered#setup-and-play"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Early and brand new as a ready-made build: the creator has checked only part of it in the real game, so expect rough edges.",
+    "Single player only. Co-op isn't supported.",
+    "Saints Row's minimap, money and weapon dial can disappear in both modes.",
+    "Sniper scopes and aiming zoom Saints Row's view but not Minecraft's, so blocks look out of place while zoomed.",
+    "Saints Row's cars brake at Minecraft blocks instead of crashing into them, and furniture Minecraft doesn't know about can snap Steve back to the Boss.",
+    "Use Saints Row mode (F7) for cars, doors, missions and the crib menu.",
+    "Saints Row keeps your saves in Steam's own folder (Steam Cloud). The app backs them up before installing and before removing, and SaintsCraft never changes them."
+  ]
+}

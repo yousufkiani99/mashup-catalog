@@ -69,10 +69,11 @@
       "id": "f4se",
       "name": "Fallout 4 Script Extender (F4SE) 0.7.9",
       "url": "https://www.nexusmods.com/fallout4/mods/42147?tab=files",
-      "sha256": "TODO",
+      "sha256": "48677acc460d8dca0f2f6303b0ef7fe16bdb8a97bdc37c6ffb96ec604fec1a48",
+      "sizeBytes": 921767,
       "kind": "loader",
       "source": "nexus",
-      "nexus": { "gameDomain": "fallout4", "modId": 42147 },
+      "nexus": { "gameDomain": "fallout4", "modId": 42147, "fileId": 407709 },
       "licence": "F4SE licence: free, no redistribution (official site f4se.silverlock.org)",
       "fileName": "f4se_0_07_09.7z",
       "pins": { "version": "0.7.9", "gameVersions": ["1.11.240.0"] }
@@ -81,12 +82,13 @@
       "id": "address-library",
       "name": "Address Library for F4SE Plugins (All in One, 1.11.240)",
       "url": "https://www.nexusmods.com/fallout4/mods/47327?tab=files",
-      "sha256": "TODO",
+      "sha256": "385ceddcf7c44d6c50cbf67eea82387f1e036447e1aabc7832ad690ce5c8bb56",
+      "sizeBytes": 57691964,
       "kind": "dependency",
       "source": "nexus",
-      "nexus": { "gameDomain": "fallout4", "modId": 47327 },
+      "nexus": { "gameDomain": "fallout4", "modId": 47327, "fileId": 408268 },
       "licence": "Nexus Mods permissions (Fudgyduff)",
-      "fileName": "address-library-f4se-all-in-one.zip"
+      "fileName": "address-library-f4se-all-in-one-1.11.240.zip"
     },
     {
       "id": "prism-launcher",
@@ -122,7 +124,8 @@
     {
       "action": "extract",
       "download": "address-library",
-      "to": "{game:fallout-4}/Data"
+      "to": "{game:fallout-4}/Data",
+      "only": ["F4SE/Plugins/version-1-11-240-0.bin"]
     },
     {
       "action": "copy",

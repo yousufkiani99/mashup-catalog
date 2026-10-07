@@ -69,23 +69,26 @@
       "id": "skse64",
       "name": "Skyrim Script Extender (SKSE64) 2.3.1",
       "url": "https://www.nexusmods.com/skyrimspecialedition/mods/30379?tab=files",
-      "sha256": "TODO",
+      "sha256": "7bad616ed360823a027f8828801d91e3a4aa2eacd952023af7f3e31adb2ae250",
+      "sizeBytes": 952607,
       "kind": "loader",
       "source": "nexus",
       "nexus": { "gameDomain": "skyrimspecialedition", "modId": 30379 },
       "licence": "SKSE licence: free, no re-hosting (official site skse.silverlock.org)",
-      "fileName": "skse64_2_03_01.7z"
+      "fileName": "skse64_2_03_01.7z",
+      "pins": { "version": "2.3.1", "gameVersions": ["1.7.104.0"] }
     },
     {
       "id": "address-library",
-      "name": "Address Library for SKSE Plugins (All in one, Anniversary Edition)",
+      "name": "Address Library for SKSE Plugins (All in one, 1.7.104.0) v13",
       "url": "https://www.nexusmods.com/skyrimspecialedition/mods/32444?tab=files",
-      "sha256": "TODO",
+      "sha256": "be0c7c07fb63fd1c1403690d4797c7a8fdf8799118acceb605f285d7b0ee055f",
+      "sizeBytes": 6640552,
       "kind": "dependency",
       "source": "nexus",
-      "nexus": { "gameDomain": "skyrimspecialedition", "modId": 32444 },
+      "nexus": { "gameDomain": "skyrimspecialedition", "modId": 32444, "fileId": 795954 },
       "licence": "Nexus Mods permissions (meh321)",
-      "fileName": "address-library-all-in-one-ae.zip"
+      "fileName": "address-library-skse-all-in-one-1.7.104.0-v13.zip"
     },
     {
       "id": "prism-launcher",
@@ -121,7 +124,8 @@
     {
       "action": "extract",
       "download": "address-library",
-      "to": "{game:skyrim-se}/Data"
+      "to": "{game:skyrim-se}/Data",
+      "only": ["SKSE/Plugins/versionlib-1-7-104-0.bin"]
     },
     {
       "action": "extract",
