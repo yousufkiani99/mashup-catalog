@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-07T02:44:44.561Z",
+  "generatedAt": "2026-10-07T03:10:11.395Z",
   "recipes": [
     {
       "id": "beamcraft",
@@ -41,6 +41,11 @@
       "id": "minecraft-passthrough-iv",
       "path": "recipes/minecraft-passthrough-iv.json",
       "sha256": "1c00ab2923d7203d25702385926afc5ebe471f422dd9f206f853d128818aa00a"
+    },
+    {
+      "id": "minecraft-ring",
+      "path": "recipes/minecraft-ring.json",
+      "sha256": "fede57abbca3143cd59f2b9ca7cd27a08080c4fb4d9ba6ac048fd1092457a899"
     },
     {
       "id": "minepunk",

@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 2,
+  "id": "minecraft-ring",
+  "title": "Minecraft Ring",
+  "tagline": "Real Minecraft in the Lands Between: Minecraft's moves, blocks and weapons inside Elden Ring.",
+  "description": "Walk, sprint, jump and fly through the Lands Between with Minecraft's controls, and see Steve inside Elden Ring's world. Place and break Minecraft blocks on its ground, fight its enemies with Minecraft swords, bows and TNT, and in survival their hits land on Steve. Dying sends both games back to a Site of Grace. Press R for doors, levers, items and Sites of Grace, and F8 to hand control to Elden Ring for its menus. Both games run at the same time and Elden Ring draws Minecraft into its own picture. Offline single-player only.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "offlineOnly": true,
+  "games": [
+    {
+      "role": "host",
+      "key": "elden-ring",
+      "name": "ELDEN RING",
+      "store": "steam",
+      "steamAppId": "1245620",
+      "version": {
+        "kind": "exeVersions",
+        "values": ["2.7.1.0"],
+        "note": "Needs Elden Ring 1.17.1 (eldenring.exe 2.7.1.0). On other versions the bridge stays switched off."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 1.21.1 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "1.21.1",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.116.17+1.21.1",
+    "javaMajor": 21,
+    "mods": ["minecraft-ring-fabric", "fabric-api"],
+    "instanceName": "Minecraft Ring",
+    "maxMemoryMb": 3072
+  },
+  "downloads": [
+    {
+      "id": "minecraft-ring",
+      "name": "Minecraft Ring 0.3.0 (Elden Ring side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/minecraft-ring-v0.3.0/minecraft-ring-0.3.0-game-files.zip",
+      "sha256": "beb7983073eff75e2a511a37a084d6cdec919388507032bd52a08c28fa350171",
+      "sizeBytes": 317715,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "minecraft-ring-0.3.0-game-files.zip"
+    },
+    {
+      "id": "minecraft-ring-fabric",
+      "name": "Minecraft Ring 0.3.0 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/minecraft-ring-v0.3.0/er-bridge-0.3.0.jar",
+      "sha256": "2133d15d041afc6132f1a28af8a0e45f03cdc4d5343067c3fc283ed03b1679f7",
+      "sizeBytes": 247185,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "er-bridge-0.3.0.jar"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.116.17 for Minecraft 1.21.1",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.116.17%2B1.21.1/fabric-api-0.116.17%2B1.21.1.jar",
+      "sha256": "79ac44b40780acbd884b34c50be1e39af682847e5f5cb3b1fddeeaa768dce800",
+      "sizeBytes": 2452735,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.116.17+1.21.1.jar"
+    }
+  ],
+  "steps": [{ "action": "prism-instance" }],
+  "launch": {
+    "sessionFiles": [
+      {
+        "download": "minecraft-ring",
+        "to": "{game:elden-ring}/Game",
+        "only": ["dinput8.dll", "erbridge/erbridge_core.dll", "steam_appid.txt"]
+      }
+    ],
+    "steps": [
+      { "order": 1, "target": "prism" },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "elden-ring",
+        "via": "exe",
+        "exe": "{game:elden-ring}/Game/eldenring.exe",
+        "env": { "ERBRIDGE": "1" }
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "(Opening|Creating) bridge world"
+    }
+  },
+  "saves": [
+    { "gameKey": "elden-ring", "path": "{appdata}/EldenRing" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 4,
+    "notes": "Both games run at once, so it needs a strong PC; Minecraft gets up to 3 GB of memory. Keep Steam open: Elden Ring starts straight from its own program, offline, without its anti-cheat. Minecraft's window stays windowed."
+  },
+  "credits": [
+    {
+      "name": "siddoff",
+      "role": "Creator of Minecraft Ring (the Windows bridge and Fabric mod)",
+      "url": "https://github.com/siddoff"
+    },
+    {
+      "name": "justbustin",
+      "role": "minecraft-crossover-bridge, the bridge Minecraft Ring is based on",
+      "url": "https://github.com/justbustin/minecraft-crossover-bridge"
+    },
+    {
+      "name": "Tsuda Kageyu",
+      "role": "MinHook, compiled into the bridge",
+      "url": "https://github.com/TsudaKageyu/minhook"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/siddoff/Minecraft-Ring/blob/main/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/siddoff/Minecraft-Ring",
+    "manualInstall": "https://github.com/siddoff/Minecraft-Ring/blob/main/docs/installation.md"
+  },
+  "media": {},
+  "aiBuilt": false,
+  "knownIssues": [
+    "Experimental, and brand new as a ready-made build: terrain, loading screens, lifts and narrow passages still have rough edges.",
+    "Only Elden Ring 1.17.1 works. After a game update the bridge stays off until the mod catches up.",
+    "Offline only: while you play this, Elden Ring runs without its online features.",
+    "The link files are only in Elden Ring's folder while you play it from the app. We take them out as soon as Elden Ring closes, so starting Elden Ring from Steam to play online is just as before.",
+    "If another mod already has a dinput8.dll in Elden Ring's folder (Mod Engine 2 or Seamless Co-op do), Play asks you to move it out first. We never replace or delete your files.",
+    "The first world starts in creative mode. Type /gamemode survival in Minecraft's chat to take enemy damage.",
+    "Some graphics drivers can't share the picture directly, so Minecraft is copied over more slowly and the frame rate drops."
+  ]
+}
