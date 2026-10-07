@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 2,
+  "id": "killcraft",
+  "title": "Killcraft",
+  "tagline": "Play ULTRAKILL as a Minecraft player: swords, bows, blocks and TNT against Hell's machines.",
+  "description": "Take on ULTRAKILL's levels as a Minecraft player, with Minecraft's movement, health, hunger, hotbar and inventory. Fight ULTRAKILL's enemies with swords, bows, shields, armour and TNT, place blocks that light the level and stop enemy shots, and spawn Minecraft mobs that fight on your side. Build a Nether portal to fight ULTRAKILL's enemies in Minecraft's real Nether. Press F9 to switch back to V1 and your guns at any time. Both games run at the same time: Minecraft runs hidden and ULTRAKILL draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "ultrakill",
+      "name": "ULTRAKILL",
+      "store": "steam",
+      "steamAppId": "1229490",
+      "version": { "kind": "any", "note": "Any current Steam version." }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. Killcraft sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "managedBy": "mashup",
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [],
+    "instanceName": "SkyCraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "killcraft",
+      "name": "Killcraft 0.1.6",
+      "url": "https://github.com/goonsn/Killcraft/releases/download/v0.1.6/Killcraft-0.1.6.zip",
+      "sha256": "350748a8cef0722365922c1b05dc0df4e8d1adceb3d11a09e555b3dd8df5d578",
+      "sizeBytes": 23941178,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (Killcraft; its bundled SkyCraft Minecraft is MIT too, by chasmlol)",
+      "fileName": "Killcraft-0.1.6.zip"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": { "version": "5.4.23.5" }
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinex",
+      "to": "{game:ultrakill}"
+    },
+    {
+      "action": "extract",
+      "download": "killcraft",
+      "to": "{game:ultrakill}/BepInEx/plugins",
+      "only": [
+        "Killcraft/Killcraft.dll",
+        "Killcraft/SkyCraft-Minecraft.zip",
+        "Killcraft/SkyCraft-LICENSE.txt",
+        "Killcraft/SkyCraft-THIRD-PARTY-NOTICES.md",
+        "Killcraft/INSTALL.txt"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [{ "order": 1, "target": "game", "gameKey": "ultrakill", "via": "steam" }],
+    "ready": {
+      "logFile": "{game:ultrakill}/BepInEx/LogOutput.log",
+      "pattern": "Minecraft connected",
+      "message": "Starting Minecraft inside ULTRAKILL. The first time, sign in to Minecraft in the window that opens; Minecraft then downloads for a few minutes.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    { "gameKey": "ultrakill", "path": "{game:ultrakill}/Saves" },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{localappdata}/SkyCraft/Prism/instances/SkyCraft/.minecraft/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft, about 1.5 GB of disk for Minecraft's files, and a graphics card that runs Minecraft 26.3."
+  },
+  "conflictsWith": ["ultracraft"],
+  "credits": [
+    { "name": "goonsn", "role": "Creator of Killcraft", "url": "https://github.com/goonsn" },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, whose Minecraft side Killcraft uses",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/goonsn/Killcraft/blob/v0.1.6/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/goonsn/Killcraft",
+    "manualInstall": "https://github.com/goonsn/Killcraft/blob/v0.1.6/README.md#install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "While Minecraft has control, ULTRAKILL's own guns, movement tricks and style meter aren't used. Press F9 to switch back to V1.",
+    "Minecraft blocks don't get the level's lighting, so they can look bright in dark levels.",
+    "ULTRAKILL's enemies only go after you, not after Minecraft mobs, and mobs on your side walk straight at enemies instead of finding a way around walls.",
+    "There's no third-person view: the camera stays in V1's head.",
+    "Killcraft and Ultracraft can't be installed at the same time, because both load into ULTRAKILL.",
+    "Removing Killcraft keeps its own copy of Minecraft and your Minecraft sign-in, so reinstalling is quick."
+  ]
+}

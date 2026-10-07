@@ -43,22 +43,24 @@
     {
       "id": "minepunk",
       "name": "Minepunk 0.1.0 (Cyberpunk side, community build)",
-      "url": "https://github.com/yousufkiani99/minepunk-builds/releases/download/v0.1.0/minepunk-cyberpunk-0.1.0.zip",
-      "sha256": "TODO",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/minepunk-v0.1.0/minepunk-0.1.0-cyberpunk-files.zip",
+      "sha256": "38447b7d9489cfd21c803f77a1c47d43bba5da70dd3e3d7acdbe9c96c156dfec",
+      "sizeBytes": 213065,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "minepunk-cyberpunk-0.1.0.zip"
+      "fileName": "minepunk-0.1.0-cyberpunk-files.zip"
     },
     {
       "id": "minepunk-fabric",
       "name": "Minepunk 0.1.0 (Minecraft side, community build)",
-      "url": "https://github.com/yousufkiani99/minepunk-builds/releases/download/v0.1.0/minepunk-fabric-0.1.0.jar",
-      "sha256": "TODO",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/minepunk-v0.1.0/passthrough-0.1.0.jar",
+      "sha256": "7e81b318b0fa7613d65895179357e3463353793654a65d0a6ea4aba06d26f801",
+      "sizeBytes": 208664,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "minepunk-fabric-0.1.0.jar"
+      "fileName": "passthrough-0.1.0.jar"
     },
     {
       "id": "cyber-engine-tweaks",
@@ -201,6 +203,20 @@
       "value": "RESHADE_DEPTH_INPUT_IS_REVERSED=1,RESHADE_DEPTH_INPUT_IS_UPSIDE_DOWN=0,RESHADE_DEPTH_INPUT_IS_LOGARITHMIC=0"
     },
     {
+      "action": "ini-set",
+      "file": "{game:cyberpunk-2077}/bin/x64/ReShadePreset.ini",
+      "section": "",
+      "key": "Techniques",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:cyberpunk-2077}/bin/x64/ReShadePreset.ini",
+      "section": "",
+      "key": "TechniqueSorting",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
       "action": "copy",
       "download": "reshade-fxh",
       "to": "{game:cyberpunk-2077}/bin/x64/reshade-shaders/Shaders"
@@ -252,7 +268,7 @@
   "licence": {
     "spdx": "MIT",
     "url": "https://github.com/Duocor3/minepunk/blob/main/LICENSE",
-    "permission": "pending"
+    "permission": "not-needed"
   },
   "links": {
     "source": "https://github.com/Duocor3/minepunk",
@@ -261,7 +277,7 @@
   "media": {},
   "aiBuilt": true,
   "knownIssues": [
-    "Waiting for a ready-made build: it installs once its download is published.",
+    "Brand new: this ready-made build hasn't been played by anyone yet, so expect rough edges.",
     "Turn off DLSS, FSR and XeSS upscaling and frame generation, motion blur and depth of field: they break how the two pictures line up.",
     "Only Cyberpunk 2.31 works. A game update stops it until the mods catch up.",
     "Up to 400 placed blocks are solid for V, and each is a full cube.",

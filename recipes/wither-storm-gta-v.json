@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 2,
+  "id": "wither-storm-gta-v",
+  "title": "Wither Storm x GTA V",
+  "tagline": "The real Wither Storm from Minecraft loose in Los Santos, pulling up people and cars.",
+  "description": "Summon Minecraft's Wither Storm over Los Santos and watch it grow. Its tractor beams lift GTA's people and cars into the sky and it swallows them whole, its skulls blow up in the streets, the sky darkens and people run. The storm is the real one from Cracker's Wither Storm Mod, running in Minecraft next to GTA V, and GTA blends it into its own picture. You can also place blocks, light TNT and fight with Minecraft's weapons. Story mode only.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "gta-v-legacy",
+      "name": "Grand Theft Auto V Legacy",
+      "store": "steam",
+      "steamAppId": "271590",
+      "version": {
+        "kind": "exeVersions",
+        "values": [
+          "1.0.3889.0"
+        ],
+        "note": "GTA V Legacy (not Enhanced), game build 3889, the build Script Hook V supports. After a GTA update it waits for Script Hook V to catch up."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 1.20.1 with Forge itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "1.20.1",
+    "loader": "forge",
+    "loaderVersion": "47.4.10",
+    "javaMajor": 17,
+    "mods": [
+      "wither-storm-gta-v-forge",
+      "crackerslib"
+    ],
+    "playerMods": [
+      "wither-storm-mod"
+    ],
+    "instanceName": "Wither Storm x GTA V"
+  },
+  "downloads": [
+    {
+      "id": "wither-storm-gta-v",
+      "name": "Wither Storm x GTA V 0.1.0 (GTA side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/wither-storm-gta-v-v0.1.0/wither-storm-gta-v-0.1.0.zip",
+      "sha256": "78d1641066093d37b566673129c85f966e3990a1bac92b7ce9734546af4d3fd9",
+      "sizeBytes": 191434,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "wither-storm-gta-v-0.1.0.zip"
+    },
+    {
+      "id": "wither-storm-gta-v-forge",
+      "name": "Wither Storm x GTA V 0.1.0 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/wither-storm-gta-v-v0.1.0/wither-storm-gta-v-forge-0.1.0.jar",
+      "sha256": "9a9ceca304906ff4514e7c1a40b27aa276c97016fc67c976c320740e7d91feff",
+      "sizeBytes": 112460,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "wither-storm-gta-v-forge-0.1.0.jar"
+    },
+    {
+      "id": "crackerslib",
+      "name": "CrackersLib 1.20.1-0.4.6 (needed by the Wither Storm mod)",
+      "url": "https://github.com/nonamecrackers2/crackerslib/releases/download/1.20.1-0.4.6/crackerslib-1.20.1-0.4.6.jar",
+      "sha256": "1266a66e60599387119918f0d79b4c04accadded0736e84bc643b656d39bb212",
+      "sizeBytes": 189820,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "All Rights Reserved (nonamecrackers2); downloaded from the author's own GitHub release",
+      "fileName": "crackerslib-1.20.1-0.4.6.jar"
+    },
+    {
+      "id": "reshade-setup",
+      "name": "ReShade 6.8.0 with full add-on support",
+      "url": "https://reshade.me/downloads/ReShade_Setup_6.8.0_Addon.exe",
+      "sha256": "afe4c8f13048306307983b8b3d41d5bf00a86820440b0e57dea10950e1176445",
+      "kind": "loader",
+      "source": "official-site",
+      "licence": "ReShade: free; binaries are downloaded from reshade.me only",
+      "fileName": "ReShade_Setup_6.8.0_Addon.exe",
+      "pins": {
+        "version": "6.8.0",
+        "fileSha256": [
+          "0cee63f9c9f13f3ac909c5b4903f4dbb4b719a7ab3b4f13b0deaf83c814b94f7"
+        ]
+      }
+    },
+    {
+      "id": "reshade-fxh",
+      "name": "ReShade.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShade.fxh",
+      "sha256": "6dabfbbaf968c3871905d2ea17f96572ff7b1cec01310b5d0e5252b66b30174f",
+      "sizeBytes": 4250,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "CC0-1.0",
+      "fileName": "ReShade.fxh"
+    },
+    {
+      "id": "reshadeui-fxh",
+      "name": "ReShadeUI.fxh (ReShade shader include)",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShadeUI.fxh",
+      "sha256": "78adf672df47460297eb9fe6dd238d2aafa24510b52b84feb1a745dff70eb901",
+      "sizeBytes": 9930,
+      "kind": "dependency",
+      "source": "official-site",
+      "licence": "crosire/reshade-shaders (no licence file; fetched from the official repository)",
+      "fileName": "ReShadeUI.fxh"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "input": "script-hook-v",
+      "to": "{game:gta-v-legacy}",
+      "only": [
+        "**/ScriptHookV.dll",
+        "**/dinput8.dll"
+      ],
+      "flatten": true
+    },
+    {
+      "action": "extract",
+      "download": "reshade-setup",
+      "to": "{game:gta-v-legacy}",
+      "only": [
+        "ReShade64.dll"
+      ],
+      "rename": [
+        {
+          "from": "ReShade64.dll",
+          "to": "ReShade64.asi"
+        }
+      ]
+    },
+    {
+      "action": "copy",
+      "download": "reshade-fxh",
+      "to": "{game:gta-v-legacy}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "copy",
+      "download": "reshadeui-fxh",
+      "to": "{game:gta-v-legacy}/reshade-shaders/Shaders"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "EffectSearchPaths",
+      "value": ".\\reshade-shaders\\Shaders\\"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "TextureSearchPaths",
+      "value": ".\\reshade-shaders\\Textures\\"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PresetPath",
+      "value": ".\\ReShadePreset.ini"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShade.ini",
+      "section": "GENERAL",
+      "key": "PreprocessorDefinitions",
+      "value": "RESHADE_DEPTH_INPUT_IS_REVERSED=1,RESHADE_DEPTH_INPUT_IS_UPSIDE_DOWN=0,RESHADE_DEPTH_INPUT_IS_LOGARITHMIC=0,RESHADE_DEPTH_LINEARIZATION_FAR_PLANE=1000"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "TutorialProgress",
+      "value": "4"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "ShowClock",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShade.ini",
+      "section": "OVERLAY",
+      "key": "ShowFPS",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShade.ini",
+      "section": "SCREENSHOT",
+      "key": "SavePath",
+      "value": ".\\"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShadePreset.ini",
+      "section": "",
+      "key": "Techniques",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShadePreset.ini",
+      "section": "",
+      "key": "TechniqueSorting",
+      "value": "MCPassthrough@MCPassthrough.fx"
+    },
+    {
+      "action": "extract",
+      "download": "wither-storm-gta-v",
+      "to": "{game:gta-v-legacy}"
+    },
+    {
+      "action": "prism-instance"
+    },
+    {
+      "action": "xml-set",
+      "file": "{documents}/Rockstar Games/GTA V/settings.xml",
+      "element": "PauseOnFocusLoss",
+      "attribute": "value",
+      "value": "0"
+    },
+    {
+      "action": "xml-set",
+      "file": "{documents}/Rockstar Games/GTA V/settings.xml",
+      "element": "Windowed",
+      "attribute": "value",
+      "value": "2"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "host link listening",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and Forge and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "gta-v-legacy",
+        "via": "steam",
+        "args": [
+          "-nobattleye"
+        ]
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "host connected from"
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "gta-v-legacy",
+      "path": "{documents}/Rockstar Games/GTA V/Profiles"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Both games render at once and a grown storm is heavy, so it needs a strong PC. GTA runs best windowed with Pause on focus loss off. Minecraft's window stays open in the background."
+  },
+  "offlineOnly": true,
+  "credits": [
+    {
+      "name": "VortexisTV (Thomas B)",
+      "role": "Creator of Wither Storm x GTA V",
+      "url": "https://github.com/VortexisTV/wither-storm-gta5-passthrough"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "The original Minecraft x GTA V passthrough it builds on",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    },
+    {
+      "name": "nonamecrackers2",
+      "role": "Cracker's Wither Storm Mod and CrackersLib",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/crackers-wither-storm-mod"
+    },
+    {
+      "name": "Alexander Blade",
+      "role": "Script Hook V and its ASI loader",
+      "url": "https://www.dev-c.com/gtav/scripthookv/"
+    },
+    {
+      "name": "crosire",
+      "role": "ReShade and its add-on API",
+      "url": "https://reshade.me"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/VortexisTV/wither-storm-gta5-passthrough/blob/24e54b6892ccb199f1b1912e74fdfbab86d87e37/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/VortexisTV/wither-storm-gta5-passthrough",
+    "manualInstall": "https://github.com/VortexisTV/wither-storm-gta5-passthrough#build-and-install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "In GTA, press F9 to bring the Wither Storm in ahead of you, or Shift+F9 for one that's already grown. F10 makes it grow, F11 sends it away and Shift+F11 starts its death.",
+    "A Minecraft window opens too and stays open behind GTA V. It draws the storm you see in GTA, so leave it open.",
+    "Story mode only. GTA starts with BattlEye off, which keeps GTA Online out; never take a modded game online.",
+    "Pick Story Mode on GTA's start screen yourself.",
+    "A GTA update stops it until a new Script Hook V comes out.",
+    "It uses the same GTA V files as Minecraft x GTA V, so have only one of the two installed at a time. Remove the other one first.",
+    "The storm lifts and swallows people and cars, but GTA's roads and buildings stay standing.",
+    "F7 turns the link with Minecraft off and on; F8 levels Minecraft's ground where you stand."
+  ],
+  "important": [
+    {
+      "text": "Script Hook V links GTA V with Minecraft. It comes only from its author's own site, so you press Download there. We do everything else.",
+      "link": "https://www.dev-c.com/gtav/scripthookv/",
+      "linkLabel": "Get Script Hook V",
+      "blocksInstall": true,
+      "input": {
+        "id": "script-hook-v",
+        "kind": "zip",
+        "name": "Script Hook V",
+        "label": "The Script Hook V zip",
+        "mustContain": [
+          "ScriptHookV.dll",
+          "dinput8.dll"
+        ],
+        "find": {
+          "folder": "downloads",
+          "name": "^ScriptHookV_.*\\.zip$",
+          "exclude": "DotNet"
+        },
+        "wrongFiles": [
+          {
+            "name": "_SDK_",
+            "contains": [
+              "ScriptHookV.lib",
+              "main.h"
+            ],
+            "message": "That's the Script Hook V developer kit, not Script Hook V itself. On the author's page, use the Download link just above it."
+          }
+        ],
+        "versionCheck": {
+          "file": "ScriptHookV.dll",
+          "game": "gta-v-legacy",
+          "rule": "game-build"
+        },
+        "origin": {
+          "hosts": [
+            "dev-c.com"
+          ]
+        }
+      }
+    },
+    {
+      "text": "The storm itself is Cracker's Wither Storm Mod. Its author shares it on CurseForge, so you press Download on its page. We check the file and do everything else.",
+      "link": "https://www.curseforge.com/minecraft/mc-mods/crackers-wither-storm-mod/files/5619741",
+      "linkLabel": "Get the Wither Storm mod",
+      "blocksInstall": true,
+      "input": {
+        "id": "wither-storm-mod",
+        "kind": "zip",
+        "name": "Cracker's Wither Storm Mod",
+        "label": "The Wither Storm mod file",
+        "mustContain": [
+          "mods.toml"
+        ],
+        "find": {
+          "folder": "downloads",
+          "name": "^witherstormmod-1\\.20\\.1-4\\.2\\.1-all.*\\.jar$",
+          "maxSizeMb": 100
+        },
+        "sha256": [
+          "a23c019b1465c87ba506ada49aa815866e5353ebdc2be3284d9087ff080018ac"
+        ],
+        "origin": {
+          "hosts": [
+            "curseforge.com",
+            "forgecdn.net"
+          ]
+        }
+      }
+    }
+  ],
+  "conflictsWith": [
+    "minecraft-gta-v"
+  ]
+}

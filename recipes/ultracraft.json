@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 2,
+  "id": "ultracraft",
+  "title": "Ultracraft",
+  "tagline": "Play the real ULTRAKILL inside Minecraft: become V1 and fight its enemies and bosses in Minecraft's world.",
+  "description": "Become V1 inside Minecraft 1.21.11. The real ULTRAKILL runs alongside and is drawn into Minecraft's window, while Minecraft's blocks and mobs become its world and enemies. Fight ULTRAKILL's enemies across Minecraft's biomes, beat bosses in arenas themed after each layer of Hell, spend P at a shop you craft, play the Cyber Grind and team up with friends on your home network. Press F8 to switch between V1 and Steve. Your own ULTRAKILL save is never changed.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "ultrakill",
+      "name": "ULTRAKILL",
+      "store": "steam",
+      "steamAppId": "1229490",
+      "version": { "kind": "any", "note": "Any current Steam version." }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 1.21.11 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "1.21.11",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.141.6+1.21.11",
+    "javaMajor": 21,
+    "mods": ["fabric-api"],
+    "instanceName": "Ultracraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "ultracraft",
+      "name": "Ultracraft 0.1.8 (both sides)",
+      "url": "https://github.com/alfr0762/ultracraft/releases/download/v0.1.8/Ultracraft.zip",
+      "sha256": "6e0eaec49b276581f9f5c8ecd6d647641db9514371aa5294a249fe0505738385",
+      "sizeBytes": 409675,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "Ultracraft-0.1.8.zip"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": { "version": "5.4.23.5" }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.141.6 for Minecraft 1.21.11",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.141.6%2B1.21.11/fabric-api-0.141.6%2B1.21.11.jar",
+      "sha256": "bdff7fd7e220085cfad2ff9b1f40dde6534ae0b96cf378f97a374bc54cb9ed0f",
+      "sizeBytes": 2426039,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.141.6+1.21.11.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinex",
+      "to": "{game:ultrakill}"
+    },
+    {
+      "action": "extract",
+      "download": "ultracraft",
+      "to": "{game:ultrakill}/BepInEx/plugins/UltraBridge",
+      "only": ["UltraBridge.dll"]
+    },
+    { "action": "prism-instance" },
+    {
+      "action": "extract",
+      "download": "ultracraft",
+      "to": "{prism-instance}/mods",
+      "only": ["ultracraft-0.1.8+1.21.11.jar"]
+    }
+  ],
+  "launch": {
+    "steps": [{ "order": 1, "target": "prism" }],
+    "ready": {
+      "logFile": "{game:ultrakill}/BepInEx/LogOutput.log",
+      "pattern": "Minecraft connected",
+      "message": "Minecraft starts ULTRAKILL by itself. If Steam asks to allow ULTRAKILL's launch options, click Continue.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    { "gameKey": "ultrakill", "path": "{game:ultrakill}/Saves" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "Two games draw at once on one graphics card. If it's slow, lower ULTRAKILL's resolution to 540p in Minecraft's Ultracraft settings and keep Minecraft's render distance at 8 to 12 chunks."
+  },
+  "conflictsWith": ["killcraft"],
+  "credits": [
+    { "name": "alfr0762", "role": "Creator of Ultracraft", "url": "https://github.com/alfr0762" }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/alfr0762/ultracraft/blob/v0.1.8/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/alfr0762/ultracraft",
+    "manualInstall": "https://github.com/alfr0762/ultracraft/blob/v0.1.8/README.md#install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Open a Minecraft world after it starts: you become V1 once the world has loaded.",
+    "Closing Minecraft closes the ULTRAKILL it started.",
+    "Playing together works on the same home network (Open to LAN). Everyone needs ULTRAKILL and the same mashup.",
+    "Killcraft and Ultracraft can't be installed at the same time, because both load into ULTRAKILL."
+  ]
+}

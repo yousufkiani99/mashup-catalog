@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 2,
+  "id": "beamcraft",
+  "title": "BeamCraft",
+  "tagline": "Step out of your car as Steve: build, fight and get run over in BeamNG.drive's world.",
+  "description": "Get out of any car and you are Steve, walking around BeamNG.drive's maps with Minecraft's movement, items and inventory. Blocks you place become real objects that cars crash into, punching a car dents it, TNT damages cars nearby, and getting run over hurts. Boats float on BeamNG's seas, and Minecraft's lighting follows BeamNG's time of day. Every map gets its own patch of the Minecraft world, so builds never overlap. Both games run at the same time: Minecraft runs hidden and BeamNG.drive shows everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "beamng-drive",
+      "name": "BeamNG.drive",
+      "store": "steam",
+      "steamAppId": "284160",
+      "version": {
+        "kind": "any",
+        "note": "Tested on BeamNG.drive 0.39. Needs 0.37 or newer (the version that moved BeamNG's mods folder)."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 1.21.1 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "1.21.1",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.116.17+1.21.1",
+    "javaMajor": 21,
+    "mods": ["beamcraft-fabric", "fabric-api-1-21-1"],
+    "instanceName": "BeamCraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "beamcraft",
+      "name": "BeamCraft 0.1.0 (BeamNG.drive side)",
+      "url": "https://github.com/DJtsdk/BeamCraft/releases/download/v0.1.0/beamcraft.zip",
+      "sha256": "db1d05f5d7dbb803b7b52f0f262354e5e8293a1387e30b965ec6b07cdfcded6a",
+      "sizeBytes": 102636,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "beamcraft.zip"
+    },
+    {
+      "id": "beamcraft-fabric",
+      "name": "BeamCraft 0.1.0 (Minecraft side)",
+      "url": "https://github.com/DJtsdk/BeamCraft/releases/download/v0.1.0/beamcraft-0.1.0.jar",
+      "sha256": "f80e0c685f41794268c75b9207489b944582142452677c9c119d35128ffa86ac",
+      "sizeBytes": 83870,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "beamcraft-0.1.0.jar"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api-1-21-1",
+      "name": "Fabric API 0.116.17 for Minecraft 1.21.1",
+      "url": "https://github.com/FabricMC/fabric-api/releases/download/0.116.17%2B1.21.1/fabric-api-0.116.17%2B1.21.1.jar",
+      "sha256": "79ac44b40780acbd884b34c50be1e39af682847e5f5cb3b1fddeeaa768dce800",
+      "sizeBytes": 2452735,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.116.17+1.21.1.jar"
+    }
+  ],
+  "steps": [
+    { "action": "mkdir", "path": "{localappdata}/BeamNG/BeamNG.drive/current/mods" },
+    {
+      "action": "copy",
+      "download": "beamcraft",
+      "to": "{localappdata}/BeamNG/BeamNG.drive/current/mods"
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "BeamCraft listening on 127\\.0\\.0\\.1",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      { "order": 2, "target": "game", "gameKey": "beamng-drive", "via": "steam" }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "BeamCraft: BeamNG connected"
+    }
+  },
+  "saves": [{ "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "Both games run at the same time, so it needs a strong PC: about 3 GB of extra RAM for Minecraft on top of BeamNG.drive."
+  },
+  "credits": [
+    { "name": "DJtsdk", "role": "Creator of BeamCraft", "url": "https://github.com/DJtsdk" },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which inspired BeamCraft",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "GPL-3.0-only",
+    "url": "https://github.com/DJtsdk/BeamCraft/blob/v0.1.0/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/DJtsdk/BeamCraft",
+    "manualInstall": "https://github.com/DJtsdk/BeamCraft#installing"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Load any map in Freeroam: Minecraft joins in by itself once the map is up. Press F to get out of your car and play as Steve.",
+    "If BeamNG.drive's own launcher window opens first, click Play there.",
+    "Minecraft's mobs aren't shown in BeamNG.drive, so they're turned off.",
+    "A block you place becomes solid for cars a moment later; Steve bumps into it straight away.",
+    "Single player only.",
+    "After some BeamNG.drive updates, BeamNG switches mods off. If that happens we tell you before starting, and you switch it back on in BeamNG's Mods menu."
+  ]
+}

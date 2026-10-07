@@ -44,22 +44,24 @@
     {
       "id": "ds-minecraft",
       "name": "Minecraft in Death Stranding 0.1.0 (Death Stranding side, community build)",
-      "url": "https://github.com/yousufkiani99/ds-minecraft-builds/releases/download/v0.1.0/ds-minecraft-0.1.0.zip",
-      "sha256": "TODO",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/minecraft-in-death-stranding-v0.1.0/minecraft-in-death-stranding-0.1.0-ds-files.zip",
+      "sha256": "f36ffee6ddfd9c41d0d36c7a866580425c4ac80be92f7a388f940a20ed824910",
+      "sizeBytes": 212133,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "ds-minecraft-0.1.0.zip"
+      "fileName": "minecraft-in-death-stranding-0.1.0-ds-files.zip"
     },
     {
       "id": "ds-minecraft-fabric",
       "name": "Minecraft in Death Stranding 0.1.0 (Minecraft side, community build)",
-      "url": "https://github.com/yousufkiani99/ds-minecraft-builds/releases/download/v0.1.0/ds-minecraft-fabric-0.1.0.jar",
-      "sha256": "TODO",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/minecraft-in-death-stranding-v0.1.0/passthrough-0.1.0.jar",
+      "sha256": "fd79920fabda39f53d41640e837ff1d21dd828a6d0a3593943fea2df01a24107",
+      "sizeBytes": 218059,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "ds-minecraft-fabric-0.1.0.jar"
+      "fileName": "passthrough-0.1.0.jar"
     },
     {
       "id": "reshade-setup",
@@ -312,7 +314,7 @@
   "licence": {
     "spdx": "MIT",
     "url": "https://github.com/mihailinl/minecraft-in-death-stranding/blob/main/LICENSE",
-    "permission": "pending"
+    "permission": "not-needed"
   },
   "links": {
     "source": "https://github.com/mihailinl/minecraft-in-death-stranding",
@@ -321,8 +323,7 @@
   "media": {},
   "aiBuilt": true,
   "knownIssues": [
-    "Waiting for a ready-made build: it installs once its download is published.",
-    "Its creator developed and played it on Linux; Windows hasn't been tested by them yet.",
+    "Not tested on Windows yet: its creator made and played it on Linux. Our Windows build is brand new, so expect rough edges.",
     "Weapons, damage and the Minecraft inventory are new and only lightly tested.",
     "First-person view can't be widened yet.",
     "You can only build in a band around Sam; walk closer to build further away."

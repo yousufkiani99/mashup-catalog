@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 2,
+  "id": "garrys-redemption",
+  "title": "Garry's Redemption",
+  "tagline": "Bring Garry's Mod's physics gun, tool gun and spawn menu into Red Dead Redemption 2's world.",
+  "description": "Walk, sprint and fly through Red Dead Redemption 2's world as a Garry's Mod player. Pick up people, horses, wagons and boats with the physics gun and throw them, weld and rope things together with the tool gun, or possess a townsperson and walk around as them. A Red Dead tab in the spawn menu brings in the game's people, animals and wagons by name. Garry's Mod's weapons hurt RDR2's people as real bullets, and the law reacts. Story mode only. Both games run at the same time: Garry's Mod runs hidden and Red Dead Redemption 2 shows everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "rdr2",
+      "name": "Red Dead Redemption 2",
+      "store": "steam",
+      "steamAppId": "1174180",
+      "version": {
+        "kind": "minimum",
+        "values": ["1.0.1491.0"],
+        "note": "Story mode. Tested on game version 1.0.1491 (Vulkan). Not the Game Pass copy."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "garrys-mod",
+      "name": "Garry's Mod",
+      "store": "steam",
+      "steamAppId": "4000",
+      "version": {
+        "kind": "any",
+        "note": "The 64-bit version, which Steam installs from Garry's Mod's x86-64 branch."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "garrys-redemption",
+      "name": "Garry's Redemption 0.1.0 beta",
+      "url": "https://github.com/codeByAlexff/garrys-redemption/releases/download/v0.1.0-beta/GarrysRedemption-v0.1.0-beta.zip",
+      "sha256": "91ba4e0c48558330a7130d38469406f40b0a458e1d0fcc87fc06185ba831a3a2",
+      "sizeBytes": 567342,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "GarrysRedemption-v0.1.0-beta.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "input": "script-hook-rdr2",
+      "to": "{game:rdr2}",
+      "only": ["**/ScriptHookRDR2.dll", "**/dinput8.dll"],
+      "flatten": true
+    },
+    {
+      "action": "extract",
+      "download": "garrys-redemption",
+      "to": "{game:rdr2}",
+      "from": "RDR2",
+      "only": ["GarrysRedemption.asi"]
+    },
+    {
+      "action": "extract",
+      "download": "garrys-redemption",
+      "to": "{game:garrys-mod}",
+      "from": "GarrysMod",
+      "only": ["garrysmod/**"]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "rdr2",
+        "via": "steam",
+        "waitFor": {
+          "logFile": "{game:rdr2}/GarrysRedemption.log",
+          "pattern": "RDR2 plugin: protocol",
+          "message": "Starting Red Dead Redemption 2. Pick Story Mode; Garry's Mod starts by itself.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "garrys-mod",
+        "via": "exe",
+        "exe": "{game:garrys-mod}/gmod_win64.exe",
+        "args": [
+          "-windowed",
+          "-w",
+          "1920",
+          "-h",
+          "1080",
+          "-novid",
+          "-condebug",
+          "+maxplayers",
+          "1",
+          "+map",
+          "gm_flatgrass"
+        ]
+      }
+    ],
+    "ready": {
+      "logFile": "{game:rdr2}/GarrysRedemption.log",
+      "pattern": "link: GMod module connected"
+    }
+  },
+  "saves": [
+    { "gameKey": "rdr2", "path": "{documents}/Rockstar Games/Red Dead Redemption 2/Profiles" },
+    { "gameKey": "garrys-mod", "path": "{game:garrys-mod}/garrysmod/saves" }
+  ],
+  "requirements": {
+    "notes": "Both games run at the same time, so it needs a strong PC. Tested on Windows 11 with an NVIDIA graphics card and Red Dead Redemption 2 on Vulkan."
+  },
+  "offlineOnly": true,
+  "credits": [
+    {
+      "name": "codeByAlexff",
+      "role": "Creator of Garry's Redemption",
+      "url": "https://github.com/codeByAlexff/garrys-redemption"
+    },
+    {
+      "name": "Alexander Blade",
+      "role": "Script Hook RDR2 and its ASI loader",
+      "url": "https://www.dev-c.com/rdr2/scripthookrdr2/"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/codeByAlexff/garrys-redemption/blob/v0.1.0-beta/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/codeByAlexff/garrys-redemption",
+    "manualInstall": "https://github.com/codeByAlexff/garrys-redemption#install-from-a-release-no-building"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Story mode only. It switches itself off in Red Dead Online, and Script Hook RDR2 closes the game if you go online.",
+    "Pick Story Mode on Red Dead Redemption 2's start screen yourself. Garry's Mod then starts by itself and hides its window; click Red Dead Redemption 2's window again while it loads.",
+    "F9 hands the player back to Red Dead Redemption 2 (to ride, shop or play a mission) and back again.",
+    "Looking around can stutter on some PCs.",
+    "In towns, most crates and barrels can't be picked up; people, animals and wagons can.",
+    "Typing in Garry's Mod's text boxes expects a US keyboard layout.",
+    "Only tested with Red Dead Redemption 2 on Vulkan and an NVIDIA graphics card.",
+    "As Arthur, stay out of New Austin (Armadillo, Tumbleweed and around): the game has him shot on sight there."
+  ],
+  "important": [
+    {
+      "text": "Script Hook RDR2 links Red Dead Redemption 2 with Garry's Mod. It comes only from its author's own site, so you press Download there. We do everything else.",
+      "link": "https://www.dev-c.com/rdr2/scripthookrdr2/",
+      "linkLabel": "Get Script Hook RDR2",
+      "blocksInstall": true,
+      "input": {
+        "id": "script-hook-rdr2",
+        "kind": "zip",
+        "name": "Script Hook RDR2",
+        "label": "The Script Hook RDR2 zip",
+        "mustContain": ["ScriptHookRDR2.dll", "dinput8.dll"],
+        "find": {
+          "folder": "downloads",
+          "name": "^ScriptHookRDR2_.*\\.zip$",
+          "exclude": "DotNet"
+        },
+        "wrongFiles": [
+          {
+            "name": "_SDK_",
+            "contains": ["ScriptHookRDR2.lib"],
+            "message": "That's the Script Hook RDR2 developer kit, not Script Hook RDR2 itself. On the author's page, use the Download link just above it."
+          }
+        ],
+        "versionCheck": {
+          "file": "ScriptHookRDR2.dll",
+          "game": "rdr2",
+          "rule": "game-build-or-newer"
+        },
+        "origin": { "hosts": ["dev-c.com"] }
+      }
+    },
+    {
+      "text": "In Red Dead Redemption 2's Graphics settings, set Screen Type to Windowed Borderless (or Windowed). Garry's Mod draws its HUD and guns in a window on top of the game, which full screen hides."
+    },
+    {
+      "text": "Only if Red Dead Redemption 2 fills your whole screen on an NVIDIA graphics card: in NVIDIA Control Panel, Manage 3D settings, Program Settings, pick Red Dead Redemption 2 and set \"Vulkan/OpenGL present method\" to \"Prefer layered on DXGI Swapchain\". Or run the game on DirectX 12.",
+      "link": "https://github.com/codeByAlexff/garrys-redemption#install-from-a-release-no-building",
+      "linkLabel": "Creator's guide"
+    }
+  ]
+}

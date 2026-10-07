@@ -1,11 +1,31 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T08:11:28.649Z",
+  "generatedAt": "2026-10-07T02:44:44.561Z",
   "recipes": [
+    {
+      "id": "beamcraft",
+      "path": "recipes/beamcraft.json",
+      "sha256": "ac8bc5771aac050669d03c24d8c719081e12cee17650166a6a8470abd8d5b67c"
+    },
     {
       "id": "falloutcraft",
       "path": "recipes/falloutcraft.json",
-      "sha256": "a67e608025ddfdd00c3b3f590e827d91b7fca3722c575a492eee5e1a25443a9f"
+      "sha256": "a9a81f923d0899f8df5d596e7651f3ebee9ed2382772a4dd253d6dd49b5db696"
+    },
+    {
+      "id": "garrys-redemption",
+      "path": "recipes/garrys-redemption.json",
+      "sha256": "5b0a2452266a2259ca567b208c7489cae7ab2eda3be8e087227af06096eb1d28"
+    },
+    {
+      "id": "killcraft",
+      "path": "recipes/killcraft.json",
+      "sha256": "8b07a331ff9cf80cddf014f1a994c202be0cef01ac68f1b0834422f12b6aa803"
+    },
+    {
+      "id": "minecraft-gta-enhanced",
+      "path": "recipes/minecraft-gta-enhanced.json",
+      "sha256": "a0232b91a868c4ec5dc567702f4c451e865161c92711a17222dd482703fdc41a"
     },
     {
       "id": "minecraft-gta-v",
@@ -15,7 +35,7 @@
     {
       "id": "minecraft-in-death-stranding",
       "path": "recipes/minecraft-in-death-stranding.json",
-      "sha256": "89f02832b328f8bcfb7baa266fbf3d1865cc02a24bdfe7badf3377a7f64bf4c5"
+      "sha256": "cf870423197aef85dedc322a91668f2c0afde3d780e1d3b79eceaf0c58731094"
     },
     {
       "id": "minecraft-passthrough-iv",
@@ -25,7 +45,7 @@
     {
       "id": "minepunk",
       "path": "recipes/minepunk.json",
-      "sha256": "7575c81ea67a9b6b7d0c3435f8e62a705f9bfbac0205971984b89323a98bfb51"
+      "sha256": "40c897369a53fe7b6085daa0d59e31c8ed4e7c4e5fc9510f771f8d0f5546b5d4"
     },
     {
       "id": "owcraft",
@@ -38,6 +58,11 @@
       "sha256": "489bce2a0c4d0d387e4fef4bc6e20e600727f866404f68f9771a0a8bf914ae50"
     },
     {
+      "id": "ultracraft",
+      "path": "recipes/ultracraft.json",
+      "sha256": "8fc10d5da36959a529b38c802f00b438a936b9d7de4337bfd64b81528e445075"
+    },
+    {
       "id": "valcraft",
       "path": "recipes/valcraft.json",
       "sha256": "2934efcc3a9cf3382d73ab65c668748b36e7883b95938110dc76bd35cf9bf72a"
@@ -46,6 +71,11 @@
       "id": "vegascraft",
       "path": "recipes/vegascraft.json",
       "sha256": "1e086d9e98ebd27695838142e6b6ffad794dcd46125268477126ffba621e0e69"
+    },
+    {
+      "id": "wither-storm-gta-v",
+      "path": "recipes/wither-storm-gta-v.json",
+      "sha256": "afdacef7bff7eac5a1bbcae4ad8c56663cbd6941d155c2826bd26cb83df0ee8a"
     }
   ]
 }

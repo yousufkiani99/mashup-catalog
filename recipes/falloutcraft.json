@@ -45,10 +45,10 @@
   "downloads": [
     {
       "id": "falloutcraft",
-      "name": "FalloutCraft 0.1.2 (Fallout 4 side)",
-      "url": "https://github.com/zeyvu/FalloutCraft/releases/download/v.0.1.2/commonlibf4-template.dll",
-      "sha256": "ed1bdafd16790c0c81ae90d099e1bef672c339284cb5ee880da9f372e0d2b2aa",
-      "sizeBytes": 2975744,
+      "name": "FalloutCraft 0.1.3 (Fallout 4 side)",
+      "url": "https://github.com/zeyvu/FalloutCraft/releases/download/v0.1.3/commonlibf4-template.dll",
+      "sha256": "47ceec457386fea066f74d5b84272443099e87ff690f8edee96f9049e7d845c3",
+      "sizeBytes": 3115520,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
@@ -56,14 +56,14 @@
     },
     {
       "id": "falloutcraft-fabric",
-      "name": "FalloutCraft 0.1.2 (Minecraft side)",
-      "url": "https://github.com/zeyvu/FalloutCraft/releases/download/v.0.1.2/falloutcraft-0.1.2.jar",
-      "sha256": "adf29ab1443b2559823216878dfb8fbd0a7069630abb69c770c7ad9b3ba16d13",
-      "sizeBytes": 264615,
+      "name": "FalloutCraft 0.1.3 (Minecraft side)",
+      "url": "https://github.com/zeyvu/FalloutCraft/releases/download/v0.1.3/falloutcraft-0.1.3.jar",
+      "sha256": "86f54f0e4244e577f763d7a335467e0dbece300347218a906da5b6d9f403f092",
+      "sizeBytes": 274515,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "falloutcraft-0.1.2.jar"
+      "fileName": "falloutcraft-0.1.3.jar"
     },
     {
       "id": "f4se",
@@ -74,7 +74,8 @@
       "source": "nexus",
       "nexus": { "gameDomain": "fallout4", "modId": 42147 },
       "licence": "F4SE licence: free, no redistribution (official site f4se.silverlock.org)",
-      "fileName": "f4se_0_07_09.7z"
+      "fileName": "f4se_0_07_09.7z",
+      "pins": { "version": "0.7.9", "gameVersions": ["1.11.240.0"] }
     },
     {
       "id": "address-library",
@@ -164,7 +165,7 @@
   ],
   "licence": {
     "spdx": "MIT",
-    "url": "https://github.com/zeyvu/FalloutCraft/blob/v.0.1.2/LICENSE",
+    "url": "https://github.com/zeyvu/FalloutCraft/blob/v0.1.3/LICENSE",
     "permission": "pending"
   },
   "links": {
