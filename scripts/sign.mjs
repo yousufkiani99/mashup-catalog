@@ -14,6 +14,12 @@
 //
 // Writes index.json (stable key order, LF) and index.json.sig (base64 signature over the exact
 // bytes of index.json). The private key is only read, never written anywhere.
+//
+// generatedAt always moves forward: apps refuse a list older than one they've already seen, so a
+// new signature is always dated after the newest index.json in this repo's history (HEAD and
+// origin/main; run `git pull` first). That also covers a `git revert`: the reverted index.json is
+// older than the newest one, so it is signed again with a newer time. The signer refuses to sign
+// when this PC's clock is more than a day behind that newest date (a wrong clock).
 import { createPrivateKey, createPublicKey, sign, verify } from 'node:crypto'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -22,6 +28,7 @@ import {
   buildIndex,
   indexBytes,
   listRecipeFiles,
+  newestSignedGeneratedAt,
   readRevokedTesterKeys,
   recipeProblems,
   REVOKED_TESTER_KEYS_FILE
@@ -76,6 +83,7 @@ if (bad) fail('fix the problems above, then sign again')
 
 const indexPath = join(root, 'index.json')
 const sigPath = join(root, 'index.json.sig')
+const newest = newestSignedGeneratedAt(root)
 
 // Nothing changed since the last signature: leave both files alone (no empty commits).
 if (!force && existsSync(indexPath) && existsSync(sigPath)) {
@@ -84,7 +92,13 @@ if (!force && existsSync(indexPath) && existsSync(sigPath)) {
     const old = JSON.parse(oldBytes.toString('utf8'))
     const same = indexBytes(buildIndex(files, old.generatedAt, revoked.ids)).equals(oldBytes)
     const sig = Buffer.from(readFileSync(sigPath, 'utf8').trim(), 'base64')
-    if (same && verify(null, oldBytes, createPublicKey(publicPem), sig)) {
+    const isNewest = !newest || Date.parse(old.generatedAt) >= Date.parse(newest.at)
+    if (same && !isNewest) {
+      console.log(
+        `sign: index.json (${old.generatedAt}) is older than the one in ${newest.where} (${newest.at}); apps would ignore it, so signing it again with a newer time`
+      )
+    }
+    if (same && isNewest && verify(null, oldBytes, createPublicKey(publicPem), sig)) {
       console.log(
         `sign: index.json is up to date (${files.length} recipes, ${revoked.ids.length} switched-off tester keys); nothing to do`
       )
@@ -95,7 +109,20 @@ if (!force && existsSync(indexPath) && existsSync(sigPath)) {
   }
 }
 
-const bytes = indexBytes(buildIndex(files, new Date().toISOString(), revoked.ids))
+const DAY_MS = 24 * 60 * 60 * 1000
+const nowMs = Date.now()
+let generatedAtMs = nowMs
+if (newest) {
+  const newestMs = Date.parse(newest.at)
+  if (nowMs < newestMs - DAY_MS) {
+    fail(
+      `this PC's clock (${new Date(nowMs).toISOString()}) is more than a day behind the newest signed index.json (${newest.at}, ${newest.where}). Fix the date and time in Windows settings, then sign again.`
+    )
+  }
+  // Strictly newer than every list signed before, even if the clock is a little behind.
+  generatedAtMs = Math.max(nowMs, newestMs + 1)
+}
+const bytes = indexBytes(buildIndex(files, new Date(generatedAtMs).toISOString(), revoked.ids))
 const signature = sign(null, bytes, privateKey).toString('base64')
 writeFileSync(indexPath, bytes)
 writeFileSync(sigPath, signature + '\n')

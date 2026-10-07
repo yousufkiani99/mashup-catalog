@@ -2,13 +2,18 @@
 // Checks the catalog the way the app does: index.json.sig must verify against public-key.pem, every
 // recipe's SHA-256 must match index.json, and index.json must list exactly the files in recipes/.
 // The optional "revokedTesterKeys" list must be valid tester key ids and match revoked-tester-keys.json.
+// A changed index.json must have a newer generatedAt than the previous one (apps refuse older
+// lists), compared with --previous <git revision> (CI passes the commit before the push), or
+// origin/main by default.
 //
-//   node scripts/verify.mjs
+//   node scripts/verify.mjs [--previous <rev>]
 import { createPublicKey, verify } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
+  generatedAtOf,
+  indexBytesAt,
   listRecipeFiles,
   readRevokedTesterKeys,
   recipeProblems,
@@ -20,9 +25,20 @@ import {
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const errors = []
 
+const args = process.argv.slice(2)
+let previousRev = 'origin/main'
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--previous' && args[i + 1]) previousRev = args[++i]
+  else {
+    console.error(`verify: unknown option ${args[i]}`)
+    process.exit(1)
+  }
+}
+
 let index
+let bytes
 try {
-  const bytes = readFileSync(join(root, 'index.json'))
+  bytes = readFileSync(join(root, 'index.json'))
   const sig = Buffer.from(readFileSync(join(root, 'index.json.sig'), 'utf8').trim(), 'base64')
   const key = createPublicKey(readFileSync(join(root, 'public-key.pem'), 'utf8'))
   if (sig.length !== 64 || !verify(null, bytes, key, sig)) errors.push("index.json.sig doesn't verify against public-key.pem")
@@ -59,6 +75,24 @@ if (index) {
   const signed = Array.isArray(index.revokedTesterKeys) ? index.revokedTesterKeys : []
   if (JSON.stringify(signed) !== JSON.stringify(revoked.ids)) {
     errors.push(`index.json revokedTesterKeys doesn't match ${REVOKED_TESTER_KEYS_FILE} (run sign.mjs)`)
+  }
+}
+
+// generatedAt must move forward, or apps that saw the previous list keep it and ignore this one
+// (e.g. after a `git revert` that brought an older signed index.json back).
+if (index && bytes) {
+  const previous = /^0+$/.test(previousRev) ? undefined : indexBytesAt(root, previousRev)
+  if (!previous) {
+    console.log(`verify: no index.json at ${previousRev} to compare dates with; skipped that check`)
+  } else if (!previous.equals(bytes)) {
+    const before = generatedAtOf(previous)
+    const now = generatedAtOf(bytes)
+    if (!now) errors.push('index.json has no valid generatedAt')
+    else if (before && Date.parse(now) <= Date.parse(before)) {
+      errors.push(
+        `index.json generatedAt (${now}) isn't newer than ${previousRev}'s (${before}); apps would ignore this list. Run sign.mjs again (it signs with a newer time).`
+      )
+    }
   }
 }
 

@@ -12,7 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # History, so the previous index.json can be compared (generatedAt must move forward).
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node scripts/verify.mjs
+      # Compared with main before this push, or the pull request's base.
+      - run: node scripts/verify.mjs --previous "$PREVIOUS"
+        env:
+          PREVIOUS: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}

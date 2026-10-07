@@ -71,3 +71,11 @@ The app reads this catalog every time it starts, so these reach every player wit
 - **Take a mashup out:** `git mv recipes/<id>.json held/`, then sign and push. It disappears from the app and
   stays gone offline (the app keeps the newest signed list it has seen).
 - Sign: `node scripts/sign.mjs --key <path to the private key>`, check: `node scripts/verify.mjs`.
+- **Undoing a change with `git revert`:** always run `sign.mjs` again before pushing. The revert brings
+  back an older signed `index.json`, and apps that saw the newer list ignore an older one. `sign.mjs`
+  notices and signs it again with a newer time; CI (`verify.mjs`) fails a push whose `index.json`
+  isn't newer than the one before it.
+
+`sign.mjs` always dates a new signature after the newest `index.json` in the repo's history (run
+`git pull` first so it sees the latest), and refuses to sign if this PC's clock is more than a day
+behind that date: fix the date and time in Windows settings, then sign again.
