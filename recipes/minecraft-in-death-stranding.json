@@ -80,7 +80,7 @@
     {
       "id": "reshade-fxh",
       "name": "ReShade.fxh (ReShade shader include)",
-      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShade.fxh",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/fd0022170615ce0d8162d219bff07232fa6dd84f/Shaders/ReShade.fxh",
       "sha256": "6dabfbbaf968c3871905d2ea17f96572ff7b1cec01310b5d0e5252b66b30174f",
       "sizeBytes": 4250,
       "kind": "dependency",
@@ -91,7 +91,7 @@
     {
       "id": "reshadeui-fxh",
       "name": "ReShadeUI.fxh (ReShade shader include)",
-      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/ReShadeUI.fxh",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/fd0022170615ce0d8162d219bff07232fa6dd84f/Shaders/ReShadeUI.fxh",
       "sha256": "78adf672df47460297eb9fe6dd238d2aafa24510b52b84feb1a745dff70eb901",
       "sizeBytes": 9930,
       "kind": "dependency",
@@ -102,7 +102,7 @@
     {
       "id": "displaydepth-fx",
       "name": "DisplayDepth.fx (ReShade depth viewer)",
-      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/DisplayDepth.fx",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/fd0022170615ce0d8162d219bff07232fa6dd84f/Shaders/DisplayDepth.fx",
       "sha256": "b67944bb8a5c6c8127813d332f1fb271222f7aa2c365927b4cbac42bebf749c9",
       "sizeBytes": 10368,
       "kind": "dependency",
@@ -113,7 +113,7 @@
     {
       "id": "displaydepth-l10n-fxh",
       "name": "DisplayDepth_L10N.fxh (ReShade depth viewer translations)",
-      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/slim/Shaders/DisplayDepth_L10N.fxh",
+      "url": "https://raw.githubusercontent.com/crosire/reshade-shaders/fd0022170615ce0d8162d219bff07232fa6dd84f/Shaders/DisplayDepth_L10N.fxh",
       "sha256": "f7d896885ecdb3f4953e069a09c16381ceb0c3a87d12025c3496d6986e67507d",
       "sizeBytes": 17519,
       "kind": "dependency",
@@ -326,14 +326,7 @@
     "Not tested on Windows yet: its creator made and played it on Linux. Our Windows build is brand new, so expect rough edges.",
     "Weapons, damage and the Minecraft inventory are new and only lightly tested.",
     "First-person view can't be widened yet.",
-    "You can only build in a band around Sam; walk closer to build further away."
-  ],
-  "important": [
-    {
-      "text": "To make blocks solid for Sam: the first time you play, press Home, open the DSMC tab, press Test box once, then tick \"Minecraft blocks solid for Sam\".",
-      "link": "https://github.com/mihailinl/minecraft-in-death-stranding#playing",
-      "linkLabel": "See the creator's steps",
-      "blocksInstall": false
-    }
+    "You can only build in a band around Sam; walk closer to build further away.",
+    "If Minecraft blocks aren't solid for Sam, press Home, open the DSMC tab and check that \"Minecraft blocks solid for Sam\" is ticked (it's on by default)."
   ]
 }

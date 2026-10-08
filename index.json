@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-07T06:13:40.779Z",
+  "generatedAt": "2026-10-08T03:15:28.061Z",
   "recipes": [
     {
       "id": "beamcraft",
@@ -30,17 +30,17 @@
     {
       "id": "minecraft-gta-enhanced",
       "path": "recipes/minecraft-gta-enhanced.json",
-      "sha256": "a0232b91a868c4ec5dc567702f4c451e865161c92711a17222dd482703fdc41a"
+      "sha256": "35e82b47d8a5ec324dd40591a2795ae8fde12830a50777cf44afe174ada11b1b"
     },
     {
       "id": "minecraft-gta-v",
       "path": "recipes/minecraft-gta-v.json",
-      "sha256": "6a5c817004bbe2503b0fea4984f385384a8a6686ff21bf6e382486d2a642999c"
+      "sha256": "a2c57d619e7c82d07eccc6f16586e465fb509f2e81c5d16b0180a996dff7bc5b"
     },
     {
       "id": "minecraft-in-death-stranding",
       "path": "recipes/minecraft-in-death-stranding.json",
-      "sha256": "cf870423197aef85dedc322a91668f2c0afde3d780e1d3b79eceaf0c58731094"
+      "sha256": "b3651468024ffda83712d2955ab9b77390704a5ecae3c52d388e7c232b00faa9"
     },
     {
       "id": "minecraft-passthrough-iv",
@@ -55,7 +55,7 @@
     {
       "id": "minepunk",
       "path": "recipes/minepunk.json",
-      "sha256": "40c897369a53fe7b6085daa0d59e31c8ed4e7c4e5fc9510f771f8d0f5546b5d4"
+      "sha256": "e51d118b6885fe78f26239f5976f3cf5850704b98b356fe0ed49ec0d9ab87e38"
     },
     {
       "id": "owcraft",
@@ -85,12 +85,7 @@
     {
       "id": "valcraft-strangemap",
       "path": "recipes/valcraft-strangemap.json",
-      "sha256": "d40330ed38d6b53dbb0ad83b3094eebf5f3abd322f19e28278ccc0027965a760"
-    },
-    {
-      "id": "valcraft",
-      "path": "recipes/valcraft.json",
-      "sha256": "7ced2705a6aa08c211454142284fd140914f1dcea259b0f0cda3f8a7099fe395"
+      "sha256": "b589d224740d7364e4e45482f854fd9a88fcaca3b050bc4f7fac2af11f11a63d"
     },
     {
       "id": "vegascraft",
@@ -100,7 +95,7 @@
     {
       "id": "wither-storm-gta-v",
       "path": "recipes/wither-storm-gta-v.json",
-      "sha256": "afdacef7bff7eac5a1bbcae4ad8c56663cbd6941d155c2826bd26cb83df0ee8a"
+      "sha256": "eb96667b5852476a6dd79e25d3bbc1ffd1c8c70070bc8004c38a4b8c10237eea"
     }
   ]
 }

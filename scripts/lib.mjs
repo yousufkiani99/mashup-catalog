@@ -1,4 +1,5 @@
 // Shared helpers for sign.mjs and verify.mjs. Node built-ins only.
+import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -150,4 +151,59 @@ export function buildIndex(files, generatedAt, revokedTesterKeys = []) {
 /** index.json bytes: 2-space JSON, LF line endings, trailing newline. */
 export function indexBytes(index) {
   return Buffer.from(JSON.stringify(index, null, 2) + '\n', 'utf8')
+}
+
+/** A usable generatedAt from index.json bytes, or undefined. */
+export function generatedAtOf(bytes) {
+  try {
+    const at = JSON.parse(bytes.toString('utf8')).generatedAt
+    return typeof at === 'string' && !Number.isNaN(Date.parse(at)) ? at : undefined
+  } catch {
+    return undefined
+  }
+}
+
+/** index.json as committed at a git revision, or undefined (no git, unknown revision, no file). */
+export function indexBytesAt(root, rev) {
+  try {
+    return execFileSync('git', ['show', `${rev}:index.json`], {
+      cwd: root,
+      stdio: ['ignore', 'pipe', 'ignore'],
+      maxBuffer: 16 * 1024 * 1024
+    })
+  } catch {
+    return undefined
+  }
+}
+
+/**
+ * The newest generatedAt index.json has had: on disk, and in every commit of HEAD's and
+ * origin/main's history. After a `git revert` the file on disk is older than the newest signed
+ * list, which apps that saw it would refuse; the signer must sign newer than this.
+ * Returns { at, where } or undefined when there is nothing to compare with.
+ */
+export function newestSignedGeneratedAt(root) {
+  let best
+  const consider = (at, where) => {
+    if (at && (!best || Date.parse(at) > Date.parse(best.at))) best = { at, where }
+  }
+  const onDisk = join(root, 'index.json')
+  if (existsSync(onDisk)) consider(generatedAtOf(readFileSync(onDisk)), 'index.json')
+  let revs = []
+  try {
+    revs = execFileSync(
+      'git',
+      ['rev-list', '--ignore-missing', '--max-count=1000', 'HEAD', 'origin/main', '--', 'index.json'],
+      { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }
+    )
+      .split('\n')
+      .filter(Boolean)
+  } catch {
+    // Not a git checkout: only the file on disk counts.
+  }
+  for (const rev of revs) {
+    const bytes = indexBytesAt(root, rev)
+    if (bytes) consider(generatedAtOf(bytes), `commit ${rev.slice(0, 7)}`)
+  }
+  return best
 }
