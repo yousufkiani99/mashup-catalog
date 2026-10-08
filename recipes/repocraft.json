@@ -131,7 +131,16 @@
   ],
   "launch": {
     "steps": [
-      { "order": 1, "target": "prism" },
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Backend library: LWJGL|Sound engine started|Error starting SoundSystem",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
       { "order": 2, "target": "game", "gameKey": "repo", "via": "steam" }
     ],
     "ready": {

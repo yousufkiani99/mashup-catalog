@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 4,
   "id": "minecraft-ring",
   "title": "Minecraft Ring",
   "tagline": "Real Minecraft in the Lands Between: Minecraft's moves, blocks and weapons inside Elden Ring.",
@@ -88,7 +88,27 @@
       "fileName": "fabric-api-0.116.17+1.21.1.jar"
     }
   ],
-  "steps": [{ "action": "prism-instance" }],
+  "steps": [
+    { "action": "prism-instance" },
+    {
+      "action": "xml-set",
+      "file": "{appdata}/EldenRing/GraphicsConfig.xml",
+      "element": "ScreenMode",
+      "value": "BORDERLESS"
+    },
+    {
+      "action": "xml-set",
+      "file": "{appdata}/EldenRing/GraphicsConfig.xml",
+      "element": "Resolution-BorderlessScreenWidth",
+      "value": "{screen-width}"
+    },
+    {
+      "action": "xml-set",
+      "file": "{appdata}/EldenRing/GraphicsConfig.xml",
+      "element": "Resolution-BorderlessScreenHeight",
+      "value": "{screen-height}"
+    }
+  ],
   "launch": {
     "sessionFiles": [
       {
@@ -98,7 +118,16 @@
       }
     ],
     "steps": [
-      { "order": 1, "target": "prism" },
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Backend library: LWJGL|Sound engine started|Error starting SoundSystem",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
       {
         "order": 2,
         "target": "game",
@@ -156,6 +185,9 @@
     "The link files are only in Elden Ring's folder while you play it from the app. We take them out as soon as Elden Ring closes, so starting Elden Ring from Steam to play online is just as before.",
     "If another mod already has a dinput8.dll in Elden Ring's folder (Mod Engine 2 or Seamless Co-op do), Play asks you to move it out first. We never replace or delete your files.",
     "The first world starts in creative mode. Type /gamemode survival in Minecraft's chat to take enemy damage.",
-    "Some graphics drivers can't share the picture directly, so Minecraft is copied over more slowly and the frame rate drops."
+    "Some graphics drivers can't share the picture directly, so Minecraft is copied over more slowly and the frame rate drops.",
+    "The Minecraft layer hides itself while Elden Ring shows a loading screen, a death screen or a menu, and comes back after. That's normal, not a crash.",
+    "Play in Elden Ring's window and leave Minecraft's window in the background.",
+    "Elden Ring is switched to Borderless Windowed at your screen size, and Remove puts your old setting back. If you've never started Elden Ring before, start it once from Steam first, or pick Borderless in its graphics settings yourself."
   ]
 }

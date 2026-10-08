@@ -79,7 +79,7 @@ export function recipeProblems(file) {
   if (!KEBAB.test(file.id)) problems.push('file name must be kebab-case, e.g. recipes/skycraft.json')
   if (json.id !== file.id) problems.push(`id is "${json.id}" but the file is named "${file.id}.json"`)
   // Recipe formats the app knows (RECIPE_SCHEMA_VERSIONS in mashup-app's src/shared/recipe.ts).
-  if (![1, 2, 3].includes(json.schemaVersion)) problems.push('schemaVersion must be 1, 2 or 3')
+  if (![1, 2, 3, 4].includes(json.schemaVersion)) problems.push('schemaVersion must be 1, 2, 3 or 4')
   for (const key of REQUIRED_KEYS) if (!(key in json)) problems.push(`is missing "${key}"`)
   for (const key of ARRAY_KEYS) if (key in json && !Array.isArray(json[key])) problems.push(`"${key}" must be a list`)
   if (Array.isArray(json.credits) && json.credits.length === 0) problems.push('needs at least one credit')
