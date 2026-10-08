@@ -78,4 +78,13 @@ The app reads this catalog every time it starts, so these reach every player wit
 
 `sign.mjs` always dates a new signature after the newest `index.json` in the repo's history (run
 `git pull` first so it sees the latest), and refuses to sign if this PC's clock is more than a day
-behind that date: fix the date and time in Windows settings, then sign again.
+behind that date: fix the date and time in Windows settings, then sign again. It never signs with a
+date more than a day ahead of this PC's clock.
+
+**If a list was signed with a wrong date in the future** (and this PC's date and time are right):
+`node scripts/sign.mjs --key <path> --allow-reset-date` signs with this PC's time anyway, and
+`verify.mjs` accepts it because the list before it is dated more than a day ahead. Apps don't keep a
+list dated more than a day ahead of their own clock as the newest one, so they take the reset list
+at once; only a PC that already kept the future-dated list (it checked within a day of that date)
+keeps it until a list signed after that date arrives. Until that date has passed, `sign.mjs` needs
+`--allow-reset-date` each time (the future-dated list is still in the history).

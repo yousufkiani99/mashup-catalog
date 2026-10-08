@@ -4,7 +4,9 @@
 // The optional "revokedTesterKeys" list must be valid tester key ids and match revoked-tester-keys.json.
 // A changed index.json must have a newer generatedAt than the previous one (apps refuse older
 // lists), compared with --previous <git revision> (CI passes the commit before the push), or
-// origin/main by default.
+// origin/main by default. An empty --previous "" (no earlier commit known) skips that check, and so
+// does a previous list dated more than a day in the future (signed with a wrong clock; reset with
+// sign.mjs --allow-reset-date).
 //
 //   node scripts/verify.mjs [--previous <rev>]
 import { createPublicKey, verify } from 'node:crypto'
@@ -28,7 +30,8 @@ const errors = []
 const args = process.argv.slice(2)
 let previousRev = 'origin/main'
 for (let i = 0; i < args.length; i++) {
-  if (args[i] === '--previous' && args[i + 1]) previousRev = args[++i]
+  // CI may pass an empty revision (no commit before this one): nothing to compare with.
+  if (args[i] === '--previous') previousRev = args[++i] ?? ''
   else {
     console.error(`verify: unknown option ${args[i]}`)
     process.exit(1)
@@ -81,14 +84,24 @@ if (index) {
 // generatedAt must move forward, or apps that saw the previous list keep it and ignore this one
 // (e.g. after a `git revert` that brought an older signed index.json back).
 if (index && bytes) {
-  const previous = /^0+$/.test(previousRev) ? undefined : indexBytesAt(root, previousRev)
+  const previous =
+    previousRev === '' || /^0+$/.test(previousRev) ? undefined : indexBytesAt(root, previousRev)
   if (!previous) {
-    console.log(`verify: no index.json at ${previousRev} to compare dates with; skipped that check`)
+    console.log(
+      previousRev === ''
+        ? 'verify: no previous revision given; skipped the date check'
+        : `verify: no index.json at ${previousRev} to compare dates with; skipped that check`
+    )
   } else if (!previous.equals(bytes)) {
+    const DAY_MS = 24 * 60 * 60 * 1000
     const before = generatedAtOf(previous)
     const now = generatedAtOf(bytes)
     if (!now) errors.push('index.json has no valid generatedAt')
-    else if (before && Date.parse(now) <= Date.parse(before)) {
+    else if (before && Date.parse(before) > Date.now() + DAY_MS) {
+      console.log(
+        `verify: ${previousRev}'s generatedAt (${before}) is more than a day in the future (a wrong clock); a reset date is allowed`
+      )
+    } else if (before && Date.parse(now) <= Date.parse(before)) {
       errors.push(
         `index.json generatedAt (${now}) isn't newer than ${previousRev}'s (${before}); apps would ignore this list. Run sign.mjs again (it signs with a newer time).`
       )
