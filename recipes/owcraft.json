@@ -167,5 +167,10 @@
     "The Nether and other dimensions aren't supported.",
     "Mobs only find the planet's ground within about 40 blocks of you.",
     "Minecraft keeps running after Outer Wilds closes."
+  ],
+  "important": [
+    {
+      "text": "Before your first Play, start Outer Wilds once on its own. In its display or graphics settings, choose Borderless (it may be called Windowed Borderless or Fullscreen Windowed; if there's none, Windowed) at your screen's own resolution. Full screen can make Minecraft crash."
+    }
   ]
 }

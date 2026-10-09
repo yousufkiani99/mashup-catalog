@@ -241,7 +241,13 @@
           "timeoutSeconds": 1800
         }
       },
-      { "order": 2, "target": "game", "gameKey": "cyberpunk-2077", "via": "steam" }
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "cyberpunk-2077",
+        "via": "steam",
+        "args": ["--launcher-skip", "-borderless"]
+      }
     ],
     "ready": {
       "logFile": "{prism-instance}/logs/latest.log",
@@ -290,6 +296,7 @@
     "Turn off DLSS, FSR and XeSS upscaling and frame generation, motion blur and depth of field: they break how the two pictures line up.",
     "Only Cyberpunk 2.31 works. A game update stops it until the mods catch up.",
     "Up to 400 placed blocks are solid for V, and each is a full cube.",
-    "If you use other Cyberpunk mods that need a newer Codeware, they may stop working while this is installed."
+    "If you use other Cyberpunk mods that need a newer Codeware, they may stop working while this is installed.",
+    "Cyberpunk 2077 starts in borderless full screen, which works best with Minecraft, and skips its own launcher window. Steam asks you to allow this each time: click Continue."
   ]
 }

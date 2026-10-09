@@ -185,5 +185,10 @@
     "Blocks you leave on a moon are gone when the ship leaves, because the game makes each moon anew. Blocks on the ship stay.",
     "Monsters reacting to your blocks is very new and only lightly tested.",
     "If you use a mod manager like r2modman, its profile isn't used when you play from the app."
+  ],
+  "important": [
+    {
+      "text": "Before your first Play, start Lethal Company once on its own. In its display or graphics settings, choose Borderless (it may be called Windowed Borderless or Fullscreen Windowed; if there's none, Windowed) at your screen's own resolution. Full screen can make Minecraft crash."
+    }
   ]
 }

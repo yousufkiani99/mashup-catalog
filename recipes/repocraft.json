@@ -186,5 +186,10 @@
     "Playing with friends: everyone who wants to be a Minecraft player needs RepoCraft, the same version. Friends without it can still join and play normally.",
     "If the lobby's host doesn't have RepoCraft, your Minecraft hits don't hurt monsters and each player keeps their own blocks.",
     "A R.E.P.O. update can stop the mashup until RepoCraft catches up."
+  ],
+  "important": [
+    {
+      "text": "Before your first Play, start R.E.P.O. once on its own. In its display or graphics settings, choose Borderless (it may be called Windowed Borderless or Fullscreen Windowed; if there's none, Windowed) at your screen's own resolution. Full screen can make Minecraft crash."
+    }
   ]
 }

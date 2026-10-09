@@ -145,5 +145,10 @@
     "A block you place becomes solid for cars a moment later; Steve bumps into it straight away.",
     "Single player only.",
     "After some BeamNG.drive updates, BeamNG switches mods off. If that happens we tell you before starting, and you switch it back on in BeamNG's Mods menu."
+  ],
+  "important": [
+    {
+      "text": "Before your first Play, start BeamNG.drive once on its own. In its display or graphics settings, choose Borderless (it may be called Borderless Window; if there's none, Window) at your screen's own resolution. Full screen can make Minecraft crash."
+    }
   ]
 }

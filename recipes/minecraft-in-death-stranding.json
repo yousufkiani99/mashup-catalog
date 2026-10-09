@@ -337,5 +337,10 @@
     "First-person view can't be widened yet.",
     "You can only build in a band around Sam; walk closer to build further away.",
     "If Minecraft blocks aren't solid for Sam, press Home, open the DSMC tab and check that \"Minecraft blocks solid for Sam\" is ticked (it's on by default)."
+  ],
+  "important": [
+    {
+      "text": "Before your first Play, start Death Stranding once on its own. In its display or graphics settings, choose Borderless (it may be called Windowed Borderless or Fullscreen Windowed; if there's none, Windowed) at your screen's own resolution. Full screen can make Minecraft crash."
+    }
   ]
 }
