@@ -145,6 +145,20 @@
       "key": "bStartWithSkyrim",
       "value": "0"
     },
+    {
+      "action": "ini-set",
+      "file": "{documents}/My Games/Skyrim Special Edition/SkyrimPrefs.ini",
+      "section": "Display",
+      "key": "bFull Screen",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{documents}/My Games/Skyrim Special Edition/SkyrimPrefs.ini",
+      "section": "Display",
+      "key": "bBorderless",
+      "value": "1"
+    },
     { "action": "prism-instance" }
   ],
   "launch": {
@@ -200,6 +214,7 @@
     "Minecraft weapons hit Skyrim's people and creatures, but not objects such as the web in Bleak Falls Barrow.",
     "Text on signs isn't drawn yet.",
     "All Skyrim interiors share one Minecraft world, so blocks placed in one interior can show up in another.",
-    "Mods that also control the camera (Improved Camera SE, SmoothCam, True Directional Movement) don't work alongside it."
+    "Mods that also control the camera (Improved Camera SE, SmoothCam, True Directional Movement) don't work alongside it.",
+    "Skyrim is switched to Borderless, which works best with Minecraft, and Remove puts your old setting back. If you've never started Skyrim on this PC, start it once from Steam first. If Skyrim then fills only part of your screen, choose your screen's own resolution in the Options of Skyrim's launcher."
   ]
 }

@@ -191,5 +191,10 @@
     "Digging only works on outdoor ground, not buildings or objects.",
     "Block lights light nearby objects well but the ground only weakly.",
     "Some menus and logs still say Skyrim or SkyCraft."
+  ],
+  "important": [
+    {
+      "text": "Before your first Play, start Fallout: New Vegas once from Steam. In its launcher, open Options, tick Windowed and pick your screen's own resolution. New Vegas has no borderless mode, and full screen can make Minecraft crash."
+    }
   ]
 }

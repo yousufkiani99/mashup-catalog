@@ -221,6 +221,13 @@
       "value": "MCPassthrough@MCPassthrough.fx"
     },
     {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShadePreset.ini",
+      "section": "MCPassthrough.fx",
+      "key": "McActive",
+      "value": "0"
+    },
+    {
       "action": "extract",
       "download": "minecraft-gta5",
       "to": "{game:gta-v-legacy}"
@@ -352,6 +359,9 @@
           "hosts": ["dev-c.com"]
         }
       }
+    },
+    {
+      "text": "GTA V should run in Windowed Borderless next to Minecraft. If it opens in full screen, press Esc in Story Mode, open Settings, then Graphics, and set Screen Type to Windowed Borderless at your screen's own resolution. GTA V remembers it."
     }
   ],
   "controls": {

@@ -75,6 +75,7 @@
         "target": "game",
         "gameKey": "rdr2",
         "via": "steam",
+        "args": ["-borderless"],
         "waitFor": {
           "logFile": "{game:rdr2}/GarrysRedemption.log",
           "pattern": "RDR2 plugin: protocol",
@@ -147,7 +148,8 @@
     "In towns, most crates and barrels can't be picked up; people, animals and wagons can.",
     "Typing in Garry's Mod's text boxes expects a US keyboard layout.",
     "Only tested with Red Dead Redemption 2 on Vulkan and an NVIDIA graphics card.",
-    "As Arthur, stay out of New Austin (Armadillo, Tumbleweed and around): the game has him shot on sight there."
+    "As Arthur, stay out of New Austin (Armadillo, Tumbleweed and around): the game has him shot on sight there.",
+    "Red Dead Redemption 2 starts in Windowed Borderless, so Garry's Mod can draw its HUD and guns on top of it. Steam asks you to allow this each time: click Continue. If it still opens in full screen, set Screen Type to Windowed Borderless in its Graphics settings."
   ],
   "important": [
     {
@@ -180,9 +182,6 @@
         },
         "origin": { "hosts": ["dev-c.com"] }
       }
-    },
-    {
-      "text": "In Red Dead Redemption 2's Graphics settings, set Screen Type to Windowed Borderless (or Windowed). Garry's Mod draws its HUD and guns in a window on top of the game, which full screen hides."
     },
     {
       "text": "Only if Red Dead Redemption 2 fills your whole screen on an NVIDIA graphics card: in NVIDIA Control Panel, Manage 3D settings, Program Settings, pick Red Dead Redemption 2 and set \"Vulkan/OpenGL present method\" to \"Prefer layered on DXGI Swapchain\". Or run the game on DirectX 12.",

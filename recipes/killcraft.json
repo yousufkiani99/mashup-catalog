@@ -133,5 +133,10 @@
     "If Discord is open on your PC, your Discord status shows you're playing Killcraft (and whether you're in the Nether), like other games do. Killcraft only tells the Discord app on your PC; Discord shows it to your friends.",
     "Killcraft and Ultracraft can't be installed at the same time, because both load into ULTRAKILL.",
     "Removing Killcraft keeps its own copy of Minecraft and your Minecraft sign-in, so reinstalling is quick. That Minecraft is shared with SkyCraft (Skyrim), so Remove only takes out what Killcraft added there: its Minecraft mod and its Discord setting. Killcraft's world stays."
+  ],
+  "important": [
+    {
+      "text": "The first time ULTRAKILL opens, before you start a level, open its settings, turn full screen off (or choose borderless if it's offered) and set the resolution to your screen's own size. Full screen can make Minecraft crash. ULTRAKILL remembers it."
+    }
   ]
 }

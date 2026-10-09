@@ -132,6 +132,20 @@
       "download": "falloutcraft",
       "to": "{game:fallout-4}/Data/F4SE/Plugins"
     },
+    {
+      "action": "ini-set",
+      "file": "{documents}/My Games/Fallout4/Fallout4Prefs.ini",
+      "section": "Display",
+      "key": "bFull Screen",
+      "value": "0"
+    },
+    {
+      "action": "ini-set",
+      "file": "{documents}/My Games/Fallout4/Fallout4Prefs.ini",
+      "section": "Display",
+      "key": "bBorderless",
+      "value": "1"
+    },
     { "action": "prism-instance" }
   ],
   "launch": {
@@ -192,6 +206,7 @@
     "Stimpaks and Fallout food don't heal Minecraft's hearts yet; eat Minecraft food.",
     "Cracked or uneven ground, such as Concord's broken roads, can make the player stumble for a moment.",
     "NPCs bump into your blocks but still plan their routes as if the blocks weren't there.",
-    "Mods that also control the camera or movement don't work alongside it."
+    "Mods that also control the camera or movement don't work alongside it.",
+    "Fallout 4 is switched to Borderless, which works best with Minecraft, and Remove puts your old setting back. If you've never started Fallout 4 on this PC, start it once from Steam first. If Fallout 4 then fills only part of your screen, choose your screen's own resolution in the Options of Fallout 4's launcher."
   ]
 }

@@ -237,6 +237,13 @@
       "value": "0"
     },
     {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShadePreset.ini",
+      "section": "MCPassthrough.fx",
+      "key": "McActive",
+      "value": "0"
+    },
+    {
       "action": "extract",
       "download": "minecraft-gta-enhanced",
       "to": "{game:gta-v-enhanced}"
@@ -374,6 +381,9 @@
           "hosts": ["dev-c.com"]
         }
       }
+    },
+    {
+      "text": "GTA V Enhanced should run in Windowed Borderless next to Minecraft. If it opens in full screen, press Esc in Story Mode, open Settings, then Graphics, and set Screen Type to Windowed Borderless (it may just say Borderless) at your screen's own resolution. GTA V remembers it."
     }
   ]
 }

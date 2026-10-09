@@ -174,5 +174,10 @@
     "Saints Row's cars brake at Minecraft blocks instead of crashing into them, and furniture Minecraft doesn't know about can snap Steve back to the Boss.",
     "Use Saints Row mode (F7) for cars, doors, missions and the crib menu.",
     "Saints Row keeps your saves in Steam's own folder (Steam Cloud). The app backs them up before installing and before removing, and SaintsCraft never changes them."
+  ],
+  "important": [
+    {
+      "text": "Before your first Play, start Saints Row once on its own. In its display or graphics settings, choose Borderless (it may be called Windowed Borderless or Fullscreen Windowed; if there's none, Windowed) at your screen's own resolution. Full screen can make Minecraft crash. If it goes back to full screen later, set it again."
+    }
   ]
 }
