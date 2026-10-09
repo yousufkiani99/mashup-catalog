@@ -45,7 +45,8 @@
     "playerMods": [
       "wither-storm-mod"
     ],
-    "instanceName": "Wither Storm Minecraft x GTA V"
+    "instanceName": "Wither Storm Minecraft x GTA V",
+    "maxMemoryMb": 4096
   },
   "downloads": [
     {
