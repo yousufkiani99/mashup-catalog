@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "id": "wither-storm-gta-v",
-  "title": "Wither Storm x GTA V",
+  "title": "Wither Storm Minecraft x GTA V",
   "tagline": "The real Wither Storm from Minecraft loose in Los Santos, pulling up people and cars.",
   "description": "Summon Minecraft's Wither Storm over Los Santos and watch it grow. Its tractor beams lift GTA's people and cars into the sky and it swallows them whole, its skulls blow up in the streets, the sky darkens and people run. The storm is the real one from Cracker's Wither Storm Mod, running in Minecraft next to GTA V, and GTA blends it into its own picture. You can also place blocks, light TNT and fight with Minecraft's weapons. Story mode only.",
   "method": "passthrough",
@@ -45,12 +45,12 @@
     "playerMods": [
       "wither-storm-mod"
     ],
-    "instanceName": "Wither Storm x GTA V"
+    "instanceName": "Wither Storm Minecraft x GTA V"
   },
   "downloads": [
     {
       "id": "wither-storm-gta-v",
-      "name": "Wither Storm x GTA V 0.1.1 (GTA side, community build)",
+      "name": "Wither Storm Minecraft x GTA V 0.1.1 (GTA side, community build)",
       "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/wither-storm-gta-v-v0.1.1/wither-storm-gta-v-0.1.1.zip",
       "sha256": "ed1aaf67a81ee03b860258502f8923624771a4b3fa9c48af8bc0ac7b83025116",
       "sizeBytes": 193261,
@@ -61,7 +61,7 @@
     },
     {
       "id": "wither-storm-gta-v-forge",
-      "name": "Wither Storm x GTA V 0.1.1 (Minecraft side, community build)",
+      "name": "Wither Storm Minecraft x GTA V 0.1.1 (Minecraft side, community build)",
       "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/wither-storm-gta-v-v0.1.1/wither-storm-gta-v-forge-0.1.1.jar",
       "sha256": "5a13ff9712117d516e04381d00275ab1f238ca1ff8a77614ef132b8f869f1d52",
       "sizeBytes": 113383,
