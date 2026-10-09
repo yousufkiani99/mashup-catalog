@@ -283,6 +283,7 @@
   },
   "saves": [
     { "gameKey": "valheim", "path": "{locallow}/IronGate/Valheim" },
+    { "gameKey": "valheim", "path": "{steam-userdata:892970}/remote" },
     { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
   ],
   "requirements": {

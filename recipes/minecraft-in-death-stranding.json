@@ -271,6 +271,13 @@
       "to": "{game:death-stranding-dc}/reshade-shaders/Shaders"
     },
     { "action": "extract", "download": "ds-minecraft", "to": "{game:death-stranding-dc}" },
+    {
+      "action": "ini-set",
+      "file": "{game:death-stranding-dc}/ReShadePreset.ini",
+      "section": "MCPassthrough.fx",
+      "key": "McActive",
+      "value": "0"
+    },
     { "action": "prism-instance" }
   ],
   "launch": {

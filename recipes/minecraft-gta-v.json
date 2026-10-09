@@ -221,6 +221,13 @@
       "value": "MCPassthrough@MCPassthrough.fx"
     },
     {
+      "action": "ini-set",
+      "file": "{game:gta-v-legacy}/ReShadePreset.ini",
+      "section": "MCPassthrough.fx",
+      "key": "McActive",
+      "value": "0"
+    },
+    {
       "action": "extract",
       "download": "minecraft-gta5",
       "to": "{game:gta-v-legacy}"

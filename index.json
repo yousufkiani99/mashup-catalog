@@ -1,46 +1,46 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-09T11:34:51.474Z",
+  "generatedAt": "2026-10-09T13:18:30.713Z",
   "recipes": [
     {
       "id": "beamcraft",
       "path": "recipes/beamcraft.json",
-      "sha256": "ac8bc5771aac050669d03c24d8c719081e12cee17650166a6a8470abd8d5b67c"
+      "sha256": "24b1bfec1095361caa5097244addaa076c0afdfbc706ed8e0e6815edcde4d0d8"
     },
     {
       "id": "falloutcraft",
       "path": "recipes/falloutcraft.json",
-      "sha256": "fc220dddd97c1914e4475da2f2aafaccb6192da73c7700a3c54fd905a996f92a"
+      "sha256": "d2e0cc8041f8dba689567e4b8fd59b84f567a6f18158c1d16ed513e0dc5b9ebf"
     },
     {
       "id": "garrys-redemption",
       "path": "recipes/garrys-redemption.json",
-      "sha256": "5b0a2452266a2259ca567b208c7489cae7ab2eda3be8e087227af06096eb1d28"
+      "sha256": "c5f31e5625b6402037f5ada014d9f3285ab25273b37ee2b4978eff7b27702123"
     },
     {
       "id": "killcraft",
       "path": "recipes/killcraft.json",
-      "sha256": "a3a8f740e965857d16c154da7a61b3d52b1125efdae8dd8bd18aa35ce24cd748"
+      "sha256": "1f31ec7d20916a5baaa667f1d23b845ae3fb4e8ceb1cb2ea1834fef687d88a77"
     },
     {
       "id": "lethalcraft",
       "path": "recipes/lethalcraft.json",
-      "sha256": "c53ef899adf538b03bc2cf128fda2d2af0a6ddaa0e9279ec23855730f241d23d"
+      "sha256": "5d618cfbf86570ae77b3641006aef6b96af4e1b346f7d64729b970f34bb2335d"
     },
     {
       "id": "minecraft-gta-enhanced",
       "path": "recipes/minecraft-gta-enhanced.json",
-      "sha256": "35e82b47d8a5ec324dd40591a2795ae8fde12830a50777cf44afe174ada11b1b"
+      "sha256": "53c82404185972158a8f3c9871795fad3001042bd24d8c58b2ed4176b5a16eca"
     },
     {
       "id": "minecraft-gta-v",
       "path": "recipes/minecraft-gta-v.json",
-      "sha256": "a2c57d619e7c82d07eccc6f16586e465fb509f2e81c5d16b0180a996dff7bc5b"
+      "sha256": "73107643060dc703172d5d7b0f29d2bb3a9858c85169a478bf7a79ddaee7c6b6"
     },
     {
       "id": "minecraft-in-death-stranding",
       "path": "recipes/minecraft-in-death-stranding.json",
-      "sha256": "a8d14da100305f2de89d685d6bfc98b9ad3427b4605aeb79b9d214737180ad81"
+      "sha256": "9292c51b29c34f96f723ee02ed68eb9f17258ad739dbc1b15a9a15c303e5ff53"
     },
     {
       "id": "minecraft-passthrough-iv",
@@ -55,27 +55,27 @@
     {
       "id": "minepunk",
       "path": "recipes/minepunk.json",
-      "sha256": "ae38a1c440a85fbda473f1f1749128ee0cc93d7e26435d05202e5eeaf227d7f4"
+      "sha256": "889c1daa679807b5ba12e202ccd304d657c0e07e8aa3b6ee37348a405866e2ab"
     },
     {
       "id": "owcraft",
       "path": "recipes/owcraft.json",
-      "sha256": "01a59618bec1e667739a265e15140b1274a69d7f21db14ec85482daece5816d7"
+      "sha256": "a83f5d87aaaafbf2e184b6911264aae34e5022d44cf403036a84a5d3510b85b8"
     },
     {
       "id": "repocraft",
       "path": "recipes/repocraft.json",
-      "sha256": "67fd80a1f888e44527866187b47717a864efb91fe03a497b70e34950fcef2f9a"
+      "sha256": "e6df5d623b954abaa2acfec83e4f8205f64e2c758179a8106d7ab6de7cb53750"
     },
     {
       "id": "saintscraft",
       "path": "recipes/saintscraft.json",
-      "sha256": "d4574eecd496745ca41da42b1f049d9c6b17e72ac192a3de768951a220da087f"
+      "sha256": "b96dd57aee544887c766886dcc5d8eac1b0cc1acf4b1bab8c2ffbded85660e99"
     },
     {
       "id": "skycraft",
       "path": "recipes/skycraft.json",
-      "sha256": "efef025bc7b250228eb067156584a917acfd5b713015416eab0399e906b6f350"
+      "sha256": "678b12b8e2dbed0decd0feebe90019a95f5e646397fe2491899a5aef37e54529"
     },
     {
       "id": "ultracraft",
@@ -85,17 +85,17 @@
     {
       "id": "valcraft-strangemap",
       "path": "recipes/valcraft-strangemap.json",
-      "sha256": "76550a0c286d443b44627f598b796fc1ca0bfa1f4c917b4bdb2acaa89407b611"
+      "sha256": "c7b7dbc826ea3c2b0bd3f812183390751f039854673084aea4a6ce73fda5b5f4"
     },
     {
       "id": "vegascraft",
       "path": "recipes/vegascraft.json",
-      "sha256": "09e39697d38804cc4e4152a24d17a2edcdb3603aac94c37dec69931a81d7582f"
+      "sha256": "2e8371ca42e57bdafb1b560f3e09e426a11231f6798714e4dc691e4289078177"
     },
     {
       "id": "wither-storm-gta-v",
       "path": "recipes/wither-storm-gta-v.json",
-      "sha256": "335303945611c2cace7277c09a3d4972bc35384a7af26eee436c414ebc2d135e"
+      "sha256": "af2342d03e440022786649609d6e9f6ceb25924d1809e5867dda28036bd9002a"
     }
   ]
 }

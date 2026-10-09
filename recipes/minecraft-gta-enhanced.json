@@ -237,6 +237,13 @@
       "value": "0"
     },
     {
+      "action": "ini-set",
+      "file": "{game:gta-v-enhanced}/ReShadePreset.ini",
+      "section": "MCPassthrough.fx",
+      "key": "McActive",
+      "value": "0"
+    },
+    {
       "action": "extract",
       "download": "minecraft-gta-enhanced",
       "to": "{game:gta-v-enhanced}"
