@@ -50,25 +50,25 @@
   "downloads": [
     {
       "id": "wither-storm-gta-v",
-      "name": "Wither Storm x GTA V 0.1.0 (GTA side, community build)",
-      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/wither-storm-gta-v-v0.1.0/wither-storm-gta-v-0.1.0.zip",
-      "sha256": "78d1641066093d37b566673129c85f966e3990a1bac92b7ce9734546af4d3fd9",
-      "sizeBytes": 191434,
+      "name": "Wither Storm x GTA V 0.1.1 (GTA side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/wither-storm-gta-v-v0.1.1/wither-storm-gta-v-0.1.1.zip",
+      "sha256": "ed1aaf67a81ee03b860258502f8923624771a4b3fa9c48af8bc0ac7b83025116",
+      "sizeBytes": 193261,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "wither-storm-gta-v-0.1.0.zip"
+      "fileName": "wither-storm-gta-v-0.1.1.zip"
     },
     {
       "id": "wither-storm-gta-v-forge",
-      "name": "Wither Storm x GTA V 0.1.0 (Minecraft side, community build)",
-      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/wither-storm-gta-v-v0.1.0/wither-storm-gta-v-forge-0.1.0.jar",
-      "sha256": "9a9ceca304906ff4514e7c1a40b27aa276c97016fc67c976c320740e7d91feff",
-      "sizeBytes": 112460,
+      "name": "Wither Storm x GTA V 0.1.1 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/wither-storm-gta-v-v0.1.1/wither-storm-gta-v-forge-0.1.1.jar",
+      "sha256": "5a13ff9712117d516e04381d00275ab1f238ca1ff8a77614ef132b8f869f1d52",
+      "sizeBytes": 113383,
       "kind": "mashup",
       "source": "github-release",
       "licence": "MIT",
-      "fileName": "wither-storm-gta-v-forge-0.1.0.jar"
+      "fileName": "wither-storm-gta-v-forge-0.1.1.jar"
     },
     {
       "id": "crackerslib",
@@ -340,6 +340,8 @@
   "aiBuilt": true,
   "knownIssues": [
     "In GTA, press F9 to bring the Wither Storm in ahead of you, or Shift+F9 for one that's already grown. F10 makes it grow, F11 sends it away and Shift+F11 starts its death.",
+    "E opens your inventory over GTA V, like in Minecraft. GTA V's own E (the horn, \"press E\" prompts) doesn't work while the mashup runs. F6 opens it too.",
+    "The same menu has the Wither Storm, creatures, the Nether, police, wings, time, weather and game mode. In survival mode GTA can hurt you, and dying is GTA's Wasted: you both wake up at the hospital.",
     "A Minecraft window opens too and stays open behind GTA V. It draws the storm you see in GTA, so leave it open.",
     "Story mode only. GTA starts with BattlEye off, which keeps GTA Online out; never take a modded game online.",
     "Pick Story Mode on GTA's start screen yourself.",
@@ -422,5 +424,1084 @@
   ],
   "conflictsWith": [
     "minecraft-gta-v"
-  ]
+  ],
+  "controls": {
+    "link": {
+      "url": "ws://127.0.0.1:25599",
+      "state": "gtastate"
+    },
+    "hotkey": "F6",
+    "gameKey": {
+      "key": "E",
+      "when": [
+        "GTA5.exe"
+      ]
+    },
+    "inventory": {
+      "slotCommand": "item replace entity @a {slot} with {item} {count}",
+      "commandMessage": {
+        "t": "cmd",
+        "c": "{command}"
+      },
+      "start": [
+        {
+          "slot": "hotbar.0",
+          "item": "ender_pearl",
+          "count": 16
+        },
+        {
+          "slot": "hotbar.1",
+          "item": "diamond_sword"
+        },
+        {
+          "slot": "hotbar.2",
+          "item": "crossbow"
+        },
+        {
+          "slot": "hotbar.3",
+          "item": "wither_spawn_egg",
+          "count": 64
+        },
+        {
+          "slot": "hotbar.4",
+          "item": "tnt",
+          "count": 64
+        },
+        {
+          "slot": "hotbar.5",
+          "item": "flint_and_steel"
+        },
+        {
+          "slot": "hotbar.6",
+          "item": "creeper_spawn_egg",
+          "count": 64
+        },
+        {
+          "slot": "hotbar.7",
+          "item": "obsidian",
+          "count": 64
+        },
+        {
+          "slot": "hotbar.8",
+          "item": "firework_rocket",
+          "count": 64
+        },
+        {
+          "slot": "weapon.offhand",
+          "item": "firework_rocket",
+          "count": 64
+        }
+      ]
+    },
+    "groups": [
+      {
+        "id": "storm",
+        "title": "Wither Storm",
+        "tabItem": "nether_star",
+        "hint": "The real Wither Storm, over Los Santos. It grows by swallowing people and cars.",
+        "items": [
+          {
+            "id": "storm-summon",
+            "label": "Summon it",
+            "hint": "Appears ahead of you, still small",
+            "icon": {
+              "kind": "symbol",
+              "name": "storm",
+              "color": "#9b5cf0"
+            },
+            "done": "The Wither Storm is here",
+            "send": [
+              {
+                "t": "storm",
+                "op": "summon",
+                "dist": 70,
+                "up": 25
+              }
+            ]
+          },
+          {
+            "id": "storm-summon-grown",
+            "label": "Summon it grown",
+            "hint": "Already big, further away and higher up",
+            "icon": {
+              "kind": "symbol",
+              "name": "storm",
+              "color": "#c03a8a"
+            },
+            "done": "A grown Wither Storm is here",
+            "send": [
+              {
+                "t": "storm",
+                "op": "summon",
+                "dist": 170,
+                "up": 70,
+                "phase": 4
+              }
+            ]
+          },
+          {
+            "id": "storm-grow",
+            "label": "Make it grow",
+            "hint": "One stage bigger",
+            "icon": {
+              "kind": "symbol",
+              "name": "boom",
+              "color": "#f2b35b"
+            },
+            "done": "The Wither Storm grows",
+            "send": [
+              {
+                "t": "storm",
+                "op": "evolve"
+              }
+            ]
+          },
+          {
+            "id": "storm-defeat",
+            "label": "Defeat it",
+            "hint": "Starts its death",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c"
+            },
+            "done": "The Wither Storm is dying",
+            "send": [
+              {
+                "t": "storm",
+                "op": "kill"
+              }
+            ]
+          },
+          {
+            "id": "storm-remove",
+            "label": "Send it away",
+            "hint": "Gone at once",
+            "icon": {
+              "kind": "symbol",
+              "name": "sweep"
+            },
+            "done": "The Wither Storm is gone",
+            "send": [
+              {
+                "t": "storm",
+                "op": "remove"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "creatures",
+        "title": "Creatures",
+        "tabItem": "zombie_spawn_egg",
+        "hint": "They appear on the ground in front of you, and fight anyone nearby.",
+        "items": [
+          {
+            "id": "zombie",
+            "label": "Zombies",
+            "icon": {
+              "kind": "badge",
+              "color": "#4f8a4a"
+            },
+            "done": "6 zombies are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "zombie",
+                "n": 6,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "skeleton",
+            "label": "Skeletons",
+            "icon": {
+              "kind": "badge",
+              "color": "#cfcfc7"
+            },
+            "done": "5 skeletons are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "skeleton",
+                "n": 5,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "creeper",
+            "label": "Creepers",
+            "icon": {
+              "kind": "badge",
+              "color": "#5cb85c"
+            },
+            "done": "4 creepers are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "creeper",
+                "n": 4,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "spider",
+            "label": "Spiders",
+            "icon": {
+              "kind": "badge",
+              "color": "#3b3236"
+            },
+            "done": "4 spiders are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "spider",
+                "n": 4,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "enderman",
+            "label": "Endermen",
+            "icon": {
+              "kind": "badge",
+              "color": "#2b1d3a"
+            },
+            "done": "2 endermen are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "enderman",
+                "n": 2,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "witch",
+            "label": "Witches",
+            "icon": {
+              "kind": "badge",
+              "color": "#6a3d7a"
+            },
+            "done": "2 witches are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "witch",
+                "n": 2,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "pillager",
+            "label": "Pillagers",
+            "icon": {
+              "kind": "badge",
+              "color": "#5b6670"
+            },
+            "done": "4 pillagers are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "pillager",
+                "n": 4,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "vindicator",
+            "label": "Vindicators",
+            "icon": {
+              "kind": "badge",
+              "color": "#4c5a63"
+            },
+            "done": "3 vindicators are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "vindicator",
+                "n": 3,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "ravager",
+            "label": "Ravager",
+            "icon": {
+              "kind": "badge",
+              "color": "#6b6560"
+            },
+            "done": "Ravager is here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "ravager",
+                "n": 1,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "warden",
+            "label": "Warden",
+            "icon": {
+              "kind": "badge",
+              "color": "#0f3b46"
+            },
+            "done": "Warden is here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "warden",
+                "n": 1,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "iron-golem",
+            "label": "Iron golem",
+            "icon": {
+              "kind": "badge",
+              "color": "#cfc6b8"
+            },
+            "done": "Iron golem is here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "iron_golem",
+                "n": 1,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "wolf",
+            "label": "Wolves",
+            "icon": {
+              "kind": "badge",
+              "color": "#d9d4cc"
+            },
+            "done": "3 wolves are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "wolf",
+                "n": 3,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "pig",
+            "label": "Pigs",
+            "icon": {
+              "kind": "badge",
+              "color": "#f0a6a6"
+            },
+            "done": "4 pigs are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "pig",
+                "n": 4,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "cow",
+            "label": "Cows",
+            "icon": {
+              "kind": "badge",
+              "color": "#6b4a35"
+            },
+            "done": "3 cows are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "cow",
+                "n": 3,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "sheep",
+            "label": "Sheep",
+            "icon": {
+              "kind": "badge",
+              "color": "#ececec"
+            },
+            "done": "4 sheep are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "sheep",
+                "n": 4,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "chicken",
+            "label": "Chickens",
+            "icon": {
+              "kind": "badge",
+              "color": "#f4f1ea"
+            },
+            "done": "6 chickens are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "chicken",
+                "n": 6,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "horse",
+            "label": "Horses",
+            "icon": {
+              "kind": "badge",
+              "color": "#9a6b43"
+            },
+            "done": "2 horses are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "horse",
+                "n": 2,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "villager",
+            "label": "Villagers",
+            "icon": {
+              "kind": "badge",
+              "color": "#9c7a5b"
+            },
+            "done": "3 villagers are here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "villager",
+                "n": 3,
+                "rmin": 8,
+                "rmax": 16,
+                "arc": 40,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "wither",
+            "label": "The Wither",
+            "hint": "Blows up blocks. Clear it when you're done",
+            "icon": {
+              "kind": "badge",
+              "color": "#2b2b33"
+            },
+            "done": "The Wither is here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "wither",
+                "n": 1,
+                "rmin": 12,
+                "rmax": 18,
+                "arc": 30,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "ender-dragon",
+            "label": "Ender Dragon",
+            "hint": "Flies around, doesn't fight",
+            "icon": {
+              "kind": "badge",
+              "color": "#1d1630"
+            },
+            "done": "The Ender Dragon is here",
+            "send": [
+              {
+                "t": "spawnmobs",
+                "k": "ender_dragon",
+                "n": 1,
+                "rmin": 20,
+                "rmax": 30,
+                "arc": 30,
+                "yaw": 0
+              }
+            ]
+          },
+          {
+            "id": "clear-creatures",
+            "label": "Clear creatures",
+            "hint": "Removes the ones you spawned",
+            "icon": {
+              "kind": "symbol",
+              "name": "sweep"
+            },
+            "done": "Creatures cleared",
+            "send": [
+              {
+                "t": "mobsclear"
+              },
+              {
+                "t": "gta",
+                "op": "mobwarclear"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "nether",
+        "title": "The Nether",
+        "tabItem": "obsidian",
+        "hint": "Walk through a lit portal and Los Santos turns into the Nether. Or build your own from obsidian and light it.",
+        "items": [
+          {
+            "id": "open-portal",
+            "label": "Open a portal",
+            "hint": "Built and lit 8 m in front of you",
+            "icon": {
+              "kind": "symbol",
+              "name": "portal",
+              "color": "#9b5cf0"
+            },
+            "done": "Your portal is lit. Walk through it.",
+            "send": [
+              {
+                "t": "portal",
+                "at": [
+                  "=pos0 - sin(rad(h)) * 8",
+                  "=pos2 - 1 + yoff",
+                  "=-(pos1 + cos(rad(h)) * 8)"
+                ],
+                "yaw": "=180 - h"
+              }
+            ]
+          },
+          {
+            "id": "leave-nether",
+            "label": "Back to Los Santos",
+            "hint": "Ends the Nether",
+            "icon": {
+              "kind": "symbol",
+              "name": "home"
+            },
+            "done": "Back to normal",
+            "send": [
+              {
+                "t": "netheroff"
+              },
+              {
+                "t": "gta",
+                "op": "hell",
+                "on": 0
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "police",
+        "title": "Police",
+        "hint": "They go after your creatures first. With no creatures around they come for you, but you can't be hurt.",
+        "items": [
+          {
+            "id": "police-squad",
+            "label": "Police squad",
+            "hint": "Fights your creatures, leaves you alone",
+            "icon": {
+              "kind": "symbol",
+              "name": "siren",
+              "color": "#5b8cff"
+            },
+            "done": "The police are on their way",
+            "send": [
+              {
+                "t": "gta",
+                "op": "cops",
+                "cars": 3,
+                "dist": 40
+              }
+            ]
+          },
+          {
+            "id": "wanted-1",
+            "label": "1 star",
+            "hint": "A patrol car or two",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 1
+            },
+            "done": "Wanted level: 1 star",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 1
+              }
+            ]
+          },
+          {
+            "id": "wanted-2",
+            "label": "2 stars",
+            "hint": "More cars, more cops",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 2
+            },
+            "done": "Wanted level: 2 stars",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 2
+              }
+            ]
+          },
+          {
+            "id": "wanted-3",
+            "label": "3 stars",
+            "hint": "Police helicopters join in",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 3
+            },
+            "done": "Wanted level: 3 stars",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 3
+              }
+            ]
+          },
+          {
+            "id": "wanted-4",
+            "label": "4 stars",
+            "hint": "SWAT vans and helicopters",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 4
+            },
+            "done": "Wanted level: 4 stars",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 4
+              }
+            ]
+          },
+          {
+            "id": "wanted-5",
+            "label": "5 stars",
+            "hint": "Everything, plus army tanks and attack helicopters",
+            "icon": {
+              "kind": "symbol",
+              "name": "star",
+              "color": "#f2c94c",
+              "count": 5
+            },
+            "done": "5 stars. The army is coming.",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 5
+              },
+              {
+                "t": "gta",
+                "op": "army",
+                "tanks": 2,
+                "helis": 2,
+                "dist": 70
+              }
+            ]
+          },
+          {
+            "id": "military",
+            "label": "Military",
+            "hint": "Tanks and attack helicopters",
+            "icon": {
+              "kind": "symbol",
+              "name": "heli",
+              "color": "#9bbf6a"
+            },
+            "done": "The army is on its way",
+            "send": [
+              {
+                "t": "gta",
+                "op": "army",
+                "tanks": 2,
+                "helis": 2,
+                "dist": 70
+              }
+            ]
+          },
+          {
+            "id": "police-off",
+            "label": "Call it off",
+            "hint": "No wanted level, everyone sent away",
+            "icon": {
+              "kind": "symbol",
+              "name": "sweep"
+            },
+            "done": "All clear",
+            "send": [
+              {
+                "t": "gta",
+                "op": "police",
+                "stars": 0
+              },
+              {
+                "t": "gta",
+                "op": "copsclear"
+              },
+              {
+                "t": "gta",
+                "op": "army",
+                "clear": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "action",
+        "title": "Action",
+        "tabItem": "elytra",
+        "hint": "Flying.",
+        "items": [
+          {
+            "id": "wings",
+            "label": "Wings",
+            "hint": "Press Space to take off",
+            "icon": {
+              "kind": "symbol",
+              "name": "wings",
+              "color": "#8fe3cf"
+            },
+            "done": "Wings ready. Press Space to take off. Fireworks in your hotbar boost you.",
+            "send": [
+              {
+                "t": "gta",
+                "op": "armdrive",
+                "user": 1
+              }
+            ]
+          },
+          {
+            "id": "land",
+            "label": "Land",
+            "hint": "Stops flying",
+            "icon": {
+              "kind": "symbol",
+              "name": "home"
+            },
+            "done": "Landed",
+            "send": [
+              {
+                "t": "gta",
+                "op": "armdrive",
+                "on": 0
+              },
+              {
+                "t": "gta",
+                "op": "drive",
+                "on": 0
+              },
+              {
+                "t": "glide",
+                "on": false
+              }
+            ]
+          },
+          {
+            "id": "fly-speed",
+            "label": "Flying speed",
+            "hint": "How fast the wings fly",
+            "slider": {
+              "min": 1,
+              "max": 2.5,
+              "step": 0.1,
+              "default": 1,
+              "format": "x"
+            },
+            "send": [
+              {
+                "t": "flyspeed",
+                "m": "=value"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sky",
+        "title": "Sky",
+        "tabItem": "clock",
+        "hint": "Time of day and weather in Los Santos.",
+        "items": [
+          {
+            "id": "sunrise",
+            "label": "Sunrise",
+            "icon": {
+              "kind": "symbol",
+              "name": "sun",
+              "color": "#f2b35b"
+            },
+            "done": "Sunrise it is",
+            "send": [
+              {
+                "t": "gta",
+                "op": "time",
+                "h": 6,
+                "m": 0
+              }
+            ]
+          },
+          {
+            "id": "noon",
+            "label": "Noon",
+            "icon": {
+              "kind": "symbol",
+              "name": "sun",
+              "color": "#f2b35b"
+            },
+            "done": "Noon it is",
+            "send": [
+              {
+                "t": "gta",
+                "op": "time",
+                "h": 12,
+                "m": 0
+              }
+            ]
+          },
+          {
+            "id": "sunset",
+            "label": "Sunset",
+            "icon": {
+              "kind": "symbol",
+              "name": "sun",
+              "color": "#f2b35b"
+            },
+            "done": "Sunset it is",
+            "send": [
+              {
+                "t": "gta",
+                "op": "time",
+                "h": 19,
+                "m": 0
+              }
+            ]
+          },
+          {
+            "id": "night",
+            "label": "Night",
+            "icon": {
+              "kind": "symbol",
+              "name": "moon",
+              "color": "#c8d3ff"
+            },
+            "done": "Night it is",
+            "send": [
+              {
+                "t": "gta",
+                "op": "time",
+                "h": 0,
+                "m": 0
+              }
+            ]
+          },
+          {
+            "id": "clear",
+            "label": "Clear skies",
+            "icon": {
+              "kind": "symbol",
+              "name": "sun",
+              "color": "#d3dbe7"
+            },
+            "done": "Clear skies",
+            "send": [
+              {
+                "t": "gta",
+                "op": "weather",
+                "w": "EXTRASUNNY"
+              }
+            ]
+          },
+          {
+            "id": "storm",
+            "label": "Thunderstorm",
+            "icon": {
+              "kind": "symbol",
+              "name": "storm",
+              "color": "#d3dbe7"
+            },
+            "done": "Thunderstorm",
+            "send": [
+              {
+                "t": "gta",
+                "op": "weather",
+                "w": "THUNDER"
+              }
+            ]
+          },
+          {
+            "id": "snow",
+            "label": "Snow",
+            "icon": {
+              "kind": "symbol",
+              "name": "storm",
+              "color": "#d3dbe7"
+            },
+            "done": "Snow",
+            "send": [
+              {
+                "t": "gta",
+                "op": "weather",
+                "w": "XMAS"
+              }
+            ]
+          },
+          {
+            "id": "fog",
+            "label": "Fog",
+            "icon": {
+              "kind": "symbol",
+              "name": "storm",
+              "color": "#d3dbe7"
+            },
+            "done": "Fog",
+            "send": [
+              {
+                "t": "gta",
+                "op": "weather",
+                "w": "FOGGY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "mode",
+        "title": "Game mode",
+        "tabItem": "totem_of_undying",
+        "hint": "How Minecraft plays inside GTA V.",
+        "items": [
+          {
+            "id": "creative",
+            "label": "Creative",
+            "hint": "Fly, never get hurt, blocks never run out",
+            "icon": {
+              "kind": "badge",
+              "color": "#5aa0d8"
+            },
+            "done": "Creative mode",
+            "send": [
+              {
+                "t": "cmd",
+                "c": "gamemode creative @a"
+              }
+            ]
+          },
+          {
+            "id": "survival",
+            "label": "Survival",
+            "hint": "GTA can hurt you. If you die, it's Wasted and you wake up at the hospital",
+            "icon": {
+              "kind": "badge",
+              "color": "#c0503a"
+            },
+            "done": "Survival mode",
+            "send": [
+              {
+                "t": "cmd",
+                "c": "gamemode survival @a"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

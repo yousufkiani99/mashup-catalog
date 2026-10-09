@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-08T22:36:31.308Z",
+  "generatedAt": "2026-10-09T10:47:20.978Z",
   "recipes": [
     {
       "id": "beamcraft",
@@ -95,7 +95,7 @@
     {
       "id": "wither-storm-gta-v",
       "path": "recipes/wither-storm-gta-v.json",
-      "sha256": "eb96667b5852476a6dd79e25d3bbc1ffd1c8c70070bc8004c38a4b8c10237eea"
+      "sha256": "4f18454bd890c20543b9084e0ec63a9479303ad79bd739f1f776770e34df4d6f"
     }
   ]
 }
