@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-09T14:28:12.349Z",
+  "generatedAt": "2026-10-10T00:53:30.837Z",
   "recipes": [
     {
       "id": "beamcraft",
@@ -35,7 +35,7 @@
     {
       "id": "minecraft-gta-v",
       "path": "recipes/minecraft-gta-v.json",
-      "sha256": "73107643060dc703172d5d7b0f29d2bb3a9858c85169a478bf7a79ddaee7c6b6"
+      "sha256": "576b6e3f4925b6dec97326792475e3f218c18f3c823f7fc522ffdd301335c00f"
     },
     {
       "id": "minecraft-in-death-stranding",
@@ -50,7 +50,7 @@
     {
       "id": "minecraft-ring",
       "path": "recipes/minecraft-ring.json",
-      "sha256": "4d2b37ba2f4e31484f4f1d3b3dcbe6b0ecea61d3fbdcf15d7db11b6a0030ac5a"
+      "sha256": "48c70ee9c8c71b0f034211df480aeaf80056db8326f07e0d67288cccc11bc2bb"
     },
     {
       "id": "minepunk",
@@ -95,7 +95,7 @@
     {
       "id": "wither-storm-gta-v",
       "path": "recipes/wither-storm-gta-v.json",
-      "sha256": "4b23674ee9dcf1ac7677ecb2aa3d5729add88639b9e0bcc52c1e6f6130713337"
+      "sha256": "83ebd911bcc65bbf2ab972c1fd41124f254079676a69639614d435a0bfbfe11e"
     }
   ]
 }
