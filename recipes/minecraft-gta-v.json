@@ -6,7 +6,7 @@
   "description": "Build with Minecraft blocks in Los Santos: people and cars stop at your walls. TNT and creepers blow up in both games, crossbow fireworks burst as GTA rockets, a sword swing sends people flying and an ender pearl moves your player. Glide over the city with an elytra, set Minecraft's mobs on the police, or light a Nether portal and watch the streets turn to the Nether. Story mode only. Both games run at the same time and GTA V blends Minecraft into its own picture.",
   "method": "passthrough",
   "tier": "free",
-  "testLabel": "beta",
+  "testLabel": "tested-by-us",
   "games": [
     {
       "role": "host",
