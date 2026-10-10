@@ -1,6 +1,14 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-10T00:53:30.837Z",
+  "generatedAt": "2026-10-10T22:33:18.976Z",
+  "links": {
+    "website": "https://mashuplauncher.com/",
+    "terms": "https://mashuplauncher.com/terms/",
+    "privacy": "https://mashuplauncher.com/privacy/",
+    "refunds": "https://mashuplauncher.com/refunds/",
+    "contact": "mailto:hello@mashuplauncher.com",
+    "requests": "mailto:hello@mashuplauncher.com"
+  },
   "recipes": [
     {
       "id": "beamcraft",
