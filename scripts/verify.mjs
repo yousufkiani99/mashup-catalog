@@ -2,6 +2,8 @@
 // Checks the catalog the way the app does: index.json.sig must verify against public-key.pem, every
 // recipe's SHA-256 must match index.json, and index.json must list exactly the files in recipes/.
 // The optional "revokedTesterKeys" list must be valid tester key ids and match revoked-tester-keys.json.
+// The optional "links" and "purchase" objects must be valid (links: https or mailto only) and match
+// links.json / purchase.json.
 // A changed index.json must have a newer generatedAt than the previous one (apps refuse older
 // lists), compared with --previous <git revision> (CI passes the commit before the push), or
 // origin/main by default. An empty --previous "" (no earlier commit known) skips that check, and so
@@ -16,7 +18,13 @@ import { fileURLToPath } from 'node:url'
 import {
   generatedAtOf,
   indexBytesAt,
+  LINKS_FILE,
+  linksProblems,
   listRecipeFiles,
+  PURCHASE_FILE,
+  purchaseProblems,
+  readLinks,
+  readPurchase,
   readRevokedTesterKeys,
   recipeProblems,
   revokedListProblems,
@@ -79,6 +87,19 @@ if (index) {
   if (JSON.stringify(signed) !== JSON.stringify(revoked.ids)) {
     errors.push(`index.json revokedTesterKeys doesn't match ${REVOKED_TESTER_KEYS_FILE} (run sign.mjs)`)
   }
+
+  // links / purchase: valid, and the same as links.json / purchase.json.
+  for (const [field, file, read, problemsOf] of [
+    ['links', LINKS_FILE, readLinks, linksProblems],
+    ['purchase', PURCHASE_FILE, readPurchase, purchaseProblems]
+  ]) {
+    const source = read(root)
+    for (const p of source.problems) errors.push(`${file} ${p}`)
+    if (field in index) for (const p of problemsOf(index[field])) errors.push(`index.json ${field} ${p}`)
+    if (JSON.stringify(index[field]) !== JSON.stringify(source.value)) {
+      errors.push(`index.json ${field} doesn't match ${file} (run sign.mjs)`)
+    }
+  }
 }
 
 // generatedAt must move forward, or apps that saw the previous list keep it and ignore this one
@@ -114,6 +135,7 @@ if (errors.length) {
   process.exit(1)
 }
 const revokedCount = Array.isArray(index.revokedTesterKeys) ? index.revokedTesterKeys.length : 0
+const linkCount = index.links ? Object.keys(index.links).length : 0
 console.log(
-  `verify: OK, ${index.recipes.length} recipes, ${revokedCount} switched-off tester keys, signed ${index.generatedAt}`
+  `verify: OK, ${index.recipes.length} recipes, ${revokedCount} switched-off tester keys, ${linkCount} links, purchase ${index.purchase ? 'set' : 'not set'}, signed ${index.generatedAt}`
 )

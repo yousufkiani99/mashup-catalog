@@ -9,6 +9,120 @@ export const KEBAB = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 export const TESTER_ID = /^[a-z0-9]{6,32}$/
 /** Ids of switched-off tester keys, one JSON list: ["k7f3q9xa2b", ...]. Optional. */
 export const REVOKED_TESTER_KEYS_FILE = 'revoked-tester-keys.json'
+/** The app's own links (support, Terms, Privacy, ...), copied into index.json as "links". Optional. */
+export const LINKS_FILE = 'links.json'
+/** Lemon Squeezy store/product IDs and checkout link, copied into index.json as "purchase". Optional. */
+export const PURCHASE_FILE = 'purchase.json'
+
+/**
+ * Which links the app knows and what each may be: an https address, or mailto:<one email address>.
+ * Keep in step with LINK_KEYS in mashup-app's src/shared/links.ts (the app drops anything else).
+ */
+export const LINK_KEYS = {
+  support: ['https'],
+  website: ['https'],
+  terms: ['https'],
+  privacy: ['https'],
+  refunds: ['https'],
+  contact: ['mailto'],
+  requests: ['https', 'mailto'],
+  reportRelay: ['https']
+}
+const MAILTO = /^mailto:[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/
+
+/** An https address with a real host name and no user name or password (as the app checks it). */
+export function isHttpsUrl(value) {
+  if (typeof value !== 'string' || value.length > 2000 || !value.startsWith('https://') || /\s/.test(value)) return false
+  try {
+    const u = new URL(value)
+    return u.protocol === 'https:' && !u.username && !u.password && /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(u.hostname)
+  } catch {
+    return false
+  }
+}
+
+export function isMailto(value) {
+  return typeof value === 'string' && value.length <= 320 && MAILTO.test(value)
+}
+
+/** Problems with a links object (unknown keys, wrong kinds of address). */
+export function linksProblems(links) {
+  if (!links || typeof links !== 'object' || Array.isArray(links)) return ['must be a JSON object of links']
+  const problems = []
+  for (const [key, value] of Object.entries(links)) {
+    const kinds = Object.prototype.hasOwnProperty.call(LINK_KEYS, key) ? LINK_KEYS[key] : null
+    if (!kinds) {
+      problems.push(`"${key}" isn't a link the app knows (${Object.keys(LINK_KEYS).join(', ')})`)
+      continue
+    }
+    const ok = (kinds.includes('https') && isHttpsUrl(value)) || (kinds.includes('mailto') && isMailto(value))
+    if (!ok) {
+      const want = kinds.map((k) => (k === 'https' ? 'an https:// address' : 'mailto:<email address>')).join(' or ')
+      problems.push(`"${key}" must be ${want} (got ${JSON.stringify(value)})`)
+    }
+  }
+  return problems
+}
+
+/** The links in LINK_KEYS order (stable index bytes), leaving out empty values. */
+export function normalizeLinks(links) {
+  const out = {}
+  for (const key of Object.keys(LINK_KEYS)) if (links && links[key] !== undefined && links[key] !== '') out[key] = links[key]
+  return out
+}
+
+/** Problems with a purchase object: positive whole-number IDs, both or neither, an https checkout link. */
+export function purchaseProblems(purchase) {
+  if (!purchase || typeof purchase !== 'object' || Array.isArray(purchase)) return ['must be a JSON object']
+  const problems = []
+  const isId = (v) => typeof v === 'number' && Number.isSafeInteger(v) && v > 0
+  for (const key of Object.keys(purchase)) {
+    if (!['storeId', 'productId', 'checkoutUrl'].includes(key)) problems.push(`"${key}" isn't storeId, productId or checkoutUrl`)
+  }
+  for (const key of ['storeId', 'productId']) {
+    if (purchase[key] !== undefined && !isId(purchase[key])) problems.push(`"${key}" must be a whole number from Lemon Squeezy (no quotes)`)
+  }
+  if ((purchase.storeId === undefined) !== (purchase.productId === undefined)) problems.push('set both storeId and productId, or neither')
+  if (purchase.checkoutUrl !== undefined) {
+    if (!isHttpsUrl(purchase.checkoutUrl)) problems.push('"checkoutUrl" must be an https:// address')
+    if (purchase.storeId === undefined) problems.push('"checkoutUrl" needs storeId and productId too (the app checks every key against them)')
+  }
+  return problems
+}
+
+/** The purchase settings in a fixed key order, leaving out missing values. */
+export function normalizePurchase(purchase) {
+  const out = {}
+  for (const key of ['storeId', 'productId', 'checkoutUrl']) if (purchase && purchase[key] !== undefined) out[key] = purchase[key]
+  return out
+}
+
+/**
+ * An optional JSON object file at the repo root (links.json, purchase.json). Returns { value, problems }:
+ * value is undefined when the file doesn't exist or holds an empty object.
+ */
+export function readOptionalObject(root, name, problemsOf, normalize) {
+  const file = join(root, name)
+  if (!existsSync(file)) return { value: undefined, problems: [] }
+  let value
+  try {
+    value = JSON.parse(readFileSync(file, 'utf8'))
+  } catch (err) {
+    return { value: undefined, problems: [`isn't valid JSON: ${err.message}`] }
+  }
+  const problems = problemsOf(value)
+  if (problems.length > 0) return { value: undefined, problems }
+  const normalized = normalize(value)
+  return { value: Object.keys(normalized).length > 0 ? normalized : undefined, problems: [] }
+}
+
+export function readLinks(root) {
+  return readOptionalObject(root, LINKS_FILE, linksProblems, normalizeLinks)
+}
+
+export function readPurchase(root) {
+  return readOptionalObject(root, PURCHASE_FILE, purchaseProblems, normalizePurchase)
+}
 
 export function sha256Hex(bytes) {
   return createHash('sha256').update(bytes).digest('hex')
@@ -137,13 +251,16 @@ export function readRevokedTesterKeys(root) {
 
 /**
  * The index object, with a fixed key order so the bytes are stable. `revokedTesterKeys` (sorted
- * tester key ids the app must refuse) is only written when there is at least one, so the index is
- * byte-for-byte unchanged for catalogs that never revoke a key. Index stays schemaVersion 1: older
- * apps ignore the field.
+ * tester key ids the app must refuse) is only written when there is at least one, and `links` /
+ * `purchase` only when links.json / purchase.json hold something, so the index is byte-for-byte
+ * unchanged for catalogs without them. Index stays schemaVersion 1: older apps ignore the fields
+ * (their index schema drops unknown keys).
  */
-export function buildIndex(files, generatedAt, revokedTesterKeys = []) {
+export function buildIndex(files, generatedAt, revokedTesterKeys = [], extra = {}) {
   const index = { schemaVersion: 1, generatedAt }
   if (revokedTesterKeys.length > 0) index.revokedTesterKeys = [...revokedTesterKeys]
+  if (extra.links && Object.keys(extra.links).length > 0) index.links = { ...extra.links }
+  if (extra.purchase && Object.keys(extra.purchase).length > 0) index.purchase = { ...extra.purchase }
   index.recipes = files.map((f) => ({ id: f.id, path: f.path, sha256: sha256Hex(f.bytes) }))
   return index
 }

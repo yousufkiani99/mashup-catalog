@@ -16,6 +16,11 @@
 // (a JSON list, e.g. ["k7f3q9xa2b"]) and sign again. The ids go into index.json as
 // "revokedTesterKeys"; the app refuses those keys on its next catalog check.
 //
+// The app's own links (support Discord, website, Terms, Privacy, refund policy, contact email,
+// mashup requests, problem-report relay): links.json, copied into index.json as "links". The Lemon
+// Squeezy store/product IDs and checkout link: purchase.json, copied as "purchase". Both optional;
+// see README "Links and the shop (fill in later)".
+//
 // Writes index.json (stable key order, LF) and index.json.sig (base64 signature over the exact
 // bytes of index.json). The private key is only read, never written anywhere.
 //
@@ -32,8 +37,12 @@ import { fileURLToPath } from 'node:url'
 import {
   buildIndex,
   indexBytes,
+  LINKS_FILE,
   listRecipeFiles,
   newestSignedGeneratedAt,
+  PURCHASE_FILE,
+  readLinks,
+  readPurchase,
   readRevokedTesterKeys,
   recipeProblems,
   REVOKED_TESTER_KEYS_FILE
@@ -86,6 +95,17 @@ for (const problem of revoked.problems) {
   console.error(`sign: ${REVOKED_TESTER_KEYS_FILE} ${problem}`)
   bad = true
 }
+const links = readLinks(root)
+for (const problem of links.problems) {
+  console.error(`sign: ${LINKS_FILE} ${problem}`)
+  bad = true
+}
+const purchase = readPurchase(root)
+for (const problem of purchase.problems) {
+  console.error(`sign: ${PURCHASE_FILE} ${problem}`)
+  bad = true
+}
+const extra = { links: links.value, purchase: purchase.value }
 if (bad) fail('fix the problems above, then sign again')
 
 const indexPath = join(root, 'index.json')
@@ -97,7 +117,7 @@ if (!force && !allowResetDate && existsSync(indexPath) && existsSync(sigPath)) {
   try {
     const oldBytes = readFileSync(indexPath)
     const old = JSON.parse(oldBytes.toString('utf8'))
-    const same = indexBytes(buildIndex(files, old.generatedAt, revoked.ids)).equals(oldBytes)
+    const same = indexBytes(buildIndex(files, old.generatedAt, revoked.ids, extra)).equals(oldBytes)
     const sig = Buffer.from(readFileSync(sigPath, 'utf8').trim(), 'base64')
     const isNewest = !newest || Date.parse(old.generatedAt) >= Date.parse(newest.at)
     if (same && !isNewest) {
@@ -140,10 +160,12 @@ if (generatedAtMs > nowMs + DAY_MS) {
     `that would date index.json ${new Date(generatedAtMs).toISOString()}, more than a day ahead of this PC's clock; apps would not keep it. Check the date and time, then sign again.`
   )
 }
-const bytes = indexBytes(buildIndex(files, new Date(generatedAtMs).toISOString(), revoked.ids))
+const bytes = indexBytes(buildIndex(files, new Date(generatedAtMs).toISOString(), revoked.ids, extra))
 const signature = sign(null, bytes, privateKey).toString('base64')
 writeFileSync(indexPath, bytes)
 writeFileSync(sigPath, signature + '\n')
 console.log(`sign: signed index.json with ${files.length} recipes`)
 for (const f of files) console.log(`  ${f.path}`)
 if (revoked.ids.length > 0) console.log(`  switched-off tester keys: ${revoked.ids.join(', ')}`)
+if (links.value) console.log(`  links: ${Object.keys(links.value).join(', ')}`)
+if (purchase.value) console.log(`  purchase: ${Object.keys(purchase.value).join(', ')}`)

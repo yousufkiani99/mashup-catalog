@@ -25,6 +25,8 @@ Apache mashup that has no ready download, unless its creator objects. Loaders an
 | `index.json`               | Every recipe's path and the SHA-256 of its file                            |
 | `index.json.sig`           | ed25519 signature (base64) over the exact bytes of `index.json`            |
 | `public-key.pem`           | The public key; the same key is built into the app                         |
+| `links.json` (optional)    | The app's own links (support, Terms, …): see "Links and the shop" below    |
+| `purchase.json` (optional) | Lemon Squeezy store/product IDs and checkout link: see below               |
 | `scripts/sign.mjs`         | Rebuilds `index.json` and signs it                                         |
 | `scripts/verify.mjs`       | Checks the signature and every recipe's SHA-256, like the app does         |
 | `.github/workflows/sign.yml` | Signs automatically when recipes change on `main`                        |
@@ -50,6 +52,55 @@ Free tester keys (mashup-app decision D28) are made with mashup-app's
 `revoked-tester-keys.json` (a JSON list, e.g. `["k7f3q9xa2b"]`; create the file if it isn't there)
 and sign again. `sign.mjs` copies the ids into `index.json` as `revokedTesterKeys`; the app locks
 that key on its next catalog check, for good on that PC. `verify.mjs` checks both match.
+
+## Links and the shop (fill in later)
+
+The app's own links and the Lemon Squeezy IDs live in this repo, so they reach every player with the
+next signed catalog and **no app update**. Until a value is filled in, the app hides its button (or
+shows only the email), and buying says "Coming soon".
+
+**Links: `links.json`** (create it at the top of this repo). Every key is optional; fill in what
+exists. Each value must be an `https://` address, or `mailto:` plus one email address where shown.
+
+| Key           | What it is                                      | Shown as                                              |
+| ------------- | ----------------------------------------------- | ----------------------------------------------------- |
+| `support`     | Discord invite (https)                          | "Get help" (Settings, error screens, Play failure)    |
+| `contact`     | Contact and takedown email (`mailto:you@…`)     | "Email us" + the address, when `support` isn't set    |
+| `website`     | The website (https)                             | (kept for later screens)                              |
+| `terms`       | Terms of service (https)                        | Unlock screen and Settings fine print                 |
+| `privacy`     | Privacy policy (https)                          | Unlock screen and Settings fine print                 |
+| `refunds`     | Refund policy (https)                           | Unlock screen and Settings fine print                 |
+| `requests`    | Mashup request form (https) or `mailto:`        | "Request a mashup" in the library                     |
+| `reportRelay` | Where "Report a problem" sends reports (https)  | Not shown; used by the reports feature                |
+
+```json
+{
+  "support": "https://discord.gg/XXXXXXX",
+  "contact": "mailto:hello@example.com",
+  "website": "https://example.com/",
+  "terms": "https://example.com/terms",
+  "privacy": "https://example.com/privacy",
+  "refunds": "https://example.com/refunds",
+  "requests": "https://example.com/requests",
+  "reportRelay": "https://relay.example.com/report"
+}
+```
+
+**The shop: `purchase.json`**. From the Lemon Squeezy dashboard: the store ID (Settings → Stores, the
+number next to the store name), the product ID of the one-click unlock (Products → the product → its ID,
+not a variant ID) and its checkout link (Products → Share). Numbers without quotes. Set both IDs
+together; the checkout link needs them (the app checks every bought key against them, and a key for any
+other store or product never unlocks).
+
+```json
+{ "storeId": 12345, "productId": 67890, "checkoutUrl": "https://yourstore.lemonsqueezy.com/buy/…" }
+```
+
+Then sign as usual (`node scripts/sign.mjs --key <path>`). `sign.mjs` refuses a bad link or ID and
+copies both files into `index.json` as `links` and `purchase`; `verify.mjs` checks they match. Older
+apps (0.2.5 and before) ignore both. IDs built into the app (`LICENCE_CONFIG` in mashup-app's
+`src/main/licence/config.ts`) always win over these, so a wrong catalog can't move a build that has
+them. Changing the product ID later locks every key bought for the old product at its next check.
 
 ## The signing key
 
