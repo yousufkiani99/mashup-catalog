@@ -6,7 +6,7 @@
   "description": "Walk, sprint, jump and fly through the Lands Between with Minecraft's controls, and see Steve inside Elden Ring's world. Place and break Minecraft blocks on its ground, fight its enemies with Minecraft swords, bows and TNT, and in survival their hits land on Steve. Dying sends both games back to a Site of Grace. Press R for doors, levers, items and Sites of Grace, and F8 to hand control to Elden Ring for its menus. Both games run at the same time and Elden Ring draws Minecraft into its own picture. Offline single-player only.",
   "method": "passthrough",
   "tier": "unlocked",
-  "testLabel": "beta",
+  "testLabel": "tested-by-us",
   "offlineOnly": true,
   "games": [
     {

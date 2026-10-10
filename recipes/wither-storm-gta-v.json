@@ -6,7 +6,7 @@
   "description": "Summon Minecraft's Wither Storm over Los Santos and watch it grow. Its tractor beams lift GTA's people and cars into the sky and it swallows them whole, its skulls blow up in the streets, the sky darkens and people run. The storm is the real one from Cracker's Wither Storm Mod, running in Minecraft next to GTA V, and GTA blends it into its own picture. You can also place blocks, light TNT and fight with Minecraft's weapons. Story mode only.",
   "method": "passthrough",
   "tier": "unlocked",
-  "testLabel": "beta",
+  "testLabel": "tested-by-us",
   "games": [
     {
       "role": "host",
