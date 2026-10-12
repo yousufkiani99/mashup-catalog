@@ -188,7 +188,7 @@ export function readOptionalObject(root, name, problemsOf, normalize) {
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/
 
-/** {"afterPlayOffer": {"active": true|false, "endsBy": "YYYY-MM-DD"?}} and nothing else. */
+/** {"afterPlayOffer": {"active": true|false, "startsOn": "YYYY-MM-DD", "endsBy": "YYYY-MM-DD"}} (both dates required while active) and nothing else. */
 export function experimentsProblems(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return ['must be a JSON object']
   const problems = []
@@ -197,10 +197,15 @@ export function experimentsProblems(value) {
   if (a !== undefined) {
     if (!a || typeof a !== 'object' || Array.isArray(a)) problems.push('"afterPlayOffer" must be an object')
     else {
-      for (const key of Object.keys(a)) if (key !== 'active' && key !== 'endsBy') problems.push(`afterPlayOffer "${key}" isn't active or endsBy`)
+      for (const key of Object.keys(a)) if (!['active', 'startsOn', 'endsBy'].includes(key)) problems.push(`afterPlayOffer "${key}" isn't active, startsOn or endsBy`)
       if (typeof a.active !== 'boolean') problems.push('afterPlayOffer "active" must be true or false')
-      if (a.endsBy !== undefined && (typeof a.endsBy !== 'string' || !DAY.test(a.endsBy) || Number.isNaN(Date.parse(a.endsBy))))
-        problems.push('afterPlayOffer "endsBy" must be a date like 2026-12-15')
+      for (const k of ['startsOn', 'endsBy']) {
+        if (a[k] !== undefined && (typeof a[k] !== 'string' || !DAY.test(a[k]) || Number.isNaN(Date.parse(a[k]))))
+          problems.push(`afterPlayOffer "${k}" must be a date like 2026-12-15`)
+        else if (a.active === true && a[k] === undefined) problems.push(`afterPlayOffer needs "${k}" while active (the app runs it only between the two dates)`)
+      }
+      if (typeof a.startsOn === 'string' && typeof a.endsBy === 'string' && a.startsOn > a.endsBy)
+        problems.push('afterPlayOffer "startsOn" must be on or before "endsBy"')
     }
   }
   return problems
@@ -209,12 +214,37 @@ export function experimentsProblems(value) {
 export function normalizeExperiments(value) {
   if (!value || !value.afterPlayOffer) return {}
   const a = value.afterPlayOffer
-  return { afterPlayOffer: { active: a.active, ...(a.endsBy !== undefined ? { endsBy: a.endsBy } : {}) } }
+  return {
+    afterPlayOffer: {
+      active: a.active,
+      ...(a.startsOn !== undefined ? { startsOn: a.startsOn } : {}),
+      ...(a.endsBy !== undefined ? { endsBy: a.endsBy } : {})
+    }
+  }
+}
+
+// The same Rockstar check as mashup-app's src/shared/publisher.ts (keys, store names, publisher,
+// publisherRestricted). Featured clips are never Rockstar mashups (they show where the unlock is sold, D27).
+const ROCKSTAR_KEY =
+  /^(gta|grand-?theft|rdr|red-?dead|max-?payne|bully|canis-?canem|la-?noire|manhunt|midnight-?club|the-?warriors|table-?tennis)/
+const ROCKSTAR_NAME =
+  /(\bgta|grand theft auto|red dead|\brdr\s*\d*\b|max\s*payne|\bbully\b|canis canem edit|l\.?\s?a\.?\s?noire|\bmanhunt|midnight club|the warriors|table tennis|rockstar games)/i
+
+/** The recipe (parsed JSON) uses a Rockstar game or says it must never be shown where we sell. */
+export function usesRockstarGame(recipe) {
+  if (!recipe || !Array.isArray(recipe.games)) return true
+  if (recipe.publisherRestricted === true) return true
+  return recipe.games.some(
+    (g) =>
+      (typeof g?.publisher === 'string' && /rockstar/i.test(g.publisher)) ||
+      ROCKSTAR_KEY.test(String(g?.key ?? '').toLowerCase()) ||
+      (typeof g?.name === 'string' && ROCKSTAR_NAME.test(g.name))
+  )
 }
 
 /** Owners whose GitHub release files the app's video player may play (src/shared/clips.ts). */
 const VIDEO_OWNERS = ['yousufkiani99']
-const PERMISSION = /^(own recording|written, \d{4}-\d{2}-\d{2}|written \(Discord ⭐, \d{4}-\d{2}-\d{2}\))$/
+const PERMISSION = /^(own recording|written, \d{4}-\d{2}-\d{2}|Discord ⭐ \(author opt-in\), \d{4}-\d{2}-\d{2})$/
 
 /** An https://github.com/<ours>/<repo>/releases/download/<tag>/<name>.mp4 address, nothing else. */
 export function isReleaseVideo(value) {
@@ -240,20 +270,23 @@ export function isReleaseVideo(value) {
 
 /**
  * The featured clip: {mashupId, src, credit: {name, url}, permission}. Permission is "own recording",
- * "written, YYYY-MM-DD" or "written (Discord ⭐, YYYY-MM-DD)" (the poster's own ⭐ on their #clips post);
- * a credit (name + https link) is needed unless it's our own recording. `recipeIds`: the mashup must
- * be in this catalog.
+ * "written, YYYY-MM-DD" or "Discord ⭐ (author opt-in), YYYY-MM-DD" (the poster's own ⭐ on their #clips post);
+ * a credit (name + https link) is needed unless it's our own recording. `recipes`: this catalog's
+ * recipes as { id, json } (the mashup must be one of them, and never a Rockstar one).
  */
-export function featuredClipProblems(value, recipeIds) {
+export function featuredClipProblems(value, recipes) {
+  const recipeIds = recipes ? recipes.map((r) => r.id) : undefined
   if (!value || typeof value !== 'object' || Array.isArray(value)) return ['must be a JSON object']
   const problems = []
   for (const key of Object.keys(value))
     if (!['mashupId', 'src', 'credit', 'permission'].includes(key)) problems.push(`"${key}" isn't mashupId, src, credit or permission`)
   if (typeof value.mashupId !== 'string' || !KEBAB.test(value.mashupId)) problems.push('"mashupId" must be a recipe id')
   else if (recipeIds && !recipeIds.includes(value.mashupId)) problems.push(`"mashupId" ${value.mashupId} isn't in recipes/`)
+  else if (recipes && usesRockstarGame(recipes.find((r) => r.id === value.mashupId)?.json))
+    problems.push(`"mashupId" ${value.mashupId} uses a Rockstar game: never a featured clip (D27)`)
   if (typeof value.src !== 'string' || !isReleaseVideo(value.src)) problems.push('"src" must be an .mp4 on a GitHub release of ours')
   if (typeof value.permission !== 'string' || !PERMISSION.test(value.permission))
-    problems.push('"permission" must be "own recording", "written, YYYY-MM-DD" or "written (Discord ⭐, YYYY-MM-DD)"')
+    problems.push('"permission" must be "own recording", "written, YYYY-MM-DD" or "Discord ⭐ (author opt-in), YYYY-MM-DD"')
   const c = value.credit
   if (c !== undefined) {
     if (!c || typeof c !== 'object' || typeof c.name !== 'string' || !c.name.trim() || c.name.length > 60 || !isHttpsUrl(c.url))
@@ -273,8 +306,19 @@ export function readExperiments(root) {
   return readOptionalObject(root, EXPERIMENTS_FILE, experimentsProblems, normalizeExperiments)
 }
 
-export function readFeaturedClip(root, recipeIds) {
-  return readOptionalObject(root, FEATURED_CLIP_FILE, (v) => featuredClipProblems(v, recipeIds), normalizeFeaturedClip)
+/** Recipe files as { id, json } for featuredClipProblems (unparseable ones get json null). */
+export function recipeJsons(files) {
+  return files.map((f) => {
+    try {
+      return { id: f.id, json: JSON.parse(f.bytes.toString('utf8')) }
+    } catch {
+      return { id: f.id, json: null }
+    }
+  })
+}
+
+export function readFeaturedClip(root, recipes) {
+  return readOptionalObject(root, FEATURED_CLIP_FILE, (v) => featuredClipProblems(v, recipes), normalizeFeaturedClip)
 }
 
 export function readLinks(root) {

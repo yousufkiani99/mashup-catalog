@@ -47,6 +47,7 @@ import {
   FEATURED_CLIP_FILE,
   readExperiments,
   readFeaturedClip,
+  recipeJsons,
   readLinks,
   readPurchase,
   readRevokedTesterKeys,
@@ -116,7 +117,7 @@ for (const problem of experiments.problems) {
   console.error(`sign: ${EXPERIMENTS_FILE} ${problem}`)
   bad = true
 }
-const featuredClip = readFeaturedClip(root, files.map((f) => f.id))
+const featuredClip = readFeaturedClip(root, recipeJsons(files))
 for (const problem of featuredClip.problems) {
   console.error(`sign: ${FEATURED_CLIP_FILE} ${problem}`)
   bad = true

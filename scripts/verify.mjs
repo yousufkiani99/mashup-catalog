@@ -29,6 +29,7 @@ import {
   featuredClipProblems,
   readExperiments,
   readFeaturedClip,
+  recipeJsons,
   readLinks,
   readPurchase,
   readRevokedTesterKeys,
@@ -102,8 +103,8 @@ if (index) {
     [
       'featuredClip',
       FEATURED_CLIP_FILE,
-      (r) => readFeaturedClip(r, [...files.values()].map((f) => f.id)),
-      (v) => featuredClipProblems(v, [...files.values()].map((f) => f.id))
+      (r) => readFeaturedClip(r, recipeJsons([...files.values()])),
+      (v) => featuredClipProblems(v, recipeJsons([...files.values()]))
     ]
   ]) {
     const source = read(root)

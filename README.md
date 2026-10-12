@@ -125,18 +125,20 @@ them. Changing the product ID later locks every key bought for the old product a
 
 ## Experiments and the featured clip (Round 6)
 
-**`experiments.json`** (optional): the after-play offer experiment. While `active` and on or before
-`endsBy`, half of the installs (picked at random on their first run) get no automatic offer after a free
-play; everyone else gets the usual one. Off, missing or past `endsBy`: everyone gets the usual one.
+**`experiments.json`** (optional): the after-play offer experiment. While `active` and between
+`startsOn` and `endsBy` (both required when active; UTC days), half of the installs (picked at random on
+their first run) get no automatic offer after a free play; everyone else gets the usual one, and only
+then does the app send its group with counted events. Off, missing or outside the dates: everyone gets
+the usual one. The weekly report judges the result only after `endsBy`.
 
 ```json
-{ "afterPlayOffer": { "active": true, "endsBy": "2026-12-15" } }
+{ "afterPlayOffer": { "active": true, "startsOn": "2026-11-02", "endsBy": "2026-11-16" } }
 ```
 
 **`featured-clip.json`** (optional): the weekly #clips challenge winner, shown first in the app's hero
-and in the website's hero area (not on the homepage for a Rockstar mashup). `src` must be an `.mp4` on a
+and in the website's hero area. Never a Rockstar mashup (the signer refuses one, D27). `src` must be an `.mp4` on a
 GitHub release of ours; `permission` is `"own recording"`, `"written, YYYY-MM-DD"` or
-`"written (Discord ⭐, YYYY-MM-DD)"` (the player put a ⭐ on their own #clips post); a player's clip needs
+`"Discord ⭐ (author opt-in), YYYY-MM-DD"` (the player put a ⭐ on their own #clips post); a player's clip needs
 `credit` (their name and a link to their post). Remove the file to stop featuring it.
 
 ```json
@@ -144,7 +146,7 @@ GitHub release of ours; `permission` is `"own recording"`, `"written, YYYY-MM-DD
   "mashupId": "skycraft",
   "src": "https://github.com/yousufkiani99/mashup-library-releases/releases/download/clips/skycraft-week42.mp4",
   "credit": { "name": "@player", "url": "https://discord.com/channels/…/…/…" },
-  "permission": "written (Discord ⭐, 2026-10-19)"
+  "permission": "Discord ⭐ (author opt-in), 2026-10-19"
 }
 ```
 
