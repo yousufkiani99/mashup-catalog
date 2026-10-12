@@ -71,7 +71,8 @@ exists. Each value must be an `https://` address, or `mailto:` plus one email ad
 | `privacy`     | Privacy policy (https)                          | Unlock screen and Settings fine print                 |
 | `refunds`     | Refund policy (https)                           | Unlock screen and Settings fine print                 |
 | `requests`    | Mashup request form (https) or `mailto:`        | "Request a mashup" in the library                     |
-| `reportRelay` | Where "Report a problem" sends reports (https)  | Not shown; used by the reports feature                |
+| `reportRelay` | Where "Report a problem" sends reports (https)  | Not shown; also the launch-code counter and the app's key claim (Round 5) |
+| `affiliates`  | Lemon Squeezy affiliate signup page (https)     | "Share Mashup Launcher: earn 40%…" (app) and "Affiliates" (website footer) |
 
 ```json
 {
@@ -95,6 +96,24 @@ other store or product never unlocks).
 ```json
 { "storeId": 12345, "productId": 67890, "checkoutUrl": "https://yourstore.lemonsqueezy.com/buy/…" }
 ```
+
+**Price and offers (Round 5), in the same `purchase.json`.** A price change or a new code needs only
+a signed catalog, never an app update. Every field is optional; the app falls back to $4.99 USD with
+"Early price · goes up by Dec 31" (until that day).
+
+| Key                | Example                                                            | What it does                                                                                       |
+| ------------------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| `priceCents`       | `499`                                                              | The price on every screen and the website. Must equal the price in Lemon Squeezy                   |
+| `currency`         | `"USD"`                                                            | Only USD (no regional pricing)                                                                     |
+| `earlyPriceEndsBy` | `"2026-12-31"`                                                     | "Early price · goes up by Dec 31": the price may go up on or before that day. Gone after the day   |
+| `offer`            | `{ "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 }` | Prefilled at checkout while codes remain; "37 of 100 left" from real redemptions. **Create the code in Lemon Squeezy first** (fixed $1 off, limited to 100 uses) |
+| `creatorCodes`     | `[{ "code": "SKYCRAFT", "creator": "chasmlol", "discountCents": 100 }]` | Codes for creators' links (`mashuplauncher.com/?c=SKYCRAFT`). Only listed codes show. Create each in Lemon Squeezy first |
+| `affiliatePercent` | `40`                                                               | "earn 40% when friends buy" next to the affiliate link                                             |
+
+To raise the price: change it in Lemon Squeezy, then `priceCents` here (and remove or move
+`earlyPriceEndsBy`), sign, and update the two legal pages on the website (Terms, Refund policy).
+To end the launch code early: remove `offer` and sign (or switch the code off in Lemon Squeezy; the
+counter then hides it).
 
 Then sign as usual (`node scripts/sign.mjs --key <path>`). `sign.mjs` refuses a bad link or ID and
 copies both files into `index.json` as `links` and `purchase`; `verify.mjs` checks they match. Older

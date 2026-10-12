@@ -26,7 +26,8 @@ export const LINK_KEYS = {
   refunds: ['https'],
   contact: ['mailto'],
   requests: ['https', 'mailto'],
-  reportRelay: ['https']
+  reportRelay: ['https'],
+  affiliates: ['https']
 }
 const MAILTO = /^mailto:[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/
 
@@ -71,14 +72,87 @@ export function normalizeLinks(links) {
   return out
 }
 
+/**
+ * The keys of purchase.json, in index order. The IDs and checkout link (the app's
+ * src/main/licence/catalog-purchase.ts), then the price and offers (src/shared/pricing.ts, Round 5):
+ *   priceCents        499           one-time price in cents, as the store charges it
+ *   currency          "USD"         only USD
+ *   earlyPriceEndsBy  "2026-12-31"  the early price goes up ON OR BEFORE this day ("goes up by")
+ *   offer             { "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 }
+ *   creatorCodes      [{ "code": "SKYCRAFT", "creator": "chasmlol", "discountCents": 100 }]
+ *   affiliatePercent  40
+ * Keep in step with PRICING_KEYS / parsePricing in mashup-app.
+ */
+export const PURCHASE_KEYS = [
+  'storeId',
+  'productId',
+  'checkoutUrl',
+  'priceCents',
+  'currency',
+  'earlyPriceEndsBy',
+  'offer',
+  'creatorCodes',
+  'affiliatePercent'
+]
+const CODE = /^[A-Z0-9][A-Z0-9_-]{2,23}$/
+
+function isDay(v) {
+  if (typeof v !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(v)) return false
+  const [y, m, d] = v.split('-').map(Number)
+  return new Date(Date.UTC(y, m - 1, d)).toISOString().slice(0, 10) === v
+}
+
+/** Problems with the price and offers in purchase.json (each checked like the app reads it). */
+export function pricingProblems(p) {
+  const problems = []
+  const cents = (v, max) => typeof v === 'number' && Number.isSafeInteger(v) && v > 0 && v <= max
+  const price = p.priceCents ?? 499
+  if (p.priceCents !== undefined && !cents(p.priceCents, 100000)) problems.push('"priceCents" must be the price in cents, e.g. 499')
+  if (p.currency !== undefined && p.currency !== 'USD') problems.push('"currency" must be "USD" (no regional pricing)')
+  if (p.earlyPriceEndsBy !== undefined && !isDay(p.earlyPriceEndsBy)) problems.push('"earlyPriceEndsBy" must be a day like "2026-12-31"')
+  if (p.priceCents !== undefined && p.earlyPriceEndsBy === undefined) {
+    // Fine: a price without a date shows no "Early price" note.
+  }
+  if (p.offer !== undefined) {
+    const o = p.offer
+    if (!o || typeof o !== 'object' || Array.isArray(o)) problems.push('"offer" must be an object')
+    else {
+      if (typeof o.code !== 'string' || !CODE.test(o.code)) problems.push('"offer.code" must be capitals and digits, e.g. FIRST100')
+      if (typeof o.label !== 'string' || !o.label.trim() || o.label.length > 40) problems.push('"offer.label" must be a short name, e.g. "Launch code"')
+      if (!(typeof o.limit === 'number' && Number.isSafeInteger(o.limit) && o.limit > 0 && o.limit <= 100000)) problems.push('"offer.limit" must be the number of uses set in Lemon Squeezy')
+      if (!cents(o.discountCents, price - 1)) problems.push('"offer.discountCents" must be the discount in cents, less than the price')
+      for (const k of Object.keys(o)) if (!['code', 'label', 'limit', 'discountCents'].includes(k)) problems.push(`"offer.${k}" isn't code, label, limit or discountCents`)
+    }
+  }
+  if (p.creatorCodes !== undefined) {
+    if (!Array.isArray(p.creatorCodes)) problems.push('"creatorCodes" must be a list')
+    else {
+      const seen = new Set()
+      p.creatorCodes.forEach((c, i) => {
+        const at = `creatorCodes[${i}]`
+        if (!c || typeof c !== 'object') return problems.push(`"${at}" must be an object`)
+        if (typeof c.code !== 'string' || !CODE.test(c.code)) problems.push(`"${at}.code" must be capitals and digits`)
+        else if (seen.has(c.code) || c.code === p.offer?.code) problems.push(`"${at}.code" ${c.code} is listed twice`)
+        else seen.add(c.code)
+        if (typeof c.creator !== 'string' || !c.creator.trim() || c.creator.length > 60) problems.push(`"${at}.creator" must be the creator's name`)
+        if (!cents(c.discountCents, price - 1)) problems.push(`"${at}.discountCents" must be the discount in cents, less than the price`)
+      })
+    }
+  }
+  if (p.affiliatePercent !== undefined && !(Number.isInteger(p.affiliatePercent) && p.affiliatePercent > 0 && p.affiliatePercent <= 100))
+    problems.push('"affiliatePercent" must be a whole number from 1 to 100')
+  return problems
+}
+
 /** Problems with a purchase object: positive whole-number IDs, both or neither, an https checkout link. */
 export function purchaseProblems(purchase) {
   if (!purchase || typeof purchase !== 'object' || Array.isArray(purchase)) return ['must be a JSON object']
   const problems = []
   const isId = (v) => typeof v === 'number' && Number.isSafeInteger(v) && v > 0
   for (const key of Object.keys(purchase)) {
-    if (!['storeId', 'productId', 'checkoutUrl'].includes(key)) problems.push(`"${key}" isn't storeId, productId or checkoutUrl`)
+    if (!PURCHASE_KEYS.includes(key)) problems.push(`"${key}" isn't one of ${PURCHASE_KEYS.join(', ')}`)
   }
+  problems.push(...pricingProblems(purchase))
   for (const key of ['storeId', 'productId']) {
     if (purchase[key] !== undefined && !isId(purchase[key])) problems.push(`"${key}" must be a whole number from Lemon Squeezy (no quotes)`)
   }
@@ -93,7 +167,7 @@ export function purchaseProblems(purchase) {
 /** The purchase settings in a fixed key order, leaving out missing values. */
 export function normalizePurchase(purchase) {
   const out = {}
-  for (const key of ['storeId', 'productId', 'checkoutUrl']) if (purchase && purchase[key] !== undefined) out[key] = purchase[key]
+  for (const key of PURCHASE_KEYS) if (purchase && purchase[key] !== undefined) out[key] = purchase[key]
   return out
 }
 
