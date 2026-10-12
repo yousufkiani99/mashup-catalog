@@ -6,6 +6,5 @@
   "currency": "USD",
   "earlyPriceEndsBy": "2026-12-31",
   "offer": { "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 },
-  "creatorCodes": [],
   "affiliatePercent": 40
 }

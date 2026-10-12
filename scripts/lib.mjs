@@ -79,9 +79,9 @@ export function normalizeLinks(links) {
  *   currency          "USD"         only USD
  *   earlyPriceEndsBy  "2026-12-31"  the early price goes up ON OR BEFORE this day ("goes up by")
  *   offer             { "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 }
- *   creatorCodes      [{ "code": "SKYCRAFT", "creator": "chasmlol", "discountCents": 100 }]
  *   affiliatePercent  40
- * Keep in step with PRICING_KEYS / parsePricing in mashup-app.
+ * Keep in step with PRICING_KEYS / parsePricing in mashup-app. No creator codes (founder, D41):
+ * FIRST100 is the only code.
  */
 export const PURCHASE_KEYS = [
   'storeId',
@@ -91,7 +91,6 @@ export const PURCHASE_KEYS = [
   'currency',
   'earlyPriceEndsBy',
   'offer',
-  'creatorCodes',
   'affiliatePercent'
 ]
 const CODE = /^[A-Z0-9][A-Z0-9_-]{2,23}$/
@@ -122,21 +121,6 @@ export function pricingProblems(p) {
       if (!(typeof o.limit === 'number' && Number.isSafeInteger(o.limit) && o.limit > 0 && o.limit <= 100000)) problems.push('"offer.limit" must be the number of uses set in Lemon Squeezy')
       if (!cents(o.discountCents, price - 1)) problems.push('"offer.discountCents" must be the discount in cents, less than the price')
       for (const k of Object.keys(o)) if (!['code', 'label', 'limit', 'discountCents'].includes(k)) problems.push(`"offer.${k}" isn't code, label, limit or discountCents`)
-    }
-  }
-  if (p.creatorCodes !== undefined) {
-    if (!Array.isArray(p.creatorCodes)) problems.push('"creatorCodes" must be a list')
-    else {
-      const seen = new Set()
-      p.creatorCodes.forEach((c, i) => {
-        const at = `creatorCodes[${i}]`
-        if (!c || typeof c !== 'object') return problems.push(`"${at}" must be an object`)
-        if (typeof c.code !== 'string' || !CODE.test(c.code)) problems.push(`"${at}.code" must be capitals and digits`)
-        else if (seen.has(c.code) || c.code === p.offer?.code) problems.push(`"${at}.code" ${c.code} is listed twice`)
-        else seen.add(c.code)
-        if (typeof c.creator !== 'string' || !c.creator.trim() || c.creator.length > 60) problems.push(`"${at}.creator" must be the creator's name`)
-        if (!cents(c.discountCents, price - 1)) problems.push(`"${at}.discountCents" must be the discount in cents, less than the price`)
-      })
     }
   }
   if (p.affiliatePercent !== undefined && !(Number.isInteger(p.affiliatePercent) && p.affiliatePercent > 0 && p.affiliatePercent <= 100))
