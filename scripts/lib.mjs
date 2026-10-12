@@ -13,6 +13,10 @@ export const REVOKED_TESTER_KEYS_FILE = 'revoked-tester-keys.json'
 export const LINKS_FILE = 'links.json'
 /** Lemon Squeezy store/product IDs and checkout link, copied into index.json as "purchase". Optional. */
 export const PURCHASE_FILE = 'purchase.json'
+/** Experiment switches (mashup-app src/shared/experiments.ts), copied as "experiments". Optional. */
+export const EXPERIMENTS_FILE = 'experiments.json'
+/** The weekly #clips winner (mashup-app src/shared/featured.ts), copied as "featuredClip". Optional. */
+export const FEATURED_CLIP_FILE = 'featured-clip.json'
 
 /**
  * Which links the app knows and what each may be: an https address, or mailto:<one email address>.
@@ -27,7 +31,9 @@ export const LINK_KEYS = {
   contact: ['mailto'],
   requests: ['https', 'mailto'],
   reportRelay: ['https'],
-  affiliates: ['https']
+  affiliates: ['https'],
+  clips: ['https'],
+  reviews: ['https']
 }
 const MAILTO = /^mailto:[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/
 
@@ -180,6 +186,97 @@ export function readOptionalObject(root, name, problemsOf, normalize) {
   return { value: Object.keys(normalized).length > 0 ? normalized : undefined, problems: [] }
 }
 
+const DAY = /^\d{4}-\d{2}-\d{2}$/
+
+/** {"afterPlayOffer": {"active": true|false, "endsBy": "YYYY-MM-DD"?}} and nothing else. */
+export function experimentsProblems(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return ['must be a JSON object']
+  const problems = []
+  for (const key of Object.keys(value)) if (key !== 'afterPlayOffer') problems.push(`"${key}" isn't an experiment the app knows (afterPlayOffer)`)
+  const a = value.afterPlayOffer
+  if (a !== undefined) {
+    if (!a || typeof a !== 'object' || Array.isArray(a)) problems.push('"afterPlayOffer" must be an object')
+    else {
+      for (const key of Object.keys(a)) if (key !== 'active' && key !== 'endsBy') problems.push(`afterPlayOffer "${key}" isn't active or endsBy`)
+      if (typeof a.active !== 'boolean') problems.push('afterPlayOffer "active" must be true or false')
+      if (a.endsBy !== undefined && (typeof a.endsBy !== 'string' || !DAY.test(a.endsBy) || Number.isNaN(Date.parse(a.endsBy))))
+        problems.push('afterPlayOffer "endsBy" must be a date like 2026-12-15')
+    }
+  }
+  return problems
+}
+
+export function normalizeExperiments(value) {
+  if (!value || !value.afterPlayOffer) return {}
+  const a = value.afterPlayOffer
+  return { afterPlayOffer: { active: a.active, ...(a.endsBy !== undefined ? { endsBy: a.endsBy } : {}) } }
+}
+
+/** Owners whose GitHub release files the app's video player may play (src/shared/clips.ts). */
+const VIDEO_OWNERS = ['yousufkiani99']
+const PERMISSION = /^(own recording|written, \d{4}-\d{2}-\d{2}|written \(Discord ⭐, \d{4}-\d{2}-\d{2}\))$/
+
+/** An https://github.com/<ours>/<repo>/releases/download/<tag>/<name>.mp4 address, nothing else. */
+export function isReleaseVideo(value) {
+  let url
+  try {
+    url = new URL(value)
+  } catch {
+    return false
+  }
+  if (url.protocol !== 'https:' || url.username || url.password || url.port || url.search || url.hash) return false
+  if (url.hostname.toLowerCase() !== 'github.com') return false
+  const parts = url.pathname.split('/')
+  return (
+    parts.length === 7 &&
+    VIDEO_OWNERS.includes(parts[1].toLowerCase()) &&
+    /^[A-Za-z0-9._-]{1,100}$/.test(parts[2]) &&
+    parts[3] === 'releases' &&
+    parts[4] === 'download' &&
+    parts[5].length > 0 &&
+    /\.mp4$/i.test(parts[6])
+  )
+}
+
+/**
+ * The featured clip: {mashupId, src, credit: {name, url}, permission}. Permission is "own recording",
+ * "written, YYYY-MM-DD" or "written (Discord ⭐, YYYY-MM-DD)" (the poster's own ⭐ on their #clips post);
+ * a credit (name + https link) is needed unless it's our own recording. `recipeIds`: the mashup must
+ * be in this catalog.
+ */
+export function featuredClipProblems(value, recipeIds) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return ['must be a JSON object']
+  const problems = []
+  for (const key of Object.keys(value))
+    if (!['mashupId', 'src', 'credit', 'permission'].includes(key)) problems.push(`"${key}" isn't mashupId, src, credit or permission`)
+  if (typeof value.mashupId !== 'string' || !KEBAB.test(value.mashupId)) problems.push('"mashupId" must be a recipe id')
+  else if (recipeIds && !recipeIds.includes(value.mashupId)) problems.push(`"mashupId" ${value.mashupId} isn't in recipes/`)
+  if (typeof value.src !== 'string' || !isReleaseVideo(value.src)) problems.push('"src" must be an .mp4 on a GitHub release of ours')
+  if (typeof value.permission !== 'string' || !PERMISSION.test(value.permission))
+    problems.push('"permission" must be "own recording", "written, YYYY-MM-DD" or "written (Discord ⭐, YYYY-MM-DD)"')
+  const c = value.credit
+  if (c !== undefined) {
+    if (!c || typeof c !== 'object' || typeof c.name !== 'string' || !c.name.trim() || c.name.length > 60 || !isHttpsUrl(c.url))
+      problems.push('"credit" must be {"name": "…", "url": "https://…"}')
+  } else if (value.permission !== 'own recording') problems.push('"credit" is needed for a player\'s clip')
+  return problems
+}
+
+export function normalizeFeaturedClip(value) {
+  const out = { mashupId: value.mashupId, src: value.src }
+  if (value.credit) out.credit = { name: value.credit.name.trim(), url: value.credit.url }
+  out.permission = value.permission
+  return out
+}
+
+export function readExperiments(root) {
+  return readOptionalObject(root, EXPERIMENTS_FILE, experimentsProblems, normalizeExperiments)
+}
+
+export function readFeaturedClip(root, recipeIds) {
+  return readOptionalObject(root, FEATURED_CLIP_FILE, (v) => featuredClipProblems(v, recipeIds), normalizeFeaturedClip)
+}
+
 export function readLinks(root) {
   return readOptionalObject(root, LINKS_FILE, linksProblems, normalizeLinks)
 }
@@ -261,6 +358,11 @@ export function recipeProblems(file) {
   for (const key of REQUIRED_KEYS) if (!(key in json)) problems.push(`is missing "${key}"`)
   for (const key of ARRAY_KEYS) if (key in json && !Array.isArray(json[key])) problems.push(`"${key}" must be a list`)
   if (Array.isArray(json.credits) && json.credits.length === 0) problems.push('needs at least one credit')
+  if (
+    json.testedSetup !== undefined &&
+    (typeof json.testedSetup !== 'string' || !json.testedSetup.trim() || json.testedSetup.length > 60 || /[\r\n<>]/.test(json.testedSetup))
+  )
+    problems.push('"testedSetup" must be one plain line of up to 60 characters, e.g. "GTX 1060 · Steam"')
   if (Array.isArray(json.downloads)) {
     const ids = new Set()
     for (const d of json.downloads) {
@@ -325,6 +427,8 @@ export function buildIndex(files, generatedAt, revokedTesterKeys = [], extra = {
   if (revokedTesterKeys.length > 0) index.revokedTesterKeys = [...revokedTesterKeys]
   if (extra.links && Object.keys(extra.links).length > 0) index.links = { ...extra.links }
   if (extra.purchase && Object.keys(extra.purchase).length > 0) index.purchase = { ...extra.purchase }
+  if (extra.experiments && Object.keys(extra.experiments).length > 0) index.experiments = { ...extra.experiments }
+  if (extra.featuredClip) index.featuredClip = { ...extra.featuredClip }
   index.recipes = files.map((f) => ({ id: f.id, path: f.path, sha256: sha256Hex(f.bytes) }))
   return index
 }

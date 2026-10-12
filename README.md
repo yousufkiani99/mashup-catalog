@@ -73,6 +73,8 @@ exists. Each value must be an `https://` address, or `mailto:` plus one email ad
 | `requests`    | Mashup request form (https) or `mailto:`        | "Request a mashup" in the library                     |
 | `reportRelay` | Where "Report a problem" sends reports (https)  | Not shown; also the launch-code counter and the app's key claim (Round 5) |
 | `affiliates`  | Lemon Squeezy affiliate signup page (https)     | "Share Mashup Launcher: earn 40%…" (app) and "Affiliates" (website footer) |
+| `clips`       | Discord #clips channel link (https)             | "Open #clips" on the "Share your first clip" card (Round 6); the invite (`support`) if unset |
+| `reviews`     | Discord #reviews channel link (https)           | "Write a review" on the card after the third paid play (Round 6); the invite if unset |
 
 ```json
 {
@@ -120,6 +122,34 @@ copies both files into `index.json` as `links` and `purchase`; `verify.mjs` chec
 apps (0.2.5 and before) ignore both. IDs built into the app (`LICENCE_CONFIG` in mashup-app's
 `src/main/licence/config.ts`) always win over these, so a wrong catalog can't move a build that has
 them. Changing the product ID later locks every key bought for the old product at its next check.
+
+## Experiments and the featured clip (Round 6)
+
+**`experiments.json`** (optional): the after-play offer experiment. While `active` and on or before
+`endsBy`, half of the installs (picked at random on their first run) get no automatic offer after a free
+play; everyone else gets the usual one. Off, missing or past `endsBy`: everyone gets the usual one.
+
+```json
+{ "afterPlayOffer": { "active": true, "endsBy": "2026-12-15" } }
+```
+
+**`featured-clip.json`** (optional): the weekly #clips challenge winner, shown first in the app's hero
+and in the website's hero area (not on the homepage for a Rockstar mashup). `src` must be an `.mp4` on a
+GitHub release of ours; `permission` is `"own recording"`, `"written, YYYY-MM-DD"` or
+`"written (Discord ⭐, YYYY-MM-DD)"` (the player put a ⭐ on their own #clips post); a player's clip needs
+`credit` (their name and a link to their post). Remove the file to stop featuring it.
+
+```json
+{
+  "mashupId": "skycraft",
+  "src": "https://github.com/yousufkiani99/mashup-library-releases/releases/download/clips/skycraft-week42.mp4",
+  "credit": { "name": "@player", "url": "https://discord.com/channels/…/…/…" },
+  "permission": "written (Discord ⭐, 2026-10-19)"
+}
+```
+
+A recipe may also carry `"testedSetup": "GTX 1060 · Steam"` (one line, up to 60 characters): shown as
+"Tested by us on GTX 1060 · Steam" next to a `tested-by-us` label. Only what we really tested on.
 
 ## The signing key
 
