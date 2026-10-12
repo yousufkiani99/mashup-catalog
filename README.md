@@ -108,6 +108,7 @@ a signed catalog, never an app update. Every field is optional; the app falls ba
 | `earlyPriceEndsBy` | `"2026-12-31"`                                                     | "Early price · goes up by Dec 31": the price may go up on or before that day. Gone after the day   |
 | `offer`            | `{ "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 }` | Prefilled at checkout while codes remain; "37 of 100 left" from real redemptions. **Create the code in Lemon Squeezy first** (fixed $1 off, limited to 100 uses). The only code: no creator codes |
 | `affiliatePercent` | `40`                                                               | "earn 40% when friends buy" next to the affiliate link                                             |
+| `testMode`         | `true`                                                             | **Only while the shop is in Lemon Squeezy's test mode**: the app accepts test-mode keys. Test and live products have different IDs; at go-live copy the product to live mode, put the live `productId` and `checkoutUrl` here, **remove `testMode`**, and sign |
 
 To raise the price: change it in Lemon Squeezy, then `priceCents` here (and remove or move
 `earlyPriceEndsBy`), sign, and update the two legal pages on the website (Terms, Refund policy).

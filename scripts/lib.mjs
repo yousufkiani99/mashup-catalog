@@ -80,6 +80,8 @@ export function normalizeLinks(links) {
  *   earlyPriceEndsBy  "2026-12-31"  the early price goes up ON OR BEFORE this day ("goes up by")
  *   offer             { "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 }
  *   affiliatePercent  40
+ *   testMode          true          accept Lemon Squeezy TEST-mode keys (only while trying the shop;
+ *                                   remove at go-live together with the live product's IDs)
  * Keep in step with PRICING_KEYS / parsePricing in mashup-app. No creator codes (founder, D41):
  * FIRST100 is the only code.
  */
@@ -87,6 +89,7 @@ export const PURCHASE_KEYS = [
   'storeId',
   'productId',
   'checkoutUrl',
+  'testMode',
   'priceCents',
   'currency',
   'earlyPriceEndsBy',
@@ -105,7 +108,8 @@ function isDay(v) {
 export function pricingProblems(p) {
   const problems = []
   const cents = (v, max) => typeof v === 'number' && Number.isSafeInteger(v) && v > 0 && v <= max
-  const price = p.priceCents ?? 499
+  const priceOk = p.priceCents === undefined || cents(p.priceCents, 100000)
+  const price = priceOk ? (p.priceCents ?? 499) : null
   if (p.priceCents !== undefined && !cents(p.priceCents, 100000)) problems.push('"priceCents" must be the price in cents, e.g. 499')
   if (p.currency !== undefined && p.currency !== 'USD') problems.push('"currency" must be "USD" (no regional pricing)')
   if (p.earlyPriceEndsBy !== undefined && !isDay(p.earlyPriceEndsBy)) problems.push('"earlyPriceEndsBy" must be a day like "2026-12-31"')
@@ -119,10 +123,12 @@ export function pricingProblems(p) {
       if (typeof o.code !== 'string' || !CODE.test(o.code)) problems.push('"offer.code" must be capitals and digits, e.g. FIRST100')
       if (typeof o.label !== 'string' || !o.label.trim() || o.label.length > 40) problems.push('"offer.label" must be a short name, e.g. "Launch code"')
       if (!(typeof o.limit === 'number' && Number.isSafeInteger(o.limit) && o.limit > 0 && o.limit <= 100000)) problems.push('"offer.limit" must be the number of uses set in Lemon Squeezy')
-      if (!cents(o.discountCents, price - 1)) problems.push('"offer.discountCents" must be the discount in cents, less than the price')
+      // Checked against the price only when the price itself is valid (else that's the problem).
+      if (price !== null && !cents(o.discountCents, price - 1)) problems.push('"offer.discountCents" must be the discount in cents, less than the price')
       for (const k of Object.keys(o)) if (!['code', 'label', 'limit', 'discountCents'].includes(k)) problems.push(`"offer.${k}" isn't code, label, limit or discountCents`)
     }
   }
+  if (p.testMode !== undefined && typeof p.testMode !== 'boolean') problems.push('"testMode" must be true or false')
   if (p.affiliatePercent !== undefined && !(Number.isInteger(p.affiliatePercent) && p.affiliatePercent > 0 && p.affiliatePercent <= 100))
     problems.push('"affiliatePercent" must be a whole number from 1 to 100')
   return problems
