@@ -26,7 +26,7 @@ Apache mashup that has no ready download, unless its creator objects. Loaders an
 | `index.json.sig`           | ed25519 signature (base64) over the exact bytes of `index.json`            |
 | `public-key.pem`           | The public key; the same key is built into the app                         |
 | `links.json` (optional)    | The app's own links (support, Terms, …): see "Links and the shop" below    |
-| `purchase.json` (optional) | Lemon Squeezy store/product IDs and checkout link: see below               |
+| `purchase.json` (optional) | The store (itch.io) and the price: see below                               |
 | `scripts/sign.mjs`         | Rebuilds `index.json` and signs it                                         |
 | `scripts/verify.mjs`       | Checks the signature and every recipe's SHA-256, like the app does         |
 | `.github/workflows/sign.yml` | Signs automatically when recipes change on `main`                        |
@@ -55,7 +55,7 @@ that key on its next catalog check, for good on that PC. `verify.mjs` checks bot
 
 ## Links and the shop (fill in later)
 
-The app's own links and the Lemon Squeezy IDs live in this repo, so they reach every player with the
+The app's own links and the store settings live in this repo, so they reach every player with the
 next signed catalog and **no app update**. Until a value is filled in, the app hides its button (or
 shows only the email), and buying says "Coming soon".
 
@@ -71,8 +71,7 @@ exists. Each value must be an `https://` address, or `mailto:` plus one email ad
 | `privacy`     | Privacy policy (https)                          | Unlock screen and Settings fine print                 |
 | `refunds`     | Refund policy (https)                           | Unlock screen and Settings fine print                 |
 | `requests`    | Mashup request form (https) or `mailto:`        | "Request a mashup" in the library                     |
-| `reportRelay` | Where "Report a problem" sends reports (https)  | Not shown; also the launch-code counter and the app's key claim (Round 5) |
-| `affiliates`  | Lemon Squeezy affiliate signup page (https)     | "Share Mashup Launcher: earn 40%…" (app) and "Affiliates" (website footer) |
+| `reportRelay` | The app's relay (https)                         | Not shown: "Report a problem", counting, and the itch.io download-key check (Round 7) |
 | `clips`       | Discord #clips channel link (https)             | "Open #clips" on the "Share your first clip" card (Round 6); the invite (`support`) if unset |
 | `reviews`     | Discord #reviews channel link (https)           | "Write a review" on the card after the third paid play (Round 6); the invite if unset |
 
@@ -89,39 +88,50 @@ exists. Each value must be an `https://` address, or `mailto:` plus one email ad
 }
 ```
 
-**The shop: `purchase.json`**. From the Lemon Squeezy dashboard: the store ID (Settings → Stores, the
-number next to the store name), the product ID of the one-click unlock (Products → the product → its ID,
-not a variant ID) and its checkout link (Products → Share). Numbers without quotes. Set both IDs
-together; the checkout link needs them (the app checks every bought key against them, and a key for any
-other store or product never unlocks).
+**The shop: `purchase.json`** (Round 7, mashup-app decision D49: the store is **itch.io**, "collected
+by itch.io"; Lemon Squeezy rejected the store on 2026-10-12). Every value comes from the founder's
+itch.io dashboard. Fields that aren't known yet can be `null` (left out of the signed index); until
+they're set the app and the website show "Coming soon" instead of a buy button, and nothing breaks.
+
+| Key                 | Example                                               | What it does                                                                                     |
+| ------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `provider`          | `"itch"`                                              | The store. The only one the app knows (another store needs app code first)                     |
+| `itchUser`          | `"yousufkiani"`                                       | The itch.io account that sells it (`https://<itchUser>.itch.io`)                                 |
+| `itchGameId`        | `1234567`                                             | itch.io > Dashboard > Mashup Launcher > Edit game: the number in the address. Buying needs it (purchases are checked against it) |
+| `itchOauthClientId` | `"…"`                                                 | itch.io > Settings > API keys > OAuth applications: the Client ID (public). "Sign in with itch.io" needs it |
+| `purchaseUrl`       | `"https://yousufkiani.itch.io/mashup-launcher/purchase"` | Where every Buy button goes. Must be a page on `<itchUser>.itch.io`. Buying needs it          |
+| `priceCents`        | `499`                                                 | The price on every screen and the website. **Must equal the price on the itch.io page**         |
+| `currency`          | `"USD"`                                               | Only USD (no regional pricing)                                                                   |
+| `earlyPriceEndsBy`  | `"2026-12-31"`                                        | "Early price · goes up by Dec 31": the price may go up on or before that day. Gone after the day |
 
 ```json
-{ "storeId": 12345, "productId": 67890, "checkoutUrl": "https://yourstore.lemonsqueezy.com/buy/…" }
+{
+  "provider": "itch",
+  "itchUser": "yousufkiani",
+  "itchGameId": null,
+  "itchOauthClientId": null,
+  "purchaseUrl": "https://yousufkiani.itch.io/mashup-launcher/purchase",
+  "priceCents": 499,
+  "currency": "USD",
+  "earlyPriceEndsBy": "2026-12-31"
+}
 ```
 
-**Price and offers (Round 5), in the same `purchase.json`.** A price change or a new code needs only
-a signed catalog, never an app update. Every field is optional; the app falls back to $4.99 USD with
-"Early price · goes up by Dec 31" (until that day).
+No discount codes, launch counters, affiliate percentages or test mode: itch.io has none of those
+for us, and `sign.mjs` refuses the old Lemon Squeezy fields (`storeId`, `productId`, `checkoutUrl`,
+`testMode`, `offer`, `affiliatePercent`). Changing `itchGameId` later locks every purchase made for
+the old project at its next check, so set it once.
 
-| Key                | Example                                                            | What it does                                                                                       |
-| ------------------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| `priceCents`       | `499`                                                              | The price on every screen and the website. Must equal the price in Lemon Squeezy                   |
-| `currency`         | `"USD"`                                                            | Only USD (no regional pricing)                                                                     |
-| `earlyPriceEndsBy` | `"2026-12-31"`                                                     | "Early price · goes up by Dec 31": the price may go up on or before that day. Gone after the day   |
-| `offer`            | `{ "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 }` | Prefilled at checkout while codes remain; "37 of 100 left" from real redemptions. **Create the code in Lemon Squeezy first** (fixed $1 off, limited to 100 uses). The only code: no creator codes |
-| `affiliatePercent` | `40`                                                               | "earn 40% when friends buy" next to the affiliate link                                             |
-| `testMode`         | `true`                                                             | **Only while the shop is in Lemon Squeezy's test mode**: the app accepts test-mode keys. Test and live products have different IDs; at go-live copy the product to live mode, put the live `productId` and `checkoutUrl` here, **remove `testMode`**, and sign |
-
-To raise the price: change it in Lemon Squeezy, then `priceCents` here (and remove or move
+To raise the price: change it on the itch.io page, then `priceCents` here (and remove or move
 `earlyPriceEndsBy`), sign, and update the two legal pages on the website (Terms, Refund policy).
-To end the launch code early: remove `offer` and sign (or switch the code off in Lemon Squeezy; the
-counter then hides it).
 
-Then sign as usual (`node scripts/sign.mjs --key <path>`). `sign.mjs` refuses a bad link or ID and
-copies both files into `index.json` as `links` and `purchase`; `verify.mjs` checks they match. Older
-apps (0.2.5 and before) ignore both. IDs built into the app (`LICENCE_CONFIG` in mashup-app's
-`src/main/licence/config.ts`) always win over these, so a wrong catalog can't move a build that has
-them. Changing the product ID later locks every key bought for the old product at its next check.
+**Free or paid** is one line per recipe: `"tier": "free"` or `"tier": "unlocked"`. Change it, sign,
+and every app follows at its next catalog check (no app update).
+
+Then sign as usual (`node scripts/sign.mjs --key <path>`). `sign.mjs` refuses a bad link or store
+field and copies both files into `index.json` as `links` and `purchase`; `verify.mjs` checks they
+match. App builds from before Round 7 don't know itch.io and show "Coming soon"; Round 7 builds take
+everything from here (nothing store-specific is built into the app).
 
 ## Experiments and the featured clip (Round 6)
 

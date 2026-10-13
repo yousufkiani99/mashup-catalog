@@ -1,11 +1,10 @@
 {
-  "storeId": 494831,
-  "productId": 1429333,
-  "checkoutUrl": "https://mashuplauncher.lemonsqueezy.com/checkout/buy/d7f85b8d-3e5f-4f95-988d-8191f523f1ec",
+  "provider": "itch",
+  "itchUser": "yousufkiani",
+  "itchGameId": null,
+  "itchOauthClientId": null,
+  "purchaseUrl": "https://yousufkiani.itch.io/mashup-launcher/purchase",
   "priceCents": 499,
   "currency": "USD",
-  "earlyPriceEndsBy": "2026-12-31",
-  "offer": { "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 },
-  "affiliatePercent": 40,
-  "testMode": true
+  "earlyPriceEndsBy": "2026-12-31"
 }

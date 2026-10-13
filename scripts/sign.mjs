@@ -17,8 +17,8 @@
 // "revokedTesterKeys"; the app refuses those keys on its next catalog check.
 //
 // The app's own links (support Discord, website, Terms, Privacy, refund policy, contact email,
-// mashup requests, problem-report relay): links.json, copied into index.json as "links". The Lemon
-// Squeezy store/product IDs and checkout link: purchase.json, copied as "purchase". Both optional;
+// mashup requests, problem-report relay): links.json, copied into index.json as "links". The store
+// (itch.io, D49) and the price: purchase.json, copied as "purchase". Both optional;
 // see README "Links and the shop (fill in later)". Experiment switches: experiments.json, copied as
 // "experiments"; the weekly clip winner: featured-clip.json, copied as "featuredClip" (both optional,
 // README "Experiments and the featured clip").

@@ -11,7 +11,7 @@ export const TESTER_ID = /^[a-z0-9]{6,32}$/
 export const REVOKED_TESTER_KEYS_FILE = 'revoked-tester-keys.json'
 /** The app's own links (support, Terms, Privacy, ...), copied into index.json as "links". Optional. */
 export const LINKS_FILE = 'links.json'
-/** Lemon Squeezy store/product IDs and checkout link, copied into index.json as "purchase". Optional. */
+/** The store (itch.io, D49) and the price, copied into index.json as "purchase". Optional. */
 export const PURCHASE_FILE = 'purchase.json'
 /** Experiment switches (mashup-app src/shared/experiments.ts), copied as "experiments". Optional. */
 export const EXPERIMENTS_FILE = 'experiments.json'
@@ -31,7 +31,6 @@ export const LINK_KEYS = {
   contact: ['mailto'],
   requests: ['https', 'mailto'],
   reportRelay: ['https'],
-  affiliates: ['https'],
   clips: ['https'],
   reviews: ['https']
 }
@@ -79,30 +78,35 @@ export function normalizeLinks(links) {
 }
 
 /**
- * The keys of purchase.json, in index order. The IDs and checkout link (the app's
- * src/main/licence/catalog-purchase.ts), then the price and offers (src/shared/pricing.ts, Round 5):
- *   priceCents        499           one-time price in cents, as the store charges it
- *   currency          "USD"         only USD
- *   earlyPriceEndsBy  "2026-12-31"  the early price goes up ON OR BEFORE this day ("goes up by")
- *   offer             { "code": "FIRST100", "label": "Launch code", "limit": 100, "discountCents": 100 }
- *   affiliatePercent  40
- *   testMode          true          accept Lemon Squeezy TEST-mode keys (only while trying the shop;
- *                                   remove at go-live together with the live product's IDs)
- * Keep in step with PRICING_KEYS / parsePricing in mashup-app. No creator codes (founder, D41):
- * FIRST100 is the only code.
+ * The keys of purchase.json, in index order. The store (mashup-app src/shared/store.ts, Round 7,
+ * D49: itch.io, "collected by itch.io"), then the price (src/shared/pricing.ts):
+ *   provider           "itch"        the only store the app knows (a new store = a new value + app code)
+ *   itchUser           "yousufkiani" the itch.io account that sells the unlock (<itchUser>.itch.io)
+ *   itchGameId         1234567       the project's id (itch.io > Edit game: the number in the address);
+ *                                    null or missing until known: buying then says "Coming soon"
+ *   itchOauthClientId  "…"           the OAuth application's client id (public, not a secret); null
+ *                                    or missing until known: "Sign in with itch.io" stays hidden
+ *   purchaseUrl        "https://<itchUser>.itch.io/mashup-launcher/purchase"   where Buy goes
+ *   priceCents         499           one-time price in cents, as the itch.io page charges it
+ *   currency           "USD"         only USD
+ *   earlyPriceEndsBy   "2026-12-31"  the early price goes up ON OR BEFORE this day ("goes up by")
+ * Keep in step with STORE_KEYS / parseStore and PRICING_KEYS / parsePricing in mashup-app. No codes,
+ * offers, affiliates or test mode (itch.io has none of them for us; D40, D41 superseded by D49).
  */
 export const PURCHASE_KEYS = [
-  'storeId',
-  'productId',
-  'checkoutUrl',
-  'testMode',
+  'provider',
+  'itchUser',
+  'itchGameId',
+  'itchOauthClientId',
+  'purchaseUrl',
   'priceCents',
   'currency',
-  'earlyPriceEndsBy',
-  'offer',
-  'affiliatePercent'
+  'earlyPriceEndsBy'
 ]
-const CODE = /^[A-Z0-9][A-Z0-9_-]{2,23}$/
+/** Lemon Squeezy fields from before D49: refused with a pointer, so they can't creep back in. */
+const OLD_LS_KEYS = ['storeId', 'productId', 'checkoutUrl', 'testMode', 'offer', 'affiliatePercent']
+const ITCH_USER = /^[A-Za-z0-9][A-Za-z0-9_-]{0,62}$/
+const CLIENT_ID = /^[A-Za-z0-9_-]{6,128}$/
 
 function isDay(v) {
   if (typeof v !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(v)) return false
@@ -110,60 +114,61 @@ function isDay(v) {
   return new Date(Date.UTC(y, m - 1, d)).toISOString().slice(0, 10) === v
 }
 
-/** Problems with the price and offers in purchase.json (each checked like the app reads it). */
+/** A field that isn't known yet: missing, null or "". */
+const unset = (v) => v === undefined || v === null || v === ''
+
+/** An https page on <user>.itch.io itself (no port), as the app's isItchPageUrl checks it. */
+export function isItchPageUrl(value, user) {
+  if (!isHttpsUrl(value)) return false
+  const u = new URL(value)
+  const host = u.hostname.toLowerCase()
+  if (u.port !== '' || !host.endsWith('.itch.io') || host.split('.').length !== 3) return false
+  return !user || host === `${String(user).toLowerCase()}.itch.io`
+}
+
+/** Problems with the price in purchase.json (each checked like the app reads it). */
 export function pricingProblems(p) {
   const problems = []
   const cents = (v, max) => typeof v === 'number' && Number.isSafeInteger(v) && v > 0 && v <= max
-  const priceOk = p.priceCents === undefined || cents(p.priceCents, 100000)
-  const price = priceOk ? (p.priceCents ?? 499) : null
   if (p.priceCents !== undefined && !cents(p.priceCents, 100000)) problems.push('"priceCents" must be the price in cents, e.g. 499')
   if (p.currency !== undefined && p.currency !== 'USD') problems.push('"currency" must be "USD" (no regional pricing)')
   if (p.earlyPriceEndsBy !== undefined && !isDay(p.earlyPriceEndsBy)) problems.push('"earlyPriceEndsBy" must be a day like "2026-12-31"')
-  if (p.priceCents !== undefined && p.earlyPriceEndsBy === undefined) {
-    // Fine: a price without a date shows no "Early price" note.
-  }
-  if (p.offer !== undefined) {
-    const o = p.offer
-    if (!o || typeof o !== 'object' || Array.isArray(o)) problems.push('"offer" must be an object')
-    else {
-      if (typeof o.code !== 'string' || !CODE.test(o.code)) problems.push('"offer.code" must be capitals and digits, e.g. FIRST100')
-      if (typeof o.label !== 'string' || !o.label.trim() || o.label.length > 40) problems.push('"offer.label" must be a short name, e.g. "Launch code"')
-      if (!(typeof o.limit === 'number' && Number.isSafeInteger(o.limit) && o.limit > 0 && o.limit <= 100000)) problems.push('"offer.limit" must be the number of uses set in Lemon Squeezy')
-      // Checked against the price only when the price itself is valid (else that's the problem).
-      if (price !== null && !cents(o.discountCents, price - 1)) problems.push('"offer.discountCents" must be the discount in cents, less than the price')
-      for (const k of Object.keys(o)) if (!['code', 'label', 'limit', 'discountCents'].includes(k)) problems.push(`"offer.${k}" isn't code, label, limit or discountCents`)
-    }
-  }
-  if (p.testMode !== undefined && typeof p.testMode !== 'boolean') problems.push('"testMode" must be true or false')
-  if (p.affiliatePercent !== undefined && !(Number.isInteger(p.affiliatePercent) && p.affiliatePercent > 0 && p.affiliatePercent <= 100))
-    problems.push('"affiliatePercent" must be a whole number from 1 to 100')
   return problems
 }
 
-/** Problems with a purchase object: positive whole-number IDs, both or neither, an https checkout link. */
+/** Problems with a purchase object: the itch.io store fields and the price. */
 export function purchaseProblems(purchase) {
   if (!purchase || typeof purchase !== 'object' || Array.isArray(purchase)) return ['must be a JSON object']
   const problems = []
-  const isId = (v) => typeof v === 'number' && Number.isSafeInteger(v) && v > 0
   for (const key of Object.keys(purchase)) {
-    if (!PURCHASE_KEYS.includes(key)) problems.push(`"${key}" isn't one of ${PURCHASE_KEYS.join(', ')}`)
+    if (OLD_LS_KEYS.includes(key)) problems.push(`"${key}" was a Lemon Squeezy setting; the store is itch.io now (D49): remove it`)
+    else if (!PURCHASE_KEYS.includes(key)) problems.push(`"${key}" isn't one of ${PURCHASE_KEYS.join(', ')}`)
   }
   problems.push(...pricingProblems(purchase))
-  for (const key of ['storeId', 'productId']) {
-    if (purchase[key] !== undefined && !isId(purchase[key])) problems.push(`"${key}" must be a whole number from Lemon Squeezy (no quotes)`)
+  const p = purchase
+  const storeFields = ['itchUser', 'itchGameId', 'itchOauthClientId', 'purchaseUrl'].filter((k) => !unset(p[k]))
+  if (p.provider === undefined) {
+    if (storeFields.length) problems.push('set "provider": "itch" together with the itch.io fields')
+    return problems
   }
-  if ((purchase.storeId === undefined) !== (purchase.productId === undefined)) problems.push('set both storeId and productId, or neither')
-  if (purchase.checkoutUrl !== undefined) {
-    if (!isHttpsUrl(purchase.checkoutUrl)) problems.push('"checkoutUrl" must be an https:// address')
-    if (purchase.storeId === undefined) problems.push('"checkoutUrl" needs storeId and productId too (the app checks every key against them)')
+  if (p.provider !== 'itch') {
+    problems.push('"provider" must be "itch" (the only store the app knows)')
+    return problems
   }
+  if (unset(p.itchUser) || !ITCH_USER.test(p.itchUser)) problems.push('"itchUser" must be the itch.io account name, as in https://<itchUser>.itch.io')
+  if (!unset(p.itchGameId) && !(typeof p.itchGameId === 'number' && Number.isSafeInteger(p.itchGameId) && p.itchGameId > 0))
+    problems.push('"itchGameId" must be the project\'s number from itch.io (Edit game: the number in the address), no quotes')
+  if (!unset(p.itchOauthClientId) && !(typeof p.itchOauthClientId === 'string' && CLIENT_ID.test(p.itchOauthClientId)))
+    problems.push('"itchOauthClientId" must be the OAuth application\'s Client ID from itch.io')
+  if (!unset(p.purchaseUrl) && !isItchPageUrl(p.purchaseUrl, ITCH_USER.test(p.itchUser ?? '') ? p.itchUser : null))
+    problems.push('"purchaseUrl" must be an https:// page on <itchUser>.itch.io, e.g. https://<itchUser>.itch.io/mashup-launcher/purchase')
   return problems
 }
 
-/** The purchase settings in a fixed key order, leaving out missing values. */
+/** The purchase settings in a fixed key order, leaving out values that aren't known yet. */
 export function normalizePurchase(purchase) {
   const out = {}
-  for (const key of PURCHASE_KEYS) if (purchase && purchase[key] !== undefined) out[key] = purchase[key]
+  for (const key of PURCHASE_KEYS) if (purchase && !unset(purchase[key])) out[key] = purchase[key]
   return out
 }
 
