@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-12T11:54:37.622Z",
+  "generatedAt": "2026-10-13T04:39:56.830Z",
   "links": {
     "support": "https://discord.gg/mTQ8GXtAns",
     "website": "https://mashuplauncher.com/",
@@ -9,24 +9,15 @@
     "refunds": "https://mashuplauncher.com/refunds/",
     "contact": "mailto:hello@mashuplauncher.com",
     "requests": "mailto:hello@mashuplauncher.com",
-    "reportRelay": "https://mashup-reports.yousufkiani99.workers.dev",
-    "affiliates": "https://mashuplauncher.lemonsqueezy.com/affiliates"
+    "reportRelay": "https://mashup-reports.yousufkiani99.workers.dev"
   },
   "purchase": {
-    "storeId": 494831,
-    "productId": 1429333,
-    "checkoutUrl": "https://mashuplauncher.lemonsqueezy.com/checkout/buy/d7f85b8d-3e5f-4f95-988d-8191f523f1ec",
-    "testMode": true,
+    "provider": "itch",
+    "itchUser": "yousufkiani",
+    "itchGameId": 5148785,
     "priceCents": 499,
     "currency": "USD",
-    "earlyPriceEndsBy": "2026-12-31",
-    "offer": {
-      "code": "FIRST100",
-      "label": "Launch code",
-      "limit": 100,
-      "discountCents": 100
-    },
-    "affiliatePercent": 40
+    "earlyPriceEndsBy": "2026-12-31"
   },
   "recipes": [
     {
