@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-13T04:39:56.830Z",
+  "generatedAt": "2026-10-13T05:54:15.312Z",
   "links": {
     "support": "https://discord.gg/mTQ8GXtAns",
     "website": "https://mashuplauncher.com/",
@@ -15,6 +15,7 @@
     "provider": "itch",
     "itchUser": "yousufkiani",
     "itchGameId": 5148785,
+    "itchOauthClientId": "6d2a9975385a1061b7ae41888cb7d93d",
     "priceCents": 499,
     "currency": "USD",
     "earlyPriceEndsBy": "2026-12-31"
