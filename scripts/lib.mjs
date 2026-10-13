@@ -82,11 +82,13 @@ export function normalizeLinks(links) {
  * D49: itch.io, "collected by itch.io"), then the price (src/shared/pricing.ts):
  *   provider           "itch"        the only store the app knows (a new store = a new value + app code)
  *   itchUser           "yousufkiani" the itch.io account that sells the unlock (<itchUser>.itch.io)
- *   itchGameId         1234567       the project's id (itch.io > Edit game: the number in the address);
- *                                    null or missing until known: buying then says "Coming soon"
+ *   itchGameId         5148785       the project's id (itch.io > Edit game: the number in the address);
+ *                                    it switches on unlocking (download keys); null or missing: off
  *   itchOauthClientId  "…"           the OAuth application's client id (public, not a secret); null
  *                                    or missing until known: "Sign in with itch.io" stays hidden
- *   purchaseUrl        "https://<itchUser>.itch.io/mashup-launcher/purchase"   where Buy goes
+ *   purchaseUrl        "https://<itchUser>.itch.io/mashup-launcher/purchase"   where Buy goes;
+ *                                    left out until the itch.io page is published (Buy buttons say
+ *                                    "Coming soon" until then; keys and sign-in already work)
  *   priceCents         499           one-time price in cents, as the itch.io page charges it
  *   currency           "USD"         only USD
  *   earlyPriceEndsBy   "2026-12-31"  the early price goes up ON OR BEFORE this day ("goes up by")

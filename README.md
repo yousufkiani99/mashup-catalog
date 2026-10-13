@@ -90,16 +90,19 @@ exists. Each value must be an `https://` address, or `mailto:` plus one email ad
 
 **The shop: `purchase.json`** (Round 7, mashup-app decision D49: the store is **itch.io**, "collected
 by itch.io"; Lemon Squeezy rejected the store on 2026-10-12). Every value comes from the founder's
-itch.io dashboard. Fields that aren't known yet can be `null` (left out of the signed index); until
-they're set the app and the website show "Coming soon" instead of a buy button, and nothing breaks.
+itch.io dashboard. Fields that aren't known yet can be `null` or left out (they're left out of the
+signed index). `itchGameId` switches on unlocking (download keys, and "Sign in with itch.io" with
+`itchOauthClientId`), so the founder can test while the itch.io page is a draft; `purchaseUrl`
+switches on the Buy buttons (app and website) and is added only when the page is published. Until
+then Buy says "Coming soon", and nothing breaks.
 
 | Key                 | Example                                               | What it does                                                                                     |
 | ------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `provider`          | `"itch"`                                              | The store. The only one the app knows (another store needs app code first)                     |
 | `itchUser`          | `"yousufkiani"`                                       | The itch.io account that sells it (`https://<itchUser>.itch.io`)                                 |
-| `itchGameId`        | `1234567`                                             | itch.io > Dashboard > Mashup Launcher > Edit game: the number in the address. Buying needs it (purchases are checked against it) |
+| `itchGameId`        | `5148785`                                             | itch.io > Dashboard > Mashup Launcher > Edit game: the number in the address. Unlocking needs it (purchases are checked against it) |
 | `itchOauthClientId` | `"…"`                                                 | itch.io > Settings > API keys > OAuth applications: the Client ID (public). "Sign in with itch.io" needs it |
-| `purchaseUrl`       | `"https://yousufkiani.itch.io/mashup-launcher/purchase"` | Where every Buy button goes. Must be a page on `<itchUser>.itch.io`. Buying needs it          |
+| `purchaseUrl`       | `"https://yousufkiani.itch.io/mashup-launcher/purchase"` | Where every Buy button goes. Must be a page on `<itchUser>.itch.io`. Left out until the page is published; Buy buttons need it |
 | `priceCents`        | `499`                                                 | The price on every screen and the website. **Must equal the price on the itch.io page**         |
 | `currency`          | `"USD"`                                               | Only USD (no regional pricing)                                                                   |
 | `earlyPriceEndsBy`  | `"2026-12-31"`                                        | "Early price · goes up by Dec 31": the price may go up on or before that day. Gone after the day |
@@ -108,9 +111,8 @@ they're set the app and the website show "Coming soon" instead of a buy button, 
 {
   "provider": "itch",
   "itchUser": "yousufkiani",
-  "itchGameId": null,
+  "itchGameId": 5148785,
   "itchOauthClientId": null,
-  "purchaseUrl": "https://yousufkiani.itch.io/mashup-launcher/purchase",
   "priceCents": 499,
   "currency": "USD",
   "earlyPriceEndsBy": "2026-12-31"

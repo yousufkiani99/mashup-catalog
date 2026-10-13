@@ -1,9 +1,8 @@
 {
   "provider": "itch",
   "itchUser": "yousufkiani",
-  "itchGameId": null,
+  "itchGameId": 5148785,
   "itchOauthClientId": null,
-  "purchaseUrl": "https://yousufkiani.itch.io/mashup-launcher/purchase",
   "priceCents": 499,
   "currency": "USD",
   "earlyPriceEndsBy": "2026-12-31"
