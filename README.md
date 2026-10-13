@@ -106,6 +106,7 @@ then Buy says "Coming soon", and nothing breaks.
 | `priceCents`        | `499`                                                 | The price on every screen and the website. **Must equal the price on the itch.io page**         |
 | `currency`          | `"USD"`                                               | Only USD (no regional pricing)                                                                   |
 | `earlyPriceEndsBy`  | `"2026-12-31"`                                        | "Early price · goes up by Dec 31": the price may go up on or before that day. Gone after the day |
+| `sale`              | see below                                             | Optional: an itch.io sale mirrored (Round 8). Only inside its dates                              |
 
 ```json
 {
@@ -119,13 +120,43 @@ then Buy says "Coming soon", and nothing breaks.
 }
 ```
 
-No discount codes, launch counters, affiliate percentages or test mode: itch.io has none of those
-for us, and `sign.mjs` refuses the old Lemon Squeezy fields (`storeId`, `productId`, `checkoutUrl`,
+No discount codes, launch counters, affiliate percentages or test mode in the catalog. (itch.io does
+have limited-use coupon codes: a sale with a code and "Maximum redeems". We don't use them: a "first
+100" count is scarcity copy our rules forbid, and the app can't see redemptions. itch.io has no
+affiliate tracking or test mode for us.) `sign.mjs` refuses the old Lemon Squeezy fields (`storeId`, `productId`, `checkoutUrl`,
 `testMode`, `offer`, `affiliatePercent`). Changing `itchGameId` later locks every purchase made for
 the old project at its next check, so set it once.
 
 To raise the price: change it on the itch.io page, then `priceCents` here (and remove or move
 `earlyPriceEndsBy`), sign, and update the two legal pages on the website (Terms, Refund policy).
+
+**A sale: `sale`** (optional; mashup-app Round 8, decision D52). It mirrors a sale the founder made
+on itch.io (Dashboard > Sales & bundles), so the app and the website show the same price as the
+itch.io page. Inside `[startsAt, endsAt)` every price shown is `sale.priceCents`, with exactly one
+line "Launch sale: $3.49 until Oct 24, then $4.99" (no countdown, no strike-through, no "was") in
+place of the early-price note; outside it everything is as if there were no sale, so nothing has
+to be signed again when it ends (the website also checks the visitor's clock).
+
+```json
+"sale": {
+  "priceCents": 349,
+  "startsAt": "2026-10-14T16:00:00Z",
+  "endsAt": "2026-10-25T03:59:59Z",
+  "label": "Launch sale"
+}
+```
+
+| Key          | Rule                                                                                   |
+| ------------ | -------------------------------------------------------------------------------------- |
+| `priceCents` | Below `priceCents`; what itch.io charges during the sale ($4.99 at 30% → 349)          |
+| `startsAt`   | The itch.io sale's start, exact UTC with a `Z` (convert from the time zone you typed)  |
+| `endsAt`     | The itch.io sale's end, exact UTC (11:59:59 PM Eastern in October = 03:59:59Z next day) |
+| `label`      | Optional, 3–24 letters and spaces; default "Launch sale"                               |
+
+`sign.mjs` refuses a sale that isn't below the price, ends before it starts, runs longer than 14
+days or has a time without `Z`. Rules (mashup-app PROJECT_STATE D52): no second sale within 30 days
+of this one ending, and the price must really go up by Dec 31 as the early-price note says. Older
+app builds ignore `sale` (they keep showing the regular price).
 
 **Free or paid** is one line per recipe: `"tier": "free"` or `"tier": "unlocked"`. Change it, sign,
 and every app follows at its next catalog check (no app update).

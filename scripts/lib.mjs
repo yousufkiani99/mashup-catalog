@@ -92,8 +92,16 @@ export function normalizeLinks(links) {
  *   priceCents         499           one-time price in cents, as the itch.io page charges it
  *   currency           "USD"         only USD
  *   earlyPriceEndsBy   "2026-12-31"  the early price goes up ON OR BEFORE this day ("goes up by")
+ *   sale               { "priceCents": 349, "startsAt": "2026-10-14T16:00:00Z",
+ *                        "endsAt": "2026-10-25T03:59:59Z", "label": "Launch sale" }   optional
+ *                                    (mashup-app Round 8, D52): mirrors an itch.io sale. Below
+ *                                    priceCents, exact UTC times ("Z"), endsAt after startsAt, at
+ *                                    most 14 days, label letters and spaces only. The app and site
+ *                                    show the sale price and "Launch sale: $3.49 until Oct 24, then
+ *                                    $4.99" only inside [startsAt, endsAt), then go back by themselves
  * Keep in step with STORE_KEYS / parseStore and PRICING_KEYS / parsePricing in mashup-app. No codes,
- * offers, affiliates or test mode (itch.io has none of them for us; D40, D41 superseded by D49).
+ * offers, affiliates or test mode (D40, D41 superseded by D49; itch.io's limited-use coupon codes
+ * exist but aren't used: no scarcity copy, and the app can't see redemptions).
  */
 export const PURCHASE_KEYS = [
   'provider',
@@ -103,8 +111,48 @@ export const PURCHASE_KEYS = [
   'purchaseUrl',
   'priceCents',
   'currency',
-  'earlyPriceEndsBy'
+  'earlyPriceEndsBy',
+  'sale'
 ]
+/** The sale's keys, in order. */
+export const SALE_KEYS = ['priceCents', 'startsAt', 'endsAt', 'label']
+/** A sale is at most this long (mashup-app src/shared/pricing.ts MAX_SALE_MS). */
+export const MAX_SALE_MS = 14 * 24 * 60 * 60 * 1000
+const UTC_TIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
+const SALE_LABEL = /^[A-Za-z][A-Za-z ]{2,23}$/
+
+/** A real UTC instant, written with a "Z" (as the app's isUtcTime). */
+function isUtcTime(v) {
+  if (typeof v !== 'string' || !UTC_TIME.test(v)) return false
+  const t = Date.parse(v)
+  return !Number.isNaN(t) && new Date(t).toISOString().slice(0, 19) === v.slice(0, 19)
+}
+
+/**
+ * Problems with purchase.json's optional "sale" (checked exactly as the app reads it; the app drops
+ * a bad sale whole, so the catalog refuses one).
+ */
+export function saleProblems(sale, priceCents) {
+  if (!sale || typeof sale !== 'object' || Array.isArray(sale)) return ['"sale" must be an object like { "priceCents": 349, "startsAt": "…Z", "endsAt": "…Z" }']
+  const problems = []
+  for (const key of Object.keys(sale)) if (!SALE_KEYS.includes(key)) problems.push(`"sale.${key}" isn't one of ${SALE_KEYS.join(', ')}`)
+  const p = sale.priceCents
+  if (!(typeof p === 'number' && Number.isSafeInteger(p) && p > 0)) problems.push('"sale.priceCents" must be the sale price in cents, e.g. 349')
+  else if (typeof priceCents === 'number' && p >= priceCents) problems.push(`"sale.priceCents" (${p}) must be below "priceCents" (${priceCents})`)
+  else if (typeof priceCents !== 'number') problems.push('"sale" needs "priceCents" (the regular price) set too')
+  const okStart = isUtcTime(sale.startsAt)
+  const okEnd = isUtcTime(sale.endsAt)
+  if (!okStart) problems.push('"sale.startsAt" must be an exact UTC time like "2026-10-14T16:00:00Z"')
+  if (!okEnd) problems.push('"sale.endsAt" must be an exact UTC time like "2026-10-25T03:59:59Z"')
+  if (okStart && okEnd) {
+    const ms = Date.parse(sale.endsAt) - Date.parse(sale.startsAt)
+    if (ms <= 0) problems.push('"sale.endsAt" must be after "sale.startsAt"')
+    else if (ms > MAX_SALE_MS) problems.push('a sale is at most 14 days ("sale.endsAt" - "sale.startsAt")')
+  }
+  if (sale.label !== undefined && !(typeof sale.label === 'string' && SALE_LABEL.test(sale.label)))
+    problems.push('"sale.label" must be 3 to 24 letters and spaces, e.g. "Launch sale" (or leave it out)')
+  return problems
+}
 /** Lemon Squeezy fields from before D49: refused with a pointer, so they can't creep back in. */
 const OLD_LS_KEYS = ['storeId', 'productId', 'checkoutUrl', 'testMode', 'offer', 'affiliatePercent']
 const ITCH_USER = /^[A-Za-z0-9][A-Za-z0-9_-]{0,62}$/
@@ -135,6 +183,7 @@ export function pricingProblems(p) {
   if (p.priceCents !== undefined && !cents(p.priceCents, 100000)) problems.push('"priceCents" must be the price in cents, e.g. 499')
   if (p.currency !== undefined && p.currency !== 'USD') problems.push('"currency" must be "USD" (no regional pricing)')
   if (p.earlyPriceEndsBy !== undefined && !isDay(p.earlyPriceEndsBy)) problems.push('"earlyPriceEndsBy" must be a day like "2026-12-31"')
+  if (!unset(p.sale)) problems.push(...saleProblems(p.sale, p.priceCents))
   return problems
 }
 
@@ -171,6 +220,11 @@ export function purchaseProblems(purchase) {
 export function normalizePurchase(purchase) {
   const out = {}
   for (const key of PURCHASE_KEYS) if (purchase && !unset(purchase[key])) out[key] = purchase[key]
+  if (out.sale && typeof out.sale === 'object') {
+    const sale = {}
+    for (const key of SALE_KEYS) if (out.sale[key] !== undefined) sale[key] = out.sale[key]
+    out.sale = sale
+  }
   return out
 }
 
