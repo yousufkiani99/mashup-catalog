@@ -23,6 +23,13 @@ import {
   listRecipeFiles,
   PURCHASE_FILE,
   purchaseProblems,
+  EXPERIMENTS_FILE,
+  experimentsProblems,
+  FEATURED_CLIP_FILE,
+  featuredClipProblems,
+  readExperiments,
+  readFeaturedClip,
+  recipeJsons,
   readLinks,
   readPurchase,
   readRevokedTesterKeys,
@@ -91,7 +98,14 @@ if (index) {
   // links / purchase: valid, and the same as links.json / purchase.json.
   for (const [field, file, read, problemsOf] of [
     ['links', LINKS_FILE, readLinks, linksProblems],
-    ['purchase', PURCHASE_FILE, readPurchase, purchaseProblems]
+    ['purchase', PURCHASE_FILE, readPurchase, purchaseProblems],
+    ['experiments', EXPERIMENTS_FILE, readExperiments, experimentsProblems],
+    [
+      'featuredClip',
+      FEATURED_CLIP_FILE,
+      (r) => readFeaturedClip(r, recipeJsons([...files.values()])),
+      (v) => featuredClipProblems(v, recipeJsons([...files.values()]))
+    ]
   ]) {
     const source = read(root)
     for (const p of source.problems) errors.push(`${file} ${p}`)

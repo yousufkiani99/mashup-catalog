@@ -17,9 +17,11 @@
 // "revokedTesterKeys"; the app refuses those keys on its next catalog check.
 //
 // The app's own links (support Discord, website, Terms, Privacy, refund policy, contact email,
-// mashup requests, problem-report relay): links.json, copied into index.json as "links". The Lemon
-// Squeezy store/product IDs and checkout link: purchase.json, copied as "purchase". Both optional;
-// see README "Links and the shop (fill in later)".
+// mashup requests, problem-report relay): links.json, copied into index.json as "links". The store
+// (itch.io, D49) and the price: purchase.json, copied as "purchase". Both optional;
+// see README "Links and the shop (fill in later)". Experiment switches: experiments.json, copied as
+// "experiments"; the weekly clip winner: featured-clip.json, copied as "featuredClip" (both optional,
+// README "Experiments and the featured clip").
 //
 // Writes index.json (stable key order, LF) and index.json.sig (base64 signature over the exact
 // bytes of index.json). The private key is only read, never written anywhere.
@@ -41,6 +43,11 @@ import {
   listRecipeFiles,
   newestSignedGeneratedAt,
   PURCHASE_FILE,
+  EXPERIMENTS_FILE,
+  FEATURED_CLIP_FILE,
+  readExperiments,
+  readFeaturedClip,
+  recipeJsons,
   readLinks,
   readPurchase,
   readRevokedTesterKeys,
@@ -105,7 +112,22 @@ for (const problem of purchase.problems) {
   console.error(`sign: ${PURCHASE_FILE} ${problem}`)
   bad = true
 }
-const extra = { links: links.value, purchase: purchase.value }
+const experiments = readExperiments(root)
+for (const problem of experiments.problems) {
+  console.error(`sign: ${EXPERIMENTS_FILE} ${problem}`)
+  bad = true
+}
+const featuredClip = readFeaturedClip(root, recipeJsons(files))
+for (const problem of featuredClip.problems) {
+  console.error(`sign: ${FEATURED_CLIP_FILE} ${problem}`)
+  bad = true
+}
+const extra = {
+  links: links.value,
+  purchase: purchase.value,
+  experiments: experiments.value,
+  featuredClip: featuredClip.value
+}
 if (bad) fail('fix the problems above, then sign again')
 
 const indexPath = join(root, 'index.json')
@@ -169,3 +191,5 @@ for (const f of files) console.log(`  ${f.path}`)
 if (revoked.ids.length > 0) console.log(`  switched-off tester keys: ${revoked.ids.join(', ')}`)
 if (links.value) console.log(`  links: ${Object.keys(links.value).join(', ')}`)
 if (purchase.value) console.log(`  purchase: ${Object.keys(purchase.value).join(', ')}`)
+if (experiments.value) console.log(`  experiments: ${JSON.stringify(experiments.value)}`)
+if (featuredClip.value) console.log(`  featured clip: ${featuredClip.value.mashupId}`)
