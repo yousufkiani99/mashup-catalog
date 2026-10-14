@@ -73,7 +73,7 @@
       "sizeBytes": 952607,
       "kind": "loader",
       "source": "nexus",
-      "nexus": { "gameDomain": "skyrimspecialedition", "modId": 30379 },
+      "nexus": { "gameDomain": "skyrimspecialedition", "modId": 30379, "fileId": 795992 },
       "licence": "SKSE licence: free, no re-hosting (official site skse.silverlock.org)",
       "fileName": "skse64_2_03_01.7z",
       "pins": { "version": "2.3.1", "gameVersions": ["1.7.104.0"] }
