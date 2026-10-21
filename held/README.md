@@ -11,3 +11,8 @@ Recipes kept here are not in the signed catalog, so the app doesn't show them.
   given yet (PROJECT_STATE §5). Under D4/D11 it stays out of the paid library until LoAlCo says yes. Move it
   back to `recipes/` and re-sign once permission is in writing. ValCraft (strangemap) is a separate MIT project
   and stays in.
+
+- `ultracraft.json` (alfr0762's Ultracraft, held 2026-10-21): the creator's GitHub repo is gone (deleted or made
+  private) and our pinned v1.0.4 download returns 404, so it can't install. Melty lists an "UltraCraft" by a
+  different account; don't take it from there. Move it back to `recipes/` and re-sign only if alfr0762 publishes
+  it again on their own GitHub. Killcraft's `conflictsWith: ["ultracraft"]` stays so old installs still clash.

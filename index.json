@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-14T03:30:59.333Z",
+  "generatedAt": "2026-10-21T19:12:16.993Z",
   "links": {
     "support": "https://discord.gg/mTQ8GXtAns",
     "website": "https://mashuplauncher.com/",
@@ -95,11 +95,6 @@
       "id": "skycraft",
       "path": "recipes/skycraft.json",
       "sha256": "266a91812c295415a33e2eec74cb368c6bd6961bb224116733eecbf33dfe8e2e"
-    },
-    {
-      "id": "ultracraft",
-      "path": "recipes/ultracraft.json",
-      "sha256": "cab9d0fe9c33c88d77027f58203a5ecc67e005fde342853cd8cc2df0613339dd"
     },
     {
       "id": "valcraft-strangemap",
