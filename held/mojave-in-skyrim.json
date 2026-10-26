@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 5,
+  "id": "mojave-in-skyrim",
+  "title": "Mojave in Skyrim",
+  "tagline": "Tune Skyrim to Radio New Vegas: Fallout: New Vegas' radio, songs and DJ play while you explore.",
+  "description": "Bring Radio New Vegas to Skyrim. Press N to switch the radio on or off and = or - to change the volume: Mr. New Vegas, his news and the station's songs play from your own copy of Fallout: New Vegas while you explore Skyrim. Only Skyrim runs: Fallout: New Vegas is read, never started or changed.",
+  "method": "content-port",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "skyrim-se",
+      "name": "The Elder Scrolls V: Skyrim Special Edition",
+      "store": "steam",
+      "steamAppId": "489830",
+      "version": {
+        "kind": "exeVersions",
+        "values": [
+          "1.7.104.0"
+        ],
+        "note": "Needs the Anniversary Edition runtime. Developed and tested on 1.7.104. Not 1.5.97, not VR."
+      }
+    },
+    {
+      "role": "donor",
+      "key": "fallout-nv",
+      "name": "Fallout: New Vegas",
+      "store": "steam",
+      "steamAppId": "22380",
+      "version": {
+        "kind": "any",
+        "note": "Needs Fallout: New Vegas installed; it is only read, never started."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "mojave-in-skyrim",
+      "name": "Mojave in Skyrim 0.2.0 (community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/mojave-in-skyrim-v0.2.0/mojave-in-skyrim-0.2.0.zip",
+      "sha256": "TODO",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "GPL-3.0-or-later (source published next to the build, D25)",
+      "fileName": "mojave-in-skyrim-0.2.0.zip"
+    },
+    {
+      "id": "ultimate-asi-loader",
+      "name": "Ultimate ASI Loader 9.7.4 (64-bit)",
+      "url": "https://github.com/ThirteenAG/Ultimate-ASI-Loader/releases/download/v9.7.4/Ultimate-ASI-Loader-NoPDB_x64.zip",
+      "sha256": "e5860e7d9a1805267535b65749575b5e406cc6ea3325c7392189c578815045d1",
+      "sizeBytes": 374169,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "Ultimate-ASI-Loader-NoPDB_x64.zip",
+      "pins": {
+        "version": "9.7.4"
+      }
+    },
+    {
+      "id": "address-library",
+      "name": "Address Library for SKSE Plugins (All in one, 1.7.104.0) v13",
+      "url": "https://www.nexusmods.com/skyrimspecialedition/mods/32444?tab=files",
+      "sha256": "be0c7c07fb63fd1c1403690d4797c7a8fdf8799118acceb605f285d7b0ee055f",
+      "sizeBytes": 6640552,
+      "kind": "dependency",
+      "source": "nexus",
+      "nexus": {
+        "gameDomain": "skyrimspecialedition",
+        "modId": 32444,
+        "fileId": 795954
+      },
+      "licence": "Nexus Mods permissions (meh321)",
+      "fileName": "address-library-skse-all-in-one-1.7.104.0-v13.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "ultimate-asi-loader",
+      "to": "{game:skyrim-se}",
+      "only": [
+        "dinput8.dll"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "address-library",
+      "to": "{game:skyrim-se}/Data",
+      "only": [
+        "SKSE/Plugins/versionlib-1-7-104-0.bin"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "mojave-in-skyrim",
+      "to": "{game:skyrim-se}"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:skyrim-se}/MojaveInSkyrim.ini",
+      "section": "Paths",
+      "key": "sFalloutNVPath",
+      "value": "{game:fallout-nv}"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "skyrim-se",
+        "via": "steam"
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "skyrim-se",
+      "path": "{documents}/My Games/Skyrim Special Edition/Saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Only Skyrim runs. Fallout: New Vegas must be installed on this PC."
+  },
+  "credits": [
+    {
+      "name": "Pitorad",
+      "role": "Creator of Mojave in Skyrim",
+      "url": "https://github.com/Pitorad/mojave-in-skyrim"
+    },
+    {
+      "name": "ThirteenAG",
+      "role": "Ultimate ASI Loader",
+      "url": "https://github.com/ThirteenAG/Ultimate-ASI-Loader"
+    },
+    {
+      "name": "meh321",
+      "role": "Address Library for SKSE Plugins",
+      "url": "https://www.nexusmods.com/skyrimspecialedition/mods/32444"
+    }
+  ],
+  "licence": {
+    "spdx": "GPL-3.0-or-later",
+    "url": "https://github.com/Pitorad/mojave-in-skyrim/blob/58520efa9e7905421065ba866a7df4968dc36e43/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/Pitorad/mojave-in-skyrim",
+    "manualInstall": "https://github.com/Pitorad/mojave-in-skyrim#readme"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Only Skyrim 1.7.104 works (the Anniversary Edition runtime).",
+    "N switches the radio on or off; = and - change its volume."
+  ]
+}

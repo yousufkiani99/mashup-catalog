@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 5,
+  "id": "madcraft",
+  "title": "MadCraft",
+  "tagline": "Play Mad Max's wasteland as a Minecraft player: build, fight and glide with an elytra.",
+  "description": "Press F8 and you are Steve in Mad Max's wasteland: Minecraft's movement, inventory, hotbar and HUD, with blocks you place and break on the real ground. Fight the War Boys with Minecraft weapons, glide over the dunes with an elytra and four stacks of rockets, and light the night with torches. Drive with Mad Max's own car controls, in first person from the driver's seat if you like. Health and death are shared. Both games run at the same time and Mad Max draws Minecraft into its own picture.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "mad-max",
+      "name": "Mad Max",
+      "store": "steam",
+      "steamAppId": "234140",
+      "publisher": "Warner Bros. Games",
+      "version": {
+        "kind": "any",
+        "note": "The Steam or GOG version. Built and tested on GOG; on Steam it finds what it needs by itself and stays off with a message if something is missing."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "fabric-api"
+    ],
+    "instanceName": "MadCraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "madcraft",
+      "name": "MadCraft 0.3.0 (both sides)",
+      "url": "https://github.com/brayniac6-glitch/mad-max-x-minecraft/releases/download/v0.3.0/MadCraft-0.3.0.zip",
+      "sha256": "e2bc5aad8ec78c6b5b19d9907cd08aa492e863e93180ca823e104fd0d24a17b9",
+      "sizeBytes": 1206640,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "MadCraft-0.3.0.zip"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "madcraft",
+      "to": "{game:mad-max}",
+      "from": "Mad Max folder"
+    },
+    {
+      "action": "prism-instance"
+    },
+    {
+      "action": "extract",
+      "download": "madcraft",
+      "to": "{prism-instance}/mods",
+      "from": "Minecraft mods folder",
+      "only": [
+        "madcraft-0.3.0.jar"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Backend library: LWJGL|Sound engine started|Error starting SoundSystem",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "mad-max",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "MadCraft: linked to MadMax",
+      "message": "Load your save in Mad Max. Minecraft links up once you're in the game, then press F8 to play as Steve.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "mad-max",
+      "path": "{steam-userdata:234140}"
+    },
+    {
+      "gameKey": "mad-max",
+      "path": "{documents}/WB Games/Mad Max"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Both games run at once: 16 GB of RAM recommended, DirectX 11. Minecraft's window hides itself once linked."
+  },
+  "credits": [
+    {
+      "name": "brayniac6-glitch",
+      "role": "Creator of MadCraft",
+      "url": "https://github.com/brayniac6-glitch/mad-max-x-minecraft"
+    },
+    {
+      "name": "chasmlol",
+      "role": "SkyCraft, the Minecraft-in-Skyrim mod MadCraft is based on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/brayniac6-glitch/mad-max-x-minecraft/blob/v0.3.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/brayniac6-glitch/mad-max-x-minecraft",
+    "manualInstall": "https://github.com/brayniac6-glitch/mad-max-x-minecraft#install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Steam copies are new and untested: MadCraft was built on the GOG version. If it can't find what it needs it stays off with a message and Mad Max runs normally.",
+    "Press F8 to play as Steve, and F8 again for Max's own controls (menus, the Magnum Opus garage). Esc hands the controls to Mad Max until you unpause.",
+    "Mad Max's own health bar and prompts still show next to Minecraft's.",
+    "Other cars and people aren't solid for Steve; only the world and props are.",
+    "Torch light shines through walls.",
+    "MadCraft needs your Minecraft account to be online the first time; offline accounts don't work.",
+    "If another mod already uses a dinput8.dll next to MadMax.exe, MadCraft's replaces it while installed (Remove puts yours back)."
+  ]
+}

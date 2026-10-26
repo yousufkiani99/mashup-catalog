@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 5,
+  "id": "portalcraft",
+  "title": "PortalCraft",
+  "tagline": "Play Portal as Steve: Minecraft's body, blocks and inventory in Aperture's test chambers.",
+  "description": "Solve Portal's test chambers as Minecraft's Steve. You move, mine, build and fight with Minecraft's physics, health, inventory and hotbar, while Portal's portals, buttons, cubes, turrets and lifts work just as they do in Portal. Hold the Minecraft portal gun to fire Portal's portals, press E to grab cubes and press buttons, and Tab for your inventory. Fall damage is on, so long chambers hand you a water bucket to land with. Both games run at the same time: Minecraft runs hidden and Portal shows everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "portal",
+      "name": "Portal",
+      "store": "steam",
+      "steamAppId": "400",
+      "version": {
+        "kind": "any",
+        "note": "The 2007 Portal on Steam (not Portal 2 or Portal with RTX)."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. PortalCraft sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "managedBy": "mashup",
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [],
+    "instanceName": "PortalCraft"
+  },
+  "downloads": [
+    {
+      "id": "portalcraft",
+      "name": "PortalCraft 0.3.4",
+      "url": "https://github.com/GongerNonger/portalcraft/releases/download/v0.3.4/PortalCraft-0.3.4.zip",
+      "sha256": "8b5c5659274d6c073e998a18d7ec8fc099a0e8d0fc7b08d4269bbc6a88d8d275",
+      "sizeBytes": 25781542,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (PortalCraft; the Prism Launcher inside is GPL-3.0, unmodified)",
+      "fileName": "PortalCraft-0.3.4.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "portalcraft",
+      "to": "{localappdata}/PortalCraft/Prism",
+      "from": "PortalCraft-0.3.4/minecraft/Prism"
+    },
+    {
+      "action": "extract",
+      "download": "portalcraft",
+      "to": "{localappdata}/PortalCraft/Prism",
+      "from": "PortalCraft-0.3.4/minecraft/defaults",
+      "only": [
+        "prismlauncher.cfg"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "portalcraft",
+      "to": "{localappdata}/PortalCraft/Prism/instances/PortalCraft/.minecraft",
+      "from": "PortalCraft-0.3.4/minecraft/defaults",
+      "only": [
+        "options.txt"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "portalcraft",
+      "to": "{localappdata}/PortalCraft/Prism/instances/PortalCraft/.minecraft/saves/PortalCraft",
+      "from": "PortalCraft-0.3.4/minecraft/world"
+    },
+    {
+      "action": "extract",
+      "download": "portalcraft",
+      "to": "{game:portal}/portal/addons",
+      "from": "PortalCraft-0.3.4/plugin",
+      "only": [
+        "portalcraft.dll"
+      ]
+    },
+    {
+      "action": "write-file",
+      "path": "{game:portal}/portal/addons/portalcraft.vdf",
+      "lines": [
+        "\"Plugin\"",
+        "{{",
+        "\t\"file\"\t\"addons/portalcraft\"",
+        "}}"
+      ]
+    },
+    {
+      "action": "write-file",
+      "path": "{game:portal}/portal/addons/portalcraft.ini",
+      "lines": [
+        "[Minecraft]",
+        "start_with_portal=1",
+        "launcher={localappdata}/PortalCraft/Prism/prismlauncher.exe",
+        "arguments=--launch PortalCraft --world PortalCraft",
+        "directory={localappdata}/PortalCraft/Prism",
+        "log={localappdata}/PortalCraft/Prism/instances/PortalCraft/.minecraft/logs/latest.log"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "portal",
+        "via": "steam",
+        "args": [
+          "-insecure",
+          "-novid"
+        ]
+      }
+    ],
+    "ready": {
+      "logFile": "{game:portal}/portal/addons/portalcraft.log",
+      "pattern": "Minecraft linked",
+      "message": "Starting Minecraft inside Portal. The first time, sign in to Minecraft in the window that opens; Minecraft then downloads for a few minutes.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "portal",
+      "path": "{game:portal}/portal/save"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{localappdata}/PortalCraft/Prism/instances/PortalCraft/.minecraft/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft and about 1.5 GB of disk for Minecraft's files."
+  },
+  "credits": [
+    {
+      "name": "Kaydn (GongerNonger)",
+      "role": "Creator of PortalCraft",
+      "url": "https://github.com/GongerNonger/portalcraft"
+    },
+    {
+      "name": "Prism Launcher contributors",
+      "role": "Prism Launcher, which PortalCraft brings to start Minecraft",
+      "url": "https://github.com/PrismLauncher/PrismLauncher"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/GongerNonger/portalcraft/blob/v0.3.4/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/GongerNonger/portalcraft",
+    "manualInstall": "https://github.com/GongerNonger/portalcraft/blob/v0.3.4/README.md"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Single player only.",
+    "While PortalCraft is installed, starting Portal from Steam also starts it. Remove it in the app to play plain Portal again.",
+    "If Minecraft doesn't start, Portal's top-left corner says why.",
+    "A Portal update can stop it working until PortalCraft is updated."
+  ]
+}

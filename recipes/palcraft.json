@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 5,
+  "id": "palcraft",
+  "title": "PalCraft",
+  "tagline": "Play Palworld as Steve: build, dig and fight Pals with Minecraft's controls.",
+  "description": "Walk Palworld's islands as Minecraft's Steve. Place and break blocks anywhere, dig Palworld's ground, cliffs and trees for materials, and fight Pals with swords, bows and TNT: their Palworld health drops and kills give your Palworld character experience. Pals hurt Steve through Minecraft's armour rules. Press F8 for Palworld mode to catch Pals, build a base and craft, with Steve as your character. Both games run at the same time and you see one picture: Palworld's, with Minecraft drawn into it.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "palworld",
+      "name": "Palworld",
+      "store": "steam",
+      "steamAppId": "1623730",
+      "version": {
+        "kind": "any",
+        "note": "Made for Palworld 1.0.5 (Steam build 25246127) in DirectX 11. Single-player worlds only."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 1.21.1 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "1.21.1",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.116.17+1.21.1",
+    "javaMajor": 21,
+    "mods": [
+      "palcraft-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "PalCraft",
+    "maxMemoryMb": 3072
+  },
+  "downloads": [
+    {
+      "id": "palcraft",
+      "name": "PalCraft 0.2.2 (Palworld side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/palcraft-v0.2.2/PalCraft-0.2.2.zip",
+      "sha256": "89b88fa6beaf02e2d4d408ffe3a0f0df07c9f95631a0809180e48b98c197b28c",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "PalCraft-0.2.2.zip",
+      "sizeBytes": 89550
+    },
+    {
+      "id": "palcraft-fabric",
+      "name": "PalCraft 0.2.2 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/palcraft-v0.2.2/palcraft-0.2.2.jar",
+      "sha256": "ffa782795ac97001c982c513b51830665a0763d65e2e5101a047422e2345007a",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "palcraft-0.2.2.jar",
+      "sizeBytes": 309778
+    },
+    {
+      "id": "ue4ss",
+      "name": "UE4SS 3.0.1",
+      "url": "https://github.com/UE4SS-RE/RE-UE4SS/releases/download/v3.0.1/UE4SS_v3.0.1.zip",
+      "sha256": "4b47d4bceddd2f561a4e395bfa00924ccfc945af576a2d0c613e6537846c57ec",
+      "sizeBytes": 5523402,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "UE4SS_v3.0.1.zip",
+      "pins": {
+        "version": "3.0.1"
+      }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.116.17 for Minecraft 1.21.1",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.116.17%2B1.21.1/fabric-api-0.116.17%2B1.21.1.jar",
+      "sha256": "79ac44b40780acbd884b34c50be1e39af682847e5f5cb3b1fddeeaa768dce800",
+      "sizeBytes": 2452735,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.116.17+1.21.1.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "ue4ss",
+      "to": "{game:palworld}/Pal/Binaries/Win64",
+      "only": [
+        "dwmapi.dll",
+        "UE4SS.dll",
+        "UE4SS-settings.ini",
+        "Mods/**"
+      ]
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:palworld}/Pal/Binaries/Win64/UE4SS-settings.ini",
+      "section": "General",
+      "key": "bUseUObjectArrayCache",
+      "value": "false"
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:palworld}/Pal/Binaries/Win64/UE4SS-settings.ini",
+      "section": "Debug",
+      "key": "GuiConsoleEnabled",
+      "value": "0"
+    },
+    {
+      "action": "extract",
+      "download": "palcraft",
+      "to": "{game:palworld}/Pal/Binaries/Win64/Mods/PalCraft",
+      "only": [
+        "palcraft.dll",
+        "Scripts/**",
+        "LICENSE.txt",
+        "MinHook-LICENSE.txt",
+        "NOTICE.txt",
+        "README.md",
+        "THIRD_PARTY.md"
+      ]
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Backend library: LWJGL|Sound engine started|Error starting SoundSystem",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "palworld",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "Overlay glued to host-game client area",
+      "message": "Starting Palworld. Load a single-player world; Minecraft joins by itself.",
+      "timeoutSeconds": 1200
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "palworld",
+      "path": "{localappdata}/Pal/Saved/SaveGames"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 4,
+    "notes": "Minecraft takes 3 to 4 GB of extra RAM next to Palworld."
+  },
+  "credits": [
+    {
+      "name": "EQQX0 and PalCraft contributors",
+      "role": "Creators of PalCraft",
+      "url": "https://github.com/EQQX0/PalCraft"
+    },
+    {
+      "name": "siddoff",
+      "role": "Minecraft Ring, whose Minecraft bridge PalCraft forks",
+      "url": "https://github.com/siddoff/Minecraft-Ring"
+    },
+    {
+      "name": "UE4SS-RE team",
+      "role": "UE4SS, the Unreal Engine mod loader",
+      "url": "https://github.com/UE4SS-RE/RE-UE4SS"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/EQQX0/PalCraft/blob/1431332b4cf75603e80cf4ce137347cebf880807/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/EQQX0/PalCraft",
+    "manualInstall": "https://github.com/EQQX0/PalCraft#install-and-play"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Single-player worlds only.",
+    "Palworld can crash while a world loads (a known UE4SS 3.0.1 problem the creator is working around).",
+    "Press F8 to swap control between Minecraft and Palworld."
+  ],
+  "loaderOptions": {
+    "ue4ss": {
+      "gameKey": "palworld",
+      "binaries": "{game:palworld}/Pal/Binaries/Win64",
+      "layout": "root",
+      "mods": [
+        "PalCraft"
+      ]
+    }
+  }
+}

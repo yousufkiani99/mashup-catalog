@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 5,
+  "id": "portal-gun-in-outer-wilds",
+  "title": "Portal Gun in Outer Wilds",
+  "tagline": "Take Portal 2's portal gun into Outer Wilds' solar system and shoot portals across the planets.",
+  "description": "Carry Portal 2's portal gun through Outer Wilds. Press 5 to take it out and fire blue and orange portals onto the planets, ships and ruins of the solar system, then step through them. The gun's model, textures and sounds are converted once from your own copy of Portal 2. Only Outer Wilds runs: Portal 2 is read, never started or changed.",
+  "method": "content-port",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "outer-wilds",
+      "name": "Outer Wilds",
+      "store": "steam",
+      "steamAppId": "753640",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version. The mod loader (OWML 2.16.3) supports game versions 1.1.15.1018 to 1.1.16.1388."
+      }
+    },
+    {
+      "role": "donor",
+      "key": "portal-2",
+      "name": "Portal 2",
+      "store": "steam",
+      "steamAppId": "620",
+      "version": {
+        "kind": "any",
+        "note": "Needs Portal 2 installed; it is only read, never started."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "portal-gun",
+      "name": "Portal Gun in Outer Wilds 0.1.0 (mod, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/portal-gun-in-outer-wilds-v0.1.0/portal-gun-in-outer-wilds-0.1.0-mod.zip",
+      "sha256": "TODO",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "portal-gun-in-outer-wilds-0.1.0-mod.zip"
+    },
+    {
+      "id": "portal-gun-converter",
+      "name": "Portal Gun in Outer Wilds 0.1.0 (converter, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/portal-gun-in-outer-wilds-v0.1.0/portal-gun-in-outer-wilds-0.1.0-converter.zip",
+      "sha256": "TODO",
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "portal-gun-in-outer-wilds-0.1.0-converter.zip"
+    },
+    {
+      "id": "owml",
+      "name": "OWML 2.16.3 (Outer Wilds Mod Loader)",
+      "url": "https://github.com/ow-mods/owml/releases/download/2.16.3/OWML.zip",
+      "sha256": "6aaffdc7e958fe05f8c096e1eb69a0b6241facadbef624177d7573089b9bd2ed",
+      "sizeBytes": 9159084,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "OWML-2.16.3.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "owml",
+      "to": "{appdata}/OuterWildsModManager/OWML"
+    },
+    {
+      "action": "extract",
+      "download": "portal-gun",
+      "to": "{appdata}/OuterWildsModManager/OWML/Mods"
+    },
+    {
+      "action": "extract",
+      "download": "portal-gun-converter",
+      "to": "{appdir}/portal-gun-in-outer-wilds",
+      "from": "owpg-convert"
+    },
+    {
+      "action": "run",
+      "path": "{appdir}/portal-gun-in-outer-wilds/owpg-convert.exe",
+      "args": [
+        "--portal2",
+        "{game:portal-2}",
+        "--out",
+        "{localappdata}/OWPortalGun"
+      ],
+      "waitForExit": true,
+      "note": "Converts the portal gun's model, textures and sounds from your Portal 2 files (a second or two). Portal 2 isn't started or changed.",
+      "watch": [
+        "{localappdata}/OWPortalGun"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "outer-wilds",
+        "via": "loader",
+        "exe": "{appdata}/OuterWildsModManager/OWML/OWML.Launcher.exe"
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "outer-wilds",
+      "path": "{locallow}/Mobius Digital/Outer Wilds"
+    }
+  ],
+  "requirements": {
+    "notes": "Only Outer Wilds runs. Portal 2 must be installed on this PC."
+  },
+  "conflictsWith": [
+    "owcraft"
+  ],
+  "credits": [
+    {
+      "name": "charlystereo",
+      "role": "Creator of Portal Gun in Outer Wilds",
+      "url": "https://github.com/rehan-remade/universal-modder/tree/cda0d76649caa9d9ed6c8b980cdb36f4a4bdf9f8/examples/outer-wilds-portal-gun"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "universal-modder, where the mod is published",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    },
+    {
+      "name": "OWML team",
+      "role": "OWML, the Outer Wilds mod loader",
+      "url": "https://github.com/ow-mods/owml"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/rehan-remade/universal-modder/blob/cda0d76649caa9d9ed6c8b980cdb36f4a4bdf9f8/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/rehan-remade/universal-modder/tree/cda0d76649caa9d9ed6c8b980cdb36f4a4bdf9f8/examples/outer-wilds-portal-gun",
+    "manualInstall": "https://github.com/rehan-remade/universal-modder/tree/cda0d76649caa9d9ed6c8b980cdb36f4a4bdf9f8/examples/outer-wilds-portal-gun"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Press 5 to take the portal gun out.",
+    "Portal Gun in Outer Wilds and OWCraft can't be installed at the same time, because both change how you play Outer Wilds."
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 5,
+  "id": "halfcraft-half-life-2",
+  "title": "HalfCraft",
+  "tagline": "Play Half-Life 2 and both Episodes as a Minecraft player: build, dig and fight in City 17.",
+  "description": "Play all of Half-Life 2, Episode One, Episode Two and Lost Coast as a Minecraft player. Build and dig on Half-Life's maps, fight the Combine with a diamond sword, light City 17 with torches and swim in its canals. Half-Life's weapons become Minecraft items in your hotbar, the gravity gun tears blocks out as physics cubes, and loading a Half-Life save rolls your Minecraft blocks and inventory back too. Both games run at the same time: Minecraft runs hidden and Half-Life 2 draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "half-life-2",
+      "name": "Half-Life 2",
+      "store": "steam",
+      "steamAppId": "220",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version. Episode One and Episode Two chapters need the episodes, which come with Half-Life 2 today."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. HalfCraft sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "managedBy": "mashup",
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [],
+    "instanceName": "HalfCraft"
+  },
+  "downloads": [
+    {
+      "id": "halfcraft",
+      "name": "HalfCraft 0.4.0",
+      "url": "https://github.com/whiskydumb/halfcraft/releases/download/v0.4.0/HalfCraft-0.4.0.zip",
+      "sha256": "118cf65289de2c17b4184bc37e1fb317044a72ed2d34d0dec314d4b9a290a580",
+      "sizeBytes": 36692884,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (HalfCraft and its SkyCraft base); its client.dll/server.dll are built from Valve's Source SDK 2013 (Source 1 SDK License)",
+      "fileName": "HalfCraft-0.4.0.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "halfcraft",
+      "to": "{appdir}/mashups/halfcraft-hl2/HalfCraft",
+      "from": "HalfCraft",
+      "only": [
+        "HalfCraft.exe",
+        "LICENSE.txt",
+        "README.txt",
+        "THIRD-PARTY-NOTICES.md",
+        "minecraft/**",
+        "game-hl2/bin/**",
+        "game-hl2/cfg/**",
+        "game-hl2/gameinfo.txt",
+        "game-hl2/halfcraft-files.txt",
+        "game-hl2/materials/**",
+        "game-hl2/resource/**",
+        "game-hl2/scripts/**",
+        "game-hl2/shaders/**"
+      ]
+    },
+    {
+      "action": "ini-set",
+      "file": "{appdir}/mashups/halfcraft-hl2/HalfCraft/HalfCraft.ini",
+      "section": "launcher",
+      "key": "engine",
+      "value": "hl2"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "exe",
+        "exe": "{appdir}/mashups/halfcraft-hl2/HalfCraft/HalfCraft.exe"
+      }
+    ],
+    "ready": {
+      "logFile": "{appdir}/mashups/halfcraft-hl2/HalfCraft/game-hl2/console.log",
+      "pattern": "[halfcraft] minecraft connected",
+      "message": "Starting Minecraft and Half-Life 2. The first time, sign in to Minecraft in the window that opens; Minecraft then downloads for a few minutes.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "half-life-2",
+      "path": "{appdir}/mashups/halfcraft-hl2/HalfCraft/game-hl2/save"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{appdir}/mashups/halfcraft-hl2/HalfCraft/minecraft/Prism/instances/HalfCraft/.minecraft/saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Both games run at the same time. About 1 GB of free disk for Minecraft and Java, which download on the first start. Windows 10 or 11, 64-bit."
+  },
+  "credits": [
+    {
+      "name": "whiskydumb",
+      "role": "Creator of HalfCraft",
+      "url": "https://github.com/whiskydumb/halfcraft"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which HalfCraft is based on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/whiskydumb/halfcraft/blob/v0.4.0/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/whiskydumb/halfcraft",
+    "manualInstall": "https://github.com/whiskydumb/halfcraft/releases/tag/v0.4.0",
+    "clip": "https://www.youtube.com/watch?v=HUzsUmXg21s"
+  },
+  "media": {
+    "clip": "https://www.youtube.com/watch?v=HUzsUmXg21s"
+  },
+  "aiBuilt": true,
+  "knownIssues": [
+    "Single-player only.",
+    "G is Half-Life's use key (doors, buttons, chargers, ladders), V the flashlight. Everything else uses Minecraft's keys.",
+    "Developer commentary mode isn't installed."
+  ]
+}

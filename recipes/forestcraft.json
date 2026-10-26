@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 5,
+  "id": "forestcraft",
+  "title": "ForestCraft",
+  "tagline": "Survive The Forest as a Minecraft player: dig, build and fight its cannibals with Minecraft's moves.",
+  "description": "Play The Forest as a Minecraft player, with Minecraft's movement, inventory and hearts, while The Forest draws the world. Both games run at the same time: Minecraft runs hidden and starts by itself when The Forest starts.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "the-forest",
+      "name": "The Forest",
+      "store": "steam",
+      "steamAppId": "242760",
+      "version": {
+        "kind": "any",
+        "note": "The Steam version."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.2 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.2",
+    "loader": "fabric",
+    "loaderVersion": "0.19.3",
+    "javaMajor": 25,
+    "mods": [],
+    "instanceName": "ForestCraft",
+    "maxMemoryMb": 3072
+  },
+  "downloads": [
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": {
+        "version": "5.4.23.5"
+      }
+    },
+    {
+      "id": "forestcraft",
+      "name": "ForestCraft 0.4.1",
+      "url": "https://github.com/Fusyne/theforestcraft/releases/download/v0.4.1/ForestCraft-0.4.1.zip",
+      "sha256": "b61a137f99256be2dc654d12f8fe8e90690265aeee78820bdb4769135e1fc77c",
+      "sizeBytes": 271378,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "ForestCraft-0.4.1.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinex",
+      "to": "{game:the-forest}"
+    },
+    {
+      "action": "extract",
+      "download": "forestcraft",
+      "to": "{game:the-forest}/BepInEx/plugins/ForestCraft",
+      "only": [
+        "mods/ForestCraft.dll",
+        "LICENSE"
+      ],
+      "flatten": true
+    },
+    {
+      "action": "prism-instance"
+    },
+    {
+      "action": "extract",
+      "download": "forestcraft",
+      "to": "{prism-instance}/mods",
+      "only": [
+        "mods/forestcraft.jar"
+      ],
+      "flatten": true
+    },
+    {
+      "action": "write-file",
+      "path": "{localappdata}/ForestCraft/launcher.txt",
+      "lines": [
+        "{prism}/prismlauncher.exe",
+        "forestcraft"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "the-forest",
+        "via": "steam"
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "the-forest",
+      "path": "{locallow}/SKS/TheForest"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft. Turn V-Sync off in The Forest and cap its frame rate."
+  },
+  "credits": [
+    {
+      "name": "Fusyne",
+      "role": "Creator of ForestCraft",
+      "url": "https://github.com/Fusyne"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/Fusyne/theforestcraft/blob/v0.4.1/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/Fusyne/theforestcraft",
+    "manualInstall": "https://github.com/Fusyne/theforestcraft/blob/v0.4.1/README.md"
+  },
+  "media": {},
+  "aiBuilt": false,
+  "knownIssues": [
+    "Draft for tests only (2026-10-26): the save folder and a real 'linked' log line are unverified."
+  ]
+}

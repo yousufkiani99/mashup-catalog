@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 5,
+  "id": "personacraft",
+  "title": "PersonaCraft",
+  "tagline": "Walk Tokyo in Persona 5 Royal as a Minecraft player: blocks, HUD and inventory.",
+  "description": "Walk Persona 5 Royal's streets and field maps as a Minecraft player, with Minecraft's movement, health bar, hotbar and inventory, and place Minecraft blocks in Tokyo. Both games run at the same time: Minecraft runs hidden and Persona 5 Royal shows everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "persona-5-royal",
+      "name": "Persona 5 Royal",
+      "store": "steam",
+      "steamAppId": "1687950",
+      "version": {
+        "kind": "any"
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "skycraft-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "PersonaCraft",
+    "jvmArgs": [
+      "--enable-native-access=ALL-UNNAMED",
+      "-Dskycraft.startHidden=true"
+    ],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "reloaded-ii",
+      "name": "Reloaded-II 1.31.0",
+      "url": "https://github.com/Reloaded-Project/Reloaded-II/releases/download/1.31.0/Release.zip",
+      "sha256": "c893da3ba8596d9266826bd5ca8aacd25fe3b53d09314324ab65c7b618a05f8c",
+      "sizeBytes": 25039658,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "Release.zip",
+      "pins": {
+        "version": "1.31.0"
+      }
+    },
+    {
+      "id": "personacraft",
+      "name": "PersonaCraft 0.1.0 (Reloaded-II mod, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/personacraft-v0.1.0/personacraft-0.1.0-reloaded-mod.zip",
+      "sha256": "87ff2e8ba5a35adf37e5e1243d8741c8498161770d84225ae0763bac0422105d",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "personacraft-0.1.0-reloaded-mod.zip",
+      "sizeBytes": 689889
+    },
+    {
+      "id": "skycraft-fabric",
+      "name": "SkyCraft 0.1.2 (Minecraft side)",
+      "url": "https://github.com/chasmlol/SkyCraft/releases/download/v0.1.2/skycraft-fabric-0.1.2.jar",
+      "sha256": "ea429c73dcec49d39b6a0bb9b17ad08a6b0290a39a96ccf6f6c07d581cf992d9",
+      "sizeBytes": 247869,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "skycraft-fabric-0.1.2.jar"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "reloaded-ii",
+      "to": "{appdir}/personacraft/reloaded-ii"
+    },
+    {
+      "action": "extract",
+      "download": "personacraft",
+      "to": "{appdir}/personacraft/reloaded-ii/Mods/p5rpc.personacraft",
+      "stripTopFolder": true
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Backend library: LWJGL|Sound engine started|Error starting SoundSystem",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "persona-5-royal",
+        "via": "loader",
+        "exe": "{game:persona-5-royal}/P5R.exe"
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {},
+  "credits": [
+    {
+      "name": "llmandres",
+      "role": "Creator of PersonaCraft",
+      "url": "https://github.com/llmandres"
+    },
+    {
+      "name": "Sewer56 and Reloaded-II contributors",
+      "role": "Reloaded-II, which loads the mod",
+      "url": "https://github.com/Reloaded-Project/Reloaded-II"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/llmandres/PersonaCraft/blob/main/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/llmandres/PersonaCraft",
+    "manualInstall": "https://github.com/llmandres/PersonaCraft#readme"
+  },
+  "media": {},
+  "aiBuilt": false,
+  "knownIssues": [
+    "Don't save in Persona 5 Royal while you play it (the creator's advice): PersonaCraft never writes your saves, but it's still early."
+  ],
+  "loaderOptions": {
+    "reloadedII": {
+      "gameKey": "persona-5-royal",
+      "dir": "{appdir}/personacraft/reloaded-ii",
+      "appId": "p5r.exe",
+      "appName": "Persona 5 Royal",
+      "mods": [
+        "p5rpc.personacraft"
+      ]
+    }
+  }
+}

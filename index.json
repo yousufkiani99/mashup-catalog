@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-26T08:13:06.200Z",
+  "generatedAt": "2026-10-26T13:12:05.320Z",
   "links": {
     "support": "https://discord.gg/mTQ8GXtAns",
     "website": "https://mashuplauncher.com/",
@@ -27,14 +27,74 @@
       "sha256": "24b1bfec1095361caa5097244addaa076c0afdfbc706ed8e0e6815edcde4d0d8"
     },
     {
+      "id": "blockbreach",
+      "path": "recipes/blockbreach.json",
+      "sha256": "98d4d9b65b347a20ee7d76c7038944a62dd2c09ff92c0aa41e3fc5b0fb851189"
+    },
+    {
+      "id": "bodycamcraft",
+      "path": "recipes/bodycamcraft.json",
+      "sha256": "1bafa7d651dda7dbaca8c4dd61adcbbe94fd624b2a04abc194f89e405f24dafe"
+    },
+    {
+      "id": "celeste-over-it",
+      "path": "recipes/celeste-over-it.json",
+      "sha256": "5152af7a9fff06e2a43a9ee3acc69242999c90a5caecb7a20d36cc124dddf55d"
+    },
+    {
+      "id": "ck3-x-bannerlord",
+      "path": "recipes/ck3-x-bannerlord.json",
+      "sha256": "fa44d06b8c23dad6161af90c3c928da9ab34124f485fd88d7b9b97ee2bff825b"
+    },
+    {
+      "id": "cybercraft",
+      "path": "recipes/cybercraft.json",
+      "sha256": "5f7a3e3a762ed06f350b8abeb30fa1209bbc141375c15e0804cd6eb7923b34d9"
+    },
+    {
+      "id": "doomcraft",
+      "path": "recipes/doomcraft.json",
+      "sha256": "15e2d088335810ff6dff020c78a29778c5bc8c9b403611b08e8df41b5d4a92f4"
+    },
+    {
+      "id": "eldencraft",
+      "path": "recipes/eldencraft.json",
+      "sha256": "ccbcb3789fb97c0f8e176ae9dea7ae19190cf1d8b9bc559a14c5bfc082e8ebe9"
+    },
+    {
       "id": "falloutcraft",
       "path": "recipes/falloutcraft.json",
       "sha256": "d2e0cc8041f8dba689567e4b8fd59b84f567a6f18158c1d16ed513e0dc5b9ebf"
     },
     {
+      "id": "forestcraft",
+      "path": "recipes/forestcraft.json",
+      "sha256": "f0cc22fef81eadd289f7260d3f484e046051fc5fb260f9da71536d980c5637db"
+    },
+    {
       "id": "garrys-redemption",
       "path": "recipes/garrys-redemption.json",
       "sha256": "c5f31e5625b6402037f5ada014d9f3285ab25273b37ee2b4978eff7b27702123"
+    },
+    {
+      "id": "gmodlight",
+      "path": "recipes/gmodlight.json",
+      "sha256": "ef692301fbc7b620392cf6a7e94d42a3c293aea147d8c20847fe7080d9a7929a"
+    },
+    {
+      "id": "halfcraft-half-life-2",
+      "path": "recipes/halfcraft-half-life-2.json",
+      "sha256": "58c91e1c3b26db4d6dfdb22b44bdb5e6b83699131c2b9d0d3277093fc1980030"
+    },
+    {
+      "id": "halfcraft-half-sword",
+      "path": "recipes/halfcraft-half-sword.json",
+      "sha256": "a45c5361e721485d413337951f4a2b08cc828e2b5bb4f9c555788476b39d3549"
+    },
+    {
+      "id": "hellocraft",
+      "path": "recipes/hellocraft.json",
+      "sha256": "93bf7fd9ba9992b8af008d55ca0b99ee75cde09254ede11d1f68c1e350f02118"
     },
     {
       "id": "killcraft",
@@ -45,6 +105,11 @@
       "id": "lethalcraft",
       "path": "recipes/lethalcraft.json",
       "sha256": "5d618cfbf86570ae77b3641006aef6b96af4e1b346f7d64729b970f34bb2335d"
+    },
+    {
+      "id": "madcraft",
+      "path": "recipes/madcraft.json",
+      "sha256": "584777e52c11a3225b76f1843bb0dc9f48177e1e0d06b54593c5482505f98159"
     },
     {
       "id": "minecraft-gta-enhanced",
@@ -60,6 +125,11 @@
       "id": "minecraft-in-death-stranding",
       "path": "recipes/minecraft-in-death-stranding.json",
       "sha256": "9292c51b29c34f96f723ee02ed68eb9f17258ad739dbc1b15a9a15c303e5ff53"
+    },
+    {
+      "id": "minecraft-in-monster-hunter-world-windows-port",
+      "path": "recipes/minecraft-in-monster-hunter-world-windows-port.json",
+      "sha256": "d5114bbdca239e2f0cd2711d0ac9aa392dccbf0687fb429e4ef8d39d60e4e2ed"
     },
     {
       "id": "minecraft-passthrough-iv",
@@ -82,14 +152,44 @@
       "sha256": "a83f5d87aaaafbf2e184b6911264aae34e5022d44cf403036a84a5d3510b85b8"
     },
     {
+      "id": "palcraft",
+      "path": "recipes/palcraft.json",
+      "sha256": "e78c884a659f91b25d081600d2b56c42085557189780c080aca64bbb6e474d2b"
+    },
+    {
+      "id": "portalcraft",
+      "path": "recipes/portalcraft.json",
+      "sha256": "af91a4f60b2c8d0864b66a67cbb7e1b947b9c71e7a41d7877f65f3c4a0557871"
+    },
+    {
       "id": "repocraft",
       "path": "recipes/repocraft.json",
       "sha256": "e6df5d623b954abaa2acfec83e4f8205f64e2c758179a8106d7ab6de7cb53750"
     },
     {
+      "id": "riskofcraft",
+      "path": "recipes/riskofcraft.json",
+      "sha256": "f87bffeb63f127d90ae695e27be16daaf75d7e2abe1ae490472fef7248e2b485"
+    },
+    {
       "id": "saintscraft",
       "path": "recipes/saintscraft.json",
       "sha256": "b96dd57aee544887c766886dcc5d8eac1b0cc1acf4b1bab8c2ffbded85660e99"
+    },
+    {
+      "id": "sbcraft",
+      "path": "recipes/sbcraft.json",
+      "sha256": "b469bb91f1e54f87dce1fc9937358fc687e228853d4d1c0a7f261cc859023f88"
+    },
+    {
+      "id": "sekicraft",
+      "path": "recipes/sekicraft.json",
+      "sha256": "b05d965259a3c07942f7d803c044b189aa0f7af57b1bcc003dfb0b9f96c12f61"
+    },
+    {
+      "id": "semcraft-2",
+      "path": "recipes/semcraft-2.json",
+      "sha256": "d539af9b17840989ad034e5011d7f0f61d9179f91f461633aa1543562d85654d"
     },
     {
       "id": "skycraft",
@@ -100,6 +200,21 @@
       "id": "skydoom",
       "path": "recipes/skydoom.json",
       "sha256": "a7de06708b505657610cc49b6268b9bd0211453107173a6620325c36f2f16ea8"
+    },
+    {
+      "id": "steve-in-the-backrooms",
+      "path": "recipes/steve-in-the-backrooms.json",
+      "sha256": "81957be5d3ea2d699523990662bea89ca5f2950c55295fecb1418e873c8ca95f"
+    },
+    {
+      "id": "subnauticraft",
+      "path": "recipes/subnauticraft.json",
+      "sha256": "de7bc74a0fd482851bd59f0a43a5c69f21326e978c5e1cafdae878319b32650b"
+    },
+    {
+      "id": "ultra-r-e-p-o",
+      "path": "recipes/ultra-r-e-p-o.json",
+      "sha256": "762ef4eaf9d29d24ff5101d0a83f489e862afa56f812ebc5c87c295b542a6f04"
     },
     {
       "id": "ultrakill-inside-minecraft",

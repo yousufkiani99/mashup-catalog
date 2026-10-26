@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 5,
+  "id": "astartes-the-old-blood",
+  "title": "Astartes: The Old Blood",
+  "tagline": "Play Wolfenstein: The Old Blood as a Space Marine, with Space Marine 2's guns and voices.",
+  "description": "Pick a Space Marine 2 class before each session and play Wolfenstein: The Old Blood as it: per-class speed, jump, toughness and damage, an ability on V (Iron Halo, Jump Pack Surge, Servo Turret, Auspex Scan, Grapnel Rush, Banner, Camo Cloak), Space Marine 2 voice lines, a class HUD, and bolter, plasma and melta sounds on your guns. The art and audio are read from your own copy of Space Marine 2, which is never started.",
+  "method": "content-port",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "wolfenstein-old-blood",
+      "name": "Wolfenstein: The Old Blood",
+      "store": "steam",
+      "steamAppId": "350080",
+      "version": {
+        "kind": "any",
+        "note": "The Steam version (its exe hasn't changed in years)."
+      }
+    },
+    {
+      "role": "donor",
+      "key": "space-marine-2",
+      "name": "Warhammer 40,000: Space Marine 2",
+      "store": "steam",
+      "steamAppId": "2183900",
+      "version": {
+        "kind": "any",
+        "note": "Needs to be installed; it is only read, never started."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "astartes",
+      "name": "Astartes: The Old Blood 1.0.4 (community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/astartes-the-old-blood-v1.0.4/astartes-the-old-blood-1.0.4.zip",
+      "sha256": "TODO",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "GPL-3.0 (source published next to the build, D25)",
+      "fileName": "astartes-the-old-blood-1.0.4.zip"
+    },
+    {
+      "id": "vgmstream",
+      "name": "vgmstream r2117 (Windows 64-bit)",
+      "url": "https://github.com/vgmstream/vgmstream/releases/download/r2117/vgmstream-win64.zip",
+      "sha256": "6c4a8a3813864fefed081bbd337dbc0ad93bf88e0b92f5db98d7ab258b22dc6c",
+      "sizeBytes": 4468180,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "ISC (vgmstream COPYING)",
+      "fileName": "vgmstream-win64.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "astartes",
+      "to": "{game:wolfenstein-old-blood}",
+      "only": [
+        "dinput8.dll"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "astartes",
+      "to": "{game:wolfenstein-old-blood}/AstartesOldBlood",
+      "from": "AstartesOldBlood"
+    },
+    {
+      "action": "extract",
+      "download": "vgmstream",
+      "to": "{game:wolfenstein-old-blood}/AstartesOldBlood/vgmstream",
+      "only": [
+        "*.dll",
+        "vgmstream-cli.exe",
+        "COPYING"
+      ]
+    },
+    {
+      "action": "run",
+      "path": "{game:wolfenstein-old-blood}/AstartesOldBlood/AstartesLauncher.exe",
+      "args": [
+        "--sm2",
+        "{game:space-marine-2}",
+        "--extract-only"
+      ],
+      "waitForExit": true,
+      "note": "Reads the class cards and voice lines from your Space Marine 2 files (a minute or two). Space Marine 2 isn't started or changed.",
+      "watch": [
+        "{localappdata}/AstartesOldBlood"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "exe",
+        "exe": "{game:wolfenstein-old-blood}/AstartesOldBlood/AstartesLauncher.exe",
+        "args": [
+          "--sm2",
+          "{game:space-marine-2}"
+        ]
+      }
+    ],
+    "ready": {
+      "logFile": "{localappdata}/AstartesOldBlood/launcher.log",
+      "pattern": "game running",
+      "message": "Pick your class, then Wolfenstein: The Old Blood starts.",
+      "timeoutSeconds": 900
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "wolfenstein-old-blood",
+      "path": "{savedgames}/MachineGames/Wolfenstein The Old Blood"
+    }
+  ],
+  "requirements": {
+    "notes": "Only Wolfenstein: The Old Blood runs."
+  },
+  "credits": [
+    {
+      "name": "Sebianer",
+      "role": "Creator of Astartes: The Old Blood",
+      "url": "https://github.com/Sebianer"
+    },
+    {
+      "name": "vgmstream contributors",
+      "role": "vgmstream, which decodes Space Marine 2's audio",
+      "url": "https://github.com/vgmstream/vgmstream"
+    }
+  ],
+  "licence": {
+    "spdx": "GPL-3.0-only",
+    "url": "https://github.com/Sebianer/astartes-old-blood/blob/ca7244a65/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/Sebianer/astartes-old-blood",
+    "manualInstall": "https://github.com/Sebianer/astartes-old-blood#build-windows"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Start it from the app's Play button: the class picker opens first, then the game."
+  ]
+}

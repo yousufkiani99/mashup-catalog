@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 5,
+  "id": "riskofcraft",
+  "title": "RiskOfCraft",
+  "tagline": "Fight Risk of Rain 2's monsters as Steve, with Minecraft's moves, weapons, chests and the Ender Dragon.",
+  "description": "Play Risk of Rain 2 as a real Minecraft player. Minecraft 26.3 runs alongside Risk of Rain 2 and the two are linked: Minecraft's movement, hotbar, hearts and weapons on Risk of Rain's stages, with your Risk of Rain items scaling Steve. Dig into the ground, open Minecraft chests on every stage, build a Nether portal to a Nether stage, and on stage 5 fight a real Ender Dragon in the End. Minecraft's rarest items wait in the Bazaar.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "risk-of-rain-2",
+      "name": "Risk of Rain 2",
+      "store": "steam",
+      "steamAppId": "632360",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. RiskOfCraft sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "managedBy": "mashup",
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.162.0+26.3",
+    "javaMajor": 25,
+    "mods": [],
+    "instanceName": "RiskOfCraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "riskofcraft",
+      "name": "RiskOfCraft 0.2.0",
+      "url": "https://github.com/missingtextures-sudo/RiskOfCraft/releases/download/v0.2.0/RiskOfCraft-0.2.0-windows.zip",
+      "sha256": "6c1ed1306df6d118298787c16fe6b362e659f91feefa14ab8667025e9a4c0798",
+      "sizeBytes": 37420895,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (RiskOfCraft; built on SkyCraft and PeakCraft, MIT). Its Minecraft bundle includes Prism Launcher (GPL-3.0) and third-party Fabric mods under their own licences",
+      "fileName": "RiskOfCraft-0.2.0-windows.zip"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": {
+        "version": "5.4.23.5"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinex",
+      "to": "{game:risk-of-rain-2}"
+    },
+    {
+      "action": "extract",
+      "download": "riskofcraft",
+      "inner": "RiskOfCraft-0.2.0/RiskOfCraft-0.2.0.zip",
+      "to": "{game:risk-of-rain-2}/BepInEx"
+    },
+    {
+      "action": "extract",
+      "download": "riskofcraft",
+      "inner": "RiskOfCraft-0.2.0/RiskOfCraft-Minecraft-0.2.0.zip",
+      "to": "{localappdata}/RiskOfCraft"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "risk-of-rain-2",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{game:risk-of-rain-2}/BepInEx/LogOutput.log",
+      "pattern": "link up: Minecraft",
+      "message": "Starting Minecraft next to Risk of Rain 2. The first time, sign in to Minecraft in the window that opens; Minecraft then downloads for a few minutes.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "risk-of-rain-2",
+      "path": "{steam-userdata:632360}"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{localappdata}/RiskOfCraft/Prism/instances/RiskOfCraft/.minecraft/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft and about 1.5 GB of disk for Minecraft's files."
+  },
+  "credits": [
+    {
+      "name": "missingtextures-sudo",
+      "role": "Creator of RiskOfCraft",
+      "url": "https://github.com/missingtextures-sudo"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which RiskOfCraft builds on",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    },
+    {
+      "name": "aeironnsarmiento",
+      "role": "Creator of PeakCraft, which RiskOfCraft builds on",
+      "url": "https://github.com/aeironnsarmiento/PeakCraft"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/missingtextures-sudo/RiskOfCraft/blob/v0.2.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/missingtextures-sudo/RiskOfCraft",
+    "manualInstall": "https://github.com/missingtextures-sudo/RiskOfCraft/releases/tag/v0.2.0"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Removing RiskOfCraft keeps its own copy of Minecraft and your Minecraft sign-in in your AppData folder, so reinstalling is quick.",
+    "The game can crash while closing (fixed by the creator in a later version)."
+  ]
+}

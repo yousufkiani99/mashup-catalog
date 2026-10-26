@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 5,
+  "id": "hellocraft",
+  "title": "HelloCraft",
+  "tagline": "Sneak into the Neighbor's house as a Minecraft player: build, dig and fight.",
+  "description": "Play Hello Neighbor with Minecraft's movement, hotbar, health and hunger. Hello Neighbor's walls, floors, furniture and glass are solid for Minecraft: place and mine blocks on them, pour water and lava on the floors, throw ender pearls and fly with an elytra. Hello Neighbor's own game still works: open doors, pick up and throw its objects, hide in cupboards, and knock the Neighbor down with Minecraft weapons, arrows, TNT and mobs. Both games run at the same time: Minecraft runs hidden and Hello Neighbor draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "hello-neighbor",
+      "name": "Hello Neighbor",
+      "store": "steam",
+      "steamAppId": "521890",
+      "version": {
+        "kind": "any",
+        "note": "Made for the current Steam version (Unreal Engine 4.20)."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "fabric-api"
+    ],
+    "instanceName": "HelloCraft",
+    "jvmArgs": [
+      "--enable-native-access=ALL-UNNAMED",
+      "-Dhnmc.release=true"
+    ],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "hellocraft",
+      "name": "HelloCraft 1.0",
+      "url": "https://github.com/AvanindraPatil/HelloCraft/releases/download/v1.0/HelloCraft-1.0.zip",
+      "sha256": "6db46a30b14508555e3eef9e6f4895c514130b51553e3f262a4ca90f7ac99f5c",
+      "sizeBytes": 11806424,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (HelloCraft; its bundled UE4SS build is MIT too, by the UE4SS-RE team)",
+      "fileName": "HelloCraft-1.0.zip",
+      "pins": {
+        "fileSha256": [
+          "680a026890abb4d0df2211251f8defc1681a584275f1521dcc0fe30af480006f",
+          "cf440b9eb8643bb7c434acfda696aee57fd981d185dca5e57fb8dbb18f8fc1cd"
+        ]
+      }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "hellocraft",
+      "to": "{game:hello-neighbor}/HelloNeighbor/Binaries/Win64",
+      "from": "HelloCraft/files/game",
+      "only": [
+        "dwmapi.dll",
+        "ue4ss/UE4SS.dll",
+        "ue4ss/LICENSE",
+        "ue4ss/UE4SS-settings.ini",
+        "ue4ss/UE4SS_SDK_Backends/**",
+        "ue4ss/Mods/mods.json",
+        "ue4ss/Mods/shared/**",
+        "ue4ss/Mods/Keybinds/**",
+        "ue4ss/Mods/HnLink/**",
+        "ue4ss/Mods/HnGfx/**"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "hellocraft",
+      "to": "{appdir}/hellocraft",
+      "from": "HelloCraft",
+      "only": [
+        "hn_bridge.exe",
+        "LICENSE",
+        "THIRD-PARTY-NOTICES.txt"
+      ]
+    },
+    {
+      "action": "prism-instance"
+    },
+    {
+      "action": "extract",
+      "download": "hellocraft",
+      "to": "{prism-instance}",
+      "from": "HelloCraft/files/instance/minecraft",
+      "only": [
+        "options.txt",
+        "config/hnmc.properties",
+        "mods/hnmc-1.0.0.jar"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "exe",
+        "exe": "{appdir}/hellocraft/hn_bridge.exe",
+        "stopWith": "hello-neighbor",
+        "waitSeconds": 2
+      },
+      {
+        "order": 2,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "joined the game",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 3,
+        "target": "game",
+        "gameKey": "hello-neighbor",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{game:hello-neighbor}/HelloNeighbor/Binaries/Win64/hn_gfx.log",
+      "pattern": "game Present: 1 frames",
+      "message": "Starting Hello Neighbor next to Minecraft.",
+      "timeoutSeconds": 600
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "hello-neighbor",
+      "path": "{localappdata}/HelloNeighbor/Saved/SaveGames"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 4,
+    "notes": "About 4 GB of extra RAM for Minecraft, which runs hidden next to Hello Neighbor."
+  },
+  "credits": [
+    {
+      "name": "AvanindraPatil (Gaming with ACK)",
+      "role": "Creator of HelloCraft",
+      "url": "https://github.com/AvanindraPatil"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, whose approach HelloCraft adapts",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    },
+    {
+      "name": "UE4SS-RE team",
+      "role": "UE4SS, the Unreal Engine mod loader",
+      "url": "https://github.com/UE4SS-RE/RE-UE4SS"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/AvanindraPatil/HelloCraft/blob/v1.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/AvanindraPatil/HelloCraft",
+    "manualInstall": "https://github.com/AvanindraPatil/HelloCraft#install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Brand new: expect rough edges.",
+    "Sometimes you fall into the void. Press F4 to let Hello Neighbor move you, restart from the menu, then press F4 again once you're on the floor.",
+    "Act 1's basement chase can loop forever: skip to Act 2.",
+    "The finale boss fight can't be finished with Minecraft movement: press F4 for it.",
+    "Hello Neighbor sometimes opens on a white window. Close it and press Play again."
+  ],
+  "loaderOptions": {
+    "ue4ss": {
+      "gameKey": "hello-neighbor",
+      "binaries": "{game:hello-neighbor}/HelloNeighbor/Binaries/Win64",
+      "layout": "ue4ss-folder",
+      "mods": [
+        "HnLink",
+        "HnGfx"
+      ],
+      "creatorBuild": {
+        "download": "hellocraft",
+        "ue4ssDllSha256": [
+          "680a026890abb4d0df2211251f8defc1681a584275f1521dcc0fe30af480006f"
+        ],
+        "reason": "HelloCraft was made with UE4SS experimental build 3.0.1-1152, which UE4SS's own releases no longer offer."
+      }
+    }
+  }
+}

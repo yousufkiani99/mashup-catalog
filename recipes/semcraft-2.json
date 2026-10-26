@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 5,
+  "id": "semcraft-2",
+  "title": "SemCraft 2",
+  "tagline": "Real Minecraft inside Serious Sam: build, mine and fight Sam's monsters with Minecraft blocks and mobs.",
+  "description": "Minecraft runs next to Serious Sam Classic: The First Encounter and is drawn right into Sam's world, behind walls and columns. Place blocks in Sam's levels, spawn zombies and creepers that walk Sam's floors and fight his monsters, blow walls apart with TNT, glide with elytra and swim in Minecraft water. Press B for build mode, E for Minecraft's inventory and T for its chat. Both games run at the same time: Minecraft runs hidden and Serious Sam draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "serious-sam-tfe",
+      "name": "Serious Sam Classic: The First Encounter",
+      "store": "steam",
+      "steamAppId": "41050",
+      "version": {
+        "kind": "any",
+        "note": "The Steam version (1.05). Needs the OpenGL renderer (the default)."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "semcraft2-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "SemCraft2",
+    "jvmArgs": [
+      "--enable-native-access=ALL-UNNAMED"
+    ],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "classics-patch-tfe",
+      "name": "Serious Sam Classics Patch 1.9.4 (The First Encounter)",
+      "url": "https://github.com/SamClassicPatch/SuperProject/releases/download/1.9.4/TFE1.05_2025_10_15.zip",
+      "sha256": "4265acf8c6814dedb5b20e2f640482325b92117256ce02e107c5429e6b462aa9",
+      "sizeBytes": 10397158,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "GPL-2.0",
+      "fileName": "TFE1.05_2025_10_15.zip",
+      "pins": {
+        "version": "1.9.4"
+      }
+    },
+    {
+      "id": "semcraft-2",
+      "name": "SemCraft 2 0.1.0 (Serious Sam side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/semcraft-2-v0.1.0/semcraft-2-0.1.0-tfe.zip",
+      "sha256": "20d6bf2a209b798629c980efc1031d13dfab1c31869b84761089e481acfe5f20",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "GPL-2.0-only",
+      "fileName": "semcraft-2-0.1.0-tfe.zip",
+      "sizeBytes": 352570
+    },
+    {
+      "id": "semcraft2-fabric",
+      "name": "SemCraft 2 0.1.0 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/semcraft-2-v0.1.0/semcraft2-0.1.0.jar",
+      "sha256": "abc06a2398ce62638463c09bcebd3f6a69a7825180b39edca3954238b405ab27",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "GPL-2.0-only",
+      "fileName": "semcraft2-0.1.0.jar",
+      "sizeBytes": 274676
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "classics-patch-tfe",
+      "to": "{game:serious-sam-tfe}"
+    },
+    {
+      "action": "extract",
+      "download": "semcraft-2",
+      "to": "{game:serious-sam-tfe}",
+      "only": [
+        "Bin/Plugins/SemCraft2.dll",
+        "Bin/Plugins/SemCraft2-LICENSE.txt",
+        "Bin/Plugins/SemCraft2-NOTICE.txt"
+      ]
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Sam link listening on 127\\.0\\.0\\.1",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "serious-sam-tfe",
+        "via": "exe",
+        "exe": "{game:serious-sam-tfe}/Bin/SeriousSam_Custom.exe"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "client connected from",
+      "message": "Start or load a level in Serious Sam: Minecraft appears inside it."
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "serious-sam-tfe",
+      "path": "{game:serious-sam-tfe}/SaveGame"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft, about 1.5 GB of disk for Minecraft's files, and a graphics card that runs Minecraft 26.3."
+  },
+  "credits": [
+    {
+      "name": "animeliodas",
+      "role": "Creator of SemCraft 2 and SeriousBridge",
+      "url": "https://github.com/animeliodas"
+    },
+    {
+      "name": "DreamyCecil",
+      "role": "Serious Sam Classics Patch",
+      "url": "https://github.com/SamClassicPatch/SuperProject"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "Minecraft frame export and camera code (MIT)",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    }
+  ],
+  "licence": {
+    "spdx": "GPL-2.0-only",
+    "url": "https://github.com/animeliodas/SemCraft2/blob/66f022aa5/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/animeliodas/SemCraft2",
+    "manualInstall": "https://github.com/animeliodas/SemCraft2#readme"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Only works with Serious Sam's OpenGL renderer (the default), not Direct3D.",
+    "Every new level starts with a fresh Minecraft world: blocks and mobs are cleared, your inventory stays.",
+    "Minecraft worlds in this setup are taller than normal (up to 2048 blocks); that's why SemCraft 2 has its own Minecraft.",
+    "The Classics Patch is installed into Serious Sam's folder and starts the game with its own SeriousSam_Custom.exe; Remove puts the folder back."
+  ]
+}
