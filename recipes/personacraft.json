@@ -73,6 +73,62 @@
       "sizeBytes": 689889
     },
     {
+      "id": "reloaded-hooks",
+      "name": "Reloaded.SharedLib.Hooks 1.16.3 (Reloaded-II mod)",
+      "url": "https://github.com/Sewer56/Reloaded.SharedLib.Hooks.ReloadedII/releases/download/1.16.3/Reloaded.Hooks.ReloadedII1.16.3.7z",
+      "sha256": "2b7c2e6118a3f1eb00a2e1e9105397b0d17a118a84596308c3a6a9ff3cb14b1b",
+      "sizeBytes": 741775,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "LGPL-3.0 (repo LICENSE at 1.16.3)",
+      "fileName": "Reloaded.Hooks.ReloadedII1.16.3.7z",
+      "pins": {
+        "version": "1.16.3"
+      }
+    },
+    {
+      "id": "reloaded-sigscan",
+      "name": "Reloaded.Memory.SigScan for Reloaded-II 1.2.14 (release 3.1.16)",
+      "url": "https://github.com/Reloaded-Project/Reloaded.Memory.SigScan/releases/download/3.1.16/Reloaded.Memory.SigScan.ReloadedII1.2.14.7z",
+      "sha256": "52d48abcef5c3aa8c8cdc19666936e7cced19c92c6e71e1896bf0dfc75c23a2a",
+      "sizeBytes": 173264,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "LGPL-3.0 (repo LICENSE.md at 3.1.16)",
+      "fileName": "Reloaded.Memory.SigScan.ReloadedII1.2.14.7z",
+      "pins": {
+        "version": "1.2.14"
+      }
+    },
+    {
+      "id": "p5rpc-lib",
+      "name": "p5rpc.lib 1.1.0 (Reloaded-II mod)",
+      "url": "https://github.com/AnimatedSwine37/p5rpc.lib/releases/download/1.1.0/p5rpc.lib1.1.0.7z",
+      "sha256": "7ef09c4ca27afcf0f1d685059c749de9a7eeb0dde50ec0f3e1a67bc45891f69f",
+      "sizeBytes": 218524,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "GPL-3.0 (repo LICENSE at 1.1.0)",
+      "fileName": "p5rpc.lib1.1.0.7z",
+      "pins": {
+        "version": "1.1.0"
+      }
+    },
+    {
+      "id": "p5rpc-inputhook",
+      "name": "p5rpc.inputhook 1.0 (Reloaded-II mod)",
+      "url": "https://github.com/AnimatedSwine37/p5rpc.inputhook/releases/download/1.0/p5rpc.inputhook1.0.0.7z",
+      "sha256": "ef72d2dd593290be91f30a74291014f478c6fa087ecacc53fed9f3b9fe0b48cb",
+      "sizeBytes": 124530,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "GPL-3.0 (repo LICENSE; interfaces LGPL-3.0-or-later)",
+      "fileName": "p5rpc.inputhook1.0.0.7z",
+      "pins": {
+        "version": "1.0.0"
+      }
+    },
+    {
       "id": "skycraft-fabric",
       "name": "SkyCraft 0.1.2 (Minecraft side)",
       "url": "https://github.com/chasmlol/SkyCraft/releases/download/v0.1.2/skycraft-fabric-0.1.2.jar",
@@ -111,6 +167,26 @@
       "action": "extract",
       "download": "reloaded-ii",
       "to": "{appdir}/personacraft/reloaded-ii"
+    },
+    {
+      "action": "extract",
+      "download": "reloaded-hooks",
+      "to": "{appdir}/personacraft/reloaded-ii/Mods/reloaded.sharedlib.hooks"
+    },
+    {
+      "action": "extract",
+      "download": "reloaded-sigscan",
+      "to": "{appdir}/personacraft/reloaded-ii/Mods/Reloaded.Memory.SigScan.ReloadedII"
+    },
+    {
+      "action": "extract",
+      "download": "p5rpc-lib",
+      "to": "{appdir}/personacraft/reloaded-ii/Mods/p5rpc.lib"
+    },
+    {
+      "action": "extract",
+      "download": "p5rpc-inputhook",
+      "to": "{appdir}/personacraft/reloaded-ii/Mods/p5rpc.inputhook"
     },
     {
       "action": "extract",
@@ -157,9 +233,19 @@
       "url": "https://github.com/llmandres"
     },
     {
+      "name": "AnimatedSwine37",
+      "role": "p5rpc.lib and p5rpc.inputhook, the Persona 5 Royal helper mods",
+      "url": "https://github.com/AnimatedSwine37/p5rpc.lib"
+    },
+    {
       "name": "Sewer56 and Reloaded-II contributors",
       "role": "Reloaded-II, which loads the mod",
       "url": "https://github.com/Reloaded-Project/Reloaded-II"
+    },
+    {
+      "name": "Sewer56 and Reloaded-Project",
+      "role": "Reloaded.SharedLib.Hooks and Reloaded.Memory.SigScan, Reloaded-II helper mods",
+      "url": "https://github.com/Reloaded-Project/Reloaded.Memory.SigScan"
     }
   ],
   "licence": {
@@ -183,6 +269,10 @@
       "appId": "p5r.exe",
       "appName": "Persona 5 Royal",
       "mods": [
+        "reloaded.sharedlib.hooks",
+        "Reloaded.Memory.SigScan.ReloadedII",
+        "p5rpc.lib",
+        "p5rpc.inputhook",
         "p5rpc.personacraft"
       ]
     }

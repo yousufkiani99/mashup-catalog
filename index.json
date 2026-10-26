@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-26T13:12:05.320Z",
+  "generatedAt": "2026-10-26T14:26:45.391Z",
   "links": {
     "support": "https://discord.gg/mTQ8GXtAns",
     "website": "https://mashuplauncher.com/",
@@ -21,6 +21,11 @@
     "earlyPriceEndsBy": "2026-12-31"
   },
   "recipes": [
+    {
+      "id": "astartes-the-old-blood",
+      "path": "recipes/astartes-the-old-blood.json",
+      "sha256": "bfcc2ba0d301c881fa658306ad73a1e573045bcac5646e1d6844169bb22c6a3c"
+    },
     {
       "id": "beamcraft",
       "path": "recipes/beamcraft.json",
@@ -137,14 +142,14 @@
       "sha256": "47682f02c995cbcddc76a9297ab8f8c2ccf82f10facfc76ef04dd34a0a1649cb"
     },
     {
-      "id": "minecraft-ring",
-      "path": "recipes/minecraft-ring.json",
-      "sha256": "48c70ee9c8c71b0f034211df480aeaf80056db8326f07e0d67288cccc11bc2bb"
-    },
-    {
       "id": "minepunk",
       "path": "recipes/minepunk.json",
       "sha256": "889c1daa679807b5ba12e202ccd304d657c0e07e8aa3b6ee37348a405866e2ab"
+    },
+    {
+      "id": "mojave-in-skyrim",
+      "path": "recipes/mojave-in-skyrim.json",
+      "sha256": "b55216b6f11f2e6c416e08aa545c6f64633a3cc7c7374cfdace295265fdfdcbc"
     },
     {
       "id": "owcraft",
@@ -155,6 +160,16 @@
       "id": "palcraft",
       "path": "recipes/palcraft.json",
       "sha256": "e78c884a659f91b25d081600d2b56c42085557189780c080aca64bbb6e474d2b"
+    },
+    {
+      "id": "personacraft",
+      "path": "recipes/personacraft.json",
+      "sha256": "534a269438ad5a1aa7cedbef6c8c98714d668b647787df4fb4364ec49ba832a3"
+    },
+    {
+      "id": "portal-gun-in-outer-wilds",
+      "path": "recipes/portal-gun-in-outer-wilds.json",
+      "sha256": "1ef7bf771427282f8b975bbb7c1d3b7d9b0231a7b137787c1368d6214b823636"
     },
     {
       "id": "portalcraft",
