@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-21T19:12:16.993Z",
+  "generatedAt": "2026-10-26T08:13:06.200Z",
   "links": {
     "support": "https://discord.gg/mTQ8GXtAns",
     "website": "https://mashuplauncher.com/",
@@ -94,7 +94,17 @@
     {
       "id": "skycraft",
       "path": "recipes/skycraft.json",
-      "sha256": "266a91812c295415a33e2eec74cb368c6bd6961bb224116733eecbf33dfe8e2e"
+      "sha256": "91d2177da98d892363966bc20a9c6de88b4b388e4cf8f1962ba8704b45d547d6"
+    },
+    {
+      "id": "skydoom",
+      "path": "recipes/skydoom.json",
+      "sha256": "a7de06708b505657610cc49b6268b9bd0211453107173a6620325c36f2f16ea8"
+    },
+    {
+      "id": "ultrakill-inside-minecraft",
+      "path": "recipes/ultrakill-inside-minecraft.json",
+      "sha256": "b381eb840036c183138728b4a4b8ba3b8d741c2355c436032fbb86072a7e8e06"
     },
     {
       "id": "valcraft-strangemap",
@@ -105,6 +115,11 @@
       "id": "vegascraft",
       "path": "recipes/vegascraft.json",
       "sha256": "2e8371ca42e57bdafb1b560f3e09e426a11231f6798714e4dc691e4289078177"
+    },
+    {
+      "id": "witchercraft",
+      "path": "recipes/witchercraft.json",
+      "sha256": "a7ec170de7df448118787709b07e772074a96651b48986341f29584796ea492c"
     },
     {
       "id": "wither-storm-gta-v",

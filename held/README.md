@@ -16,3 +16,5 @@ Recipes kept here are not in the signed catalog, so the app doesn't show them.
   private) and our pinned v1.0.4 download returns 404, so it can't install. Melty lists an "UltraCraft" by a
   different account; don't take it from there. Move it back to `recipes/` and re-sign only if alfr0762 publishes
   it again on their own GitHub. Killcraft's `conflictsWith: ["ultracraft"]` stays so old installs still clash.
+  ULTRAKILL inside Minecraft (xandermodsstuff-dot, added 2026-10-26) takes its place in the library; it also lists
+  `ultracraft` in `conflictsWith` for the same reason.

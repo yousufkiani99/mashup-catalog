@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 2,
+  "id": "ultrakill-inside-minecraft",
+  "title": "ULTRAKILL inside Minecraft",
+  "tagline": "Play a Minecraft world as V1: ULTRAKILL's moves, guns, arms and parry against Minecraft's mobs.",
+  "description": "Become V1 in a normal Minecraft world. The real ULTRAKILL runs hidden next to Minecraft and supplies the movement, the weapons, the arms and the HUD, while Minecraft supplies the world, the blocks and the mobs. Dash, slide, slam and wall-jump on Minecraft's blocks; every ULTRAKILL weapon hurts Minecraft's mobs, and you can parry their attacks. Explosions break blocks, the Jackhammer mines, and Tab puts Minecraft items in V1's blue hand. Press F7 to switch between V1 and plain Steve. Your ULTRAKILL save is never changed.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "ultrakill",
+      "name": "ULTRAKILL",
+      "store": "steam",
+      "steamAppId": "1229490",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version (its creator tested the October 2026 one)."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": ["ukpassthrough-mc", "fabric-api"],
+    "instanceName": "ULTRAKILL inside Minecraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "ukpassthrough-mc",
+      "name": "ULTRAKILL inside Minecraft 0.1.2 (Minecraft side)",
+      "url": "https://github.com/xandermodsstuff-dot/ultrakill-minecraft/releases/download/v0.1.2/ukpassthrough-0.1.2.jar",
+      "sha256": "5f96eccdf1936b6080232fbcabb31d94225aa20e41f47e7cab25650e8ce554e5",
+      "sizeBytes": 520164,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (bundles Java-WebSocket 1.6.0, MIT)",
+      "fileName": "ukpassthrough-0.1.2.jar"
+    },
+    {
+      "id": "ukpassthrough-plugin",
+      "name": "ULTRAKILL inside Minecraft 0.1.2 (ULTRAKILL side)",
+      "url": "https://github.com/xandermodsstuff-dot/ultrakill-minecraft/releases/download/v0.1.2/UKPassthrough.dll",
+      "sha256": "866e7a7fc31c0791db786e89b8c27703a0881b156290e4b7cb96708ed0f10e7b",
+      "sizeBytes": 326656,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "UKPassthrough.dll"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": { "version": "5.4.23.5" }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    { "action": "extract", "download": "bepinex", "to": "{game:ultrakill}" },
+    {
+      "action": "copy",
+      "download": "ukpassthrough-plugin",
+      "to": "{game:ultrakill}/BepInEx/plugins/UKPassthrough"
+    },
+    { "action": "prism-instance" }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Backend library: LWJGL|Sound engine started|Error starting SoundSystem",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      { "order": 2, "target": "game", "gameKey": "ultrakill", "via": "steam" }
+    ],
+    "ready": {
+      "logFile": "{game:ultrakill}/BepInEx/LogOutput.log",
+      "pattern": "connected to Minecraft on",
+      "message": "Open or create a single-player world in Minecraft. V1 drops in once ULTRAKILL connects.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    { "gameKey": "ultrakill", "path": "{game:ultrakill}/Saves" },
+    { "gameKey": "minecraft-java", "path": "{prism-instance}/saves" }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "About 3 GB of extra RAM for Minecraft, about 1.5 GB of disk for Minecraft's files, and a graphics card that runs Minecraft 26.3. Both games draw at once: on a slower PC, turn on Potato Mode (Esc, then ULTRAKILL x Minecraft Settings)."
+  },
+  "conflictsWith": ["killcraft", "ultracraft"],
+  "credits": [
+    {
+      "name": "xandermodsstuff-dot",
+      "role": "Creator of ULTRAKILL inside Minecraft",
+      "url": "https://github.com/xandermodsstuff-dot"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/xandermodsstuff-dot/ultrakill-minecraft/blob/v0.1.2/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/xandermodsstuff-dot/ultrakill-minecraft",
+    "manualInstall": "https://github.com/xandermodsstuff-dot/ultrakill-minecraft/blob/v0.1.2/README.md#installing"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Play in Minecraft's window. ULTRAKILL's window stays open behind it: don't minimize or close it. If ULTRAKILL's window comes to the front, click back into Minecraft's.",
+    "ULTRAKILL's colour palette, dithering and vignette effects don't show in the picture.",
+    "Not supported yet: the Elytra, riding (boats, horses, minecarts) and shields.",
+    "Single-player only.",
+    "Killcraft and ULTRAKILL inside Minecraft can't be installed at the same time, because both load into ULTRAKILL."
+  ],
+  "important": [
+    {
+      "text": "Before you install, start ULTRAKILL from Steam as usual and play its tutorial until you have the Revolver (the first pistol). ULTRAKILL inside Minecraft needs a save that has it."
+    }
+  ]
+}
