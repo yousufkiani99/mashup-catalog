@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 5,
+  "id": "gmodlight",
+  "title": "GModLight",
+  "tagline": "Garry's Mod's physgun, weapons and spawn menu inside Dying Light.",
+  "description": "Dying Light stays the real game: its city, zombies, parkour and day and night. Press F2 and Garry's Mod's hands take over: grab zombies with the physgun and fling them into walls, shoot them with Garry's Mod weapons, fire rockets into Harran's streets and open the spawn menu anywhere. Both games run at the same time: Garry's Mod runs hidden and Dying Light draws everything.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "dying-light",
+      "name": "Dying Light",
+      "store": "steam",
+      "steamAppId": "239140",
+      "version": {
+        "kind": "exeVersions",
+        "values": [
+          "1.55.0.0"
+        ],
+        "note": "Made for Dying Light 1.55 (Steam). Story mode, single player."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "garrys-mod",
+      "name": "Garry's Mod",
+      "store": "steam",
+      "steamAppId": "4000",
+      "version": {
+        "kind": "any",
+        "note": "The 64-bit version, which Steam installs from Garry's Mod's x86-64 branch."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "gmodlight",
+      "name": "GModLight 0.1.0",
+      "url": "https://github.com/GooseMcGee/DyingLight-GMod/releases/download/v0.1.0/GModLight-0.1.0.zip",
+      "sha256": "f089912ab3366996555e4e0a2abed40903af4dc8ad93e034af6122547af2ce25",
+      "sizeBytes": 721806,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "GModLight-0.1.0.zip"
+    },
+    {
+      "id": "ultimate-asi-loader",
+      "name": "Ultimate ASI Loader 9.7.4 (64-bit)",
+      "url": "https://github.com/ThirteenAG/Ultimate-ASI-Loader/releases/download/v9.7.4/Ultimate-ASI-Loader-NoPDB_x64.zip",
+      "sha256": "e5860e7d9a1805267535b65749575b5e406cc6ea3325c7392189c578815045d1",
+      "sizeBytes": 374169,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "Ultimate-ASI-Loader-NoPDB_x64.zip",
+      "pins": {
+        "version": "9.7.4"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "ultimate-asi-loader",
+      "to": "{game:dying-light}",
+      "only": [
+        "dinput8.dll"
+      ],
+      "rename": [
+        {
+          "from": "dinput8.dll",
+          "to": "xinput1_3.dll"
+        }
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "gmodlight",
+      "to": "{game:dying-light}",
+      "from": "GModLight-0.1.0/files",
+      "only": [
+        "GModLight.asi",
+        "GModLight.ini"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "gmodlight",
+      "to": "{game:garrys-mod}/garrysmod/lua/bin",
+      "from": "GModLight-0.1.0/files",
+      "only": [
+        "gmcl_gmodlight_win64.dll"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "gmodlight",
+      "to": "{game:garrys-mod}/garrysmod/lua/bin",
+      "from": "GModLight-0.1.0/files",
+      "only": [
+        "gmcl_gmodlight_win64.dll"
+      ],
+      "rename": [
+        {
+          "from": "gmcl_gmodlight_win64.dll",
+          "to": "gmsv_gmodlight_win64.dll"
+        }
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "gmodlight",
+      "to": "{game:garrys-mod}/garrysmod/addons",
+      "from": "GModLight-0.1.0/files",
+      "only": [
+        "gmodlight/**"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "dying-light",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{game:dying-light}/GModLight.log",
+      "pattern": "gmod ready 1",
+      "message": "Starting Dying Light. Garry's Mod starts by itself, hidden, at Dying Light's main menu. Load your game and press F2.",
+      "timeoutSeconds": 1200
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "dying-light",
+      "path": "{steam-userdata:239140}"
+    },
+    {
+      "gameKey": "garrys-mod",
+      "path": "{game:garrys-mod}/garrysmod/saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Both games run at the same time. GModLight caps Dying Light at 60 frames per second (MaxFPS in GModLight.ini)."
+  },
+  "offlineOnly": true,
+  "credits": [
+    {
+      "name": "GooseMcGee",
+      "role": "Creator of GModLight",
+      "url": "https://github.com/GooseMcGee/DyingLight-GMod"
+    },
+    {
+      "name": "ThirteenAG",
+      "role": "Ultimate ASI Loader",
+      "url": "https://github.com/ThirteenAG/Ultimate-ASI-Loader"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/GooseMcGee/DyingLight-GMod/blob/v0.1.0/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/GooseMcGee/DyingLight-GMod",
+    "manualInstall": "https://github.com/GooseMcGee/DyingLight-GMod#download-and-play"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Single player only: keep Dying Light's co-op off (set game visibility to private) while it is installed.",
+    "F2 switches between Kyle's hands and Garry's Mod's. F1 or Q opens the spawn menu, C the context menu, F7 hides everything Garry's Mod draws.",
+    "Made for one Dying Light version (1.55). After a Dying Light update it stops working until GModLight is updated.",
+    "Garry's Mod starts without Workshop addons.",
+    "GModLight and Garry's Redemption can't be installed at the same time, because both add their own mod to Garry's Mod."
+  ],
+  "important": [
+    {
+      "text": "Keep Dying Light's co-op off while you play: set its game visibility to private and don't join or host other players."
+    }
+  ],
+  "conflictsWith": [
+    "garrys-redemption"
+  ]
+}

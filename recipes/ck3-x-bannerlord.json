@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 5,
+  "id": "ck3-x-bannerlord",
+  "title": "CK3 x Bannerlord",
+  "tagline": "Fight your Crusader Kings III battles yourself in Bannerlord, and send the result back to your campaign.",
+  "description": "When armies meet in Crusader Kings III and you're involved, choose to take the field yourself. A title card fades in and the battle opens in Mount & Blade II: Bannerlord, with your real armies, your character, your knights and your coat of arms. When it's over, the losses, wounds, captures and prestige go back into your campaign and CK3 plays out the rest. Bannerlord waits hidden in the background, so there are no menus or loading screens. Achievements stay on.",
+  "method": "embed",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "crusader-kings-3",
+      "name": "Crusader Kings III",
+      "store": "steam",
+      "steamAppId": "1158310",
+      "version": {
+        "kind": "any",
+        "note": "Built for Crusader Kings III 1.20 (tested on 1.20.0.3). Other versions may break. The Xbox app copy isn't supported."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "bannerlord",
+      "name": "Mount & Blade II: Bannerlord",
+      "store": "steam",
+      "steamAppId": "261550",
+      "version": {
+        "kind": "any",
+        "note": "Built for Bannerlord v1.4.8. Other versions may break."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "ck3-x-bannerlord",
+      "name": "CK3 x Bannerlord 0.9.0-beta (manual zip)",
+      "url": "https://github.com/graff0n/ck3-bannerlord-bridge/releases/download/v0.9.0-beta/CK3xBL-0.9.0-beta-manual.zip",
+      "sha256": "c1d938bfa62d99d80d4a087c596cf70a8d475c9f38b02a86ec8b6d120902de84",
+      "sizeBytes": 45034507,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "CK3xBL-0.9.0-beta-manual.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "ck3-x-bannerlord",
+      "to": "{appdir}/ck3-x-bannerlord",
+      "from": "CK3xBL-0.9.0-beta/CK3xBL"
+    },
+    {
+      "action": "extract",
+      "download": "ck3-x-bannerlord",
+      "to": "{documents}/Paradox Interactive/Crusader Kings III/mod",
+      "from": "CK3xBL-0.9.0-beta/Crusader Kings III/mod"
+    },
+    {
+      "action": "extract",
+      "download": "ck3-x-bannerlord",
+      "to": "{game:bannerlord}/Modules",
+      "from": "CK3xBL-0.9.0-beta/Mount & Blade II Bannerlord/Modules"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "exe",
+        "exe": "{appdir}/ck3-x-bannerlord/CK3xBL.exe",
+        "waitSeconds": 3,
+        "stopWith": "crusader-kings-3"
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "crusader-kings-3",
+        "via": "exe",
+        "exe": "{game:crusader-kings-3}/binaries/ck3.exe",
+        "args": [
+          "-gdpr-compliant"
+        ]
+      }
+    ],
+    "cleanup": [
+      {
+        "exe": "{appdir}/ck3-x-bannerlord/CK3xBL.exe",
+        "args": [
+          "--quit"
+        ],
+        "note": "Asks the CK3 x Bannerlord bridge to quit; it closes the Bannerlord it started.",
+        "timeoutSeconds": 20
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "crusader-kings-3",
+      "path": "{documents}/Paradox Interactive/Crusader Kings III/save games"
+    },
+    {
+      "gameKey": "bannerlord",
+      "path": "{documents}/Mount and Blade II Bannerlord/Game Saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Both games run at the same time while you play: Bannerlord waits in the background, hidden and muted. A PC that runs both games comfortably is recommended."
+  },
+  "credits": [
+    {
+      "name": "graff0n",
+      "role": "Creator of CK3 x Bannerlord",
+      "url": "https://github.com/graff0n"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/graff0n/ck3-bannerlord-bridge/blob/v0.9.0-beta/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/graff0n/ck3-bannerlord-bridge",
+    "manualInstall": "https://github.com/graff0n/ck3-bannerlord-bridge/blob/v0.9.0-beta/docs/INSTALL.md"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Beta: some fixes from the creator's last play test haven't been checked in game yet.",
+    "Most knight and commander effects are tested in code but not yet in game.",
+    "Banner charges are the nearest Bannerlord icon of the right kind, not exact copies.",
+    "The mashup's own texts are English only.",
+    "While a result is sent back, the bridge presses CK3's modder hotkeys for a moment; don't type during the result card."
+  ],
+  "important": [
+    {
+      "text": "Start Mount & Blade II: Bannerlord once from Steam and click through its first-start notices, then close it. Bannerlord needs this once before the mashup can start it in the background.",
+      "link": "https://github.com/graff0n/ck3-bannerlord-bridge/blob/v0.9.0-beta/docs/INSTALL.md",
+      "linkLabel": "Install guide"
+    }
+  ],
+  "offlineOnly": true
+}

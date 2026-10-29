@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 2,
+  "id": "witchercraft",
+  "title": "WitcherCraft",
+  "tagline": "Play The Witcher 3 as Steve: build, mine and fight in Geralt's world, then switch back.",
+  "description": "Walk, sprint, swim and fly through the Continent as Steve, bumping into its real ground, walls and buildings. Place and break blocks anywhere, fight the Witcher's monsters with Minecraft weapons, and build an iron golem or tame wolves that fight on your side. Torches light up the world around them. Call a horse, use Witcher senses and open the map, journal and inventory without leaving Steve. Press F8 to turn back into Geralt at any time, and again to be Steve. Minecraft runs hidden in the background and starts and stops with the game.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "witcher-3",
+      "name": "The Witcher 3: Wild Hunt",
+      "store": "steam",
+      "steamAppId": "292030",
+      "publisher": "CD PROJEKT RED",
+      "version": {
+        "kind": "any",
+        "note": "The current version 4.0 or newer (tested by its creator on Steam 5.0 and 5.01), DirectX 12. After a game patch it stays off until WitcherCraft is updated."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. WitcherCraft sets up Minecraft 26.3 itself the first time."
+      }
+    }
+  ],
+  "minecraft": {
+    "managedBy": "mashup",
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [],
+    "instanceName": "WitcherCraft"
+  },
+  "downloads": [
+    {
+      "id": "witchercraft",
+      "name": "WitcherCraft 0.1.0",
+      "url": "https://github.com/Wanesia/WitcherCraft/releases/download/v0.1.0/WitcherCraft-0.1.0.zip",
+      "sha256": "c1529512497e8fea7413a72bef7ff0b932db86e80fd7ddf3bdcff1420d644827",
+      "sizeBytes": 23785166,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (WitcherCraft; its bundled Minecraft holds an unmodified Prism Launcher, GPL-3.0, and Fabric API, Apache-2.0)",
+      "fileName": "WitcherCraft-0.1.0.zip"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "witchercraft",
+      "to": "{game:witcher-3}",
+      "only": [
+        "bin/x64_dx12/dinput8.dll",
+        "bin/x64_dx12/witchercraft/**",
+        "mods/modWitcherCraft/**"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "witcher-3",
+        "via": "exe",
+        "exe": "{game:witcher-3}/bin/x64_dx12/witcher3.exe"
+      }
+    ],
+    "ready": {
+      "logFile": "{game:witcher-3}/bin/x64_dx12/witchercraft_native.log",
+      "pattern": "host: Minecraft connected",
+      "message": "Starting Minecraft inside The Witcher 3. The very first time the game closes and a window asks you to sign in to Minecraft; once it finishes, press Play again.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    { "gameKey": "witcher-3", "path": "{documents}/The Witcher 3/gamesaves" },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{localappdata}/WitcherCraft/Prism/instances/WitcherCraft/.minecraft/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 6,
+    "notes": "Both games run at once: 16 GB of RAM or more. Keyboard and mouse only. Frame Generation must be off."
+  },
+  "credits": [
+    {
+      "name": "Wanesia",
+      "role": "Creator of WitcherCraft",
+      "url": "https://github.com/Wanesia/WitcherCraft"
+    },
+    {
+      "name": "chasmlol",
+      "role": "Creator of SkyCraft, which WitcherCraft is a port of",
+      "url": "https://github.com/chasmlol/SkyCraft"
+    },
+    {
+      "name": "justbustin",
+      "role": "Minecraft Ring's bridge code, which makes Minecraft mobs fight the game's enemies",
+      "url": "https://github.com/siddoff/Minecraft-Ring"
+    },
+    {
+      "name": "Prism Launcher contributors",
+      "role": "The Minecraft launcher WitcherCraft brings",
+      "url": "https://github.com/PrismLauncher/PrismLauncher"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/Wanesia/WitcherCraft/blob/v0.1.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/Wanesia/WitcherCraft",
+    "manualInstall": "https://github.com/Wanesia/WitcherCraft#how-to-install"
+  },
+  "media": {},
+  "aiBuilt": false,
+  "knownIssues": [
+    "Brand new (first release, 11 October): only its creator has played it, so expect rough edges.",
+    "Steve can't open the Witcher's save menu: press F8 to become Geralt, then save as usual. Minecraft saves your blocks by itself.",
+    "Your blocks are Steve's only: as Geralt you, and the Witcher's people and monsters, walk through them.",
+    "One Minecraft world for the whole game: a house built in Velen also stands at the same spot in Skellige and Toussaint.",
+    "Minecraft's field of view is locked at 70 while you play.",
+    "Controllers don't work yet: keyboard and mouse only.",
+    "If another mod you use also puts a file called dinput8.dll in The Witcher 3's folder, WitcherCraft's takes its place while installed, so that mod is off. Remove puts yours back.",
+    "After a game update, WitcherCraft may stay off (you're Geralt) or the game may show script errors until WitcherCraft is updated. Your builds are kept."
+  ],
+  "important": [
+    {
+      "text": "Turn Frame Generation off in the game's Options, Video, Graphics (and Motion Blur too, for sharper blocks). Minecraft's blocks shake and smear with it on. The game remembers it."
+    }
+  ]
+}

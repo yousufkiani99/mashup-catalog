@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 5,
+  "id": "ultra-r-e-p-o",
+  "title": "ULTRA R.E.P.O.",
+  "tagline": "Play R.E.P.O. as ULTRAKILL's V1: dash, slide, slam and shoot while you haul the loot.",
+  "description": "Haul R.E.P.O.'s fragile loot as V1, ULTRAKILL's robot, with V1's body, revolver, shotgun, coins and sounds taken from your own copy of ULTRAKILL. Dash, slide and slam through the rooms, toss coins to bounce your shots, boost shotgun blasts and parry close-up hits. Style refills your dash and briefly makes you stronger. Press G to draw or put away your gun, so your hands are free to grab loot. Only R.E.P.O. runs: ULTRAKILL is read, never started or changed.",
+  "method": "content-port",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "repo",
+      "name": "R.E.P.O.",
+      "store": "steam",
+      "steamAppId": "3241660",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version. Made on R.E.P.O. 0.4.4.3."
+      }
+    },
+    {
+      "role": "donor",
+      "key": "ultrakill",
+      "name": "ULTRAKILL",
+      "store": "steam",
+      "steamAppId": "1229490",
+      "version": {
+        "kind": "any",
+        "note": "Needs the Steam version installed; it is only read, never started. A big ULTRAKILL update can stop V1 loading until the mod is updated."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "ultra-r-e-p-o",
+      "name": "ULTRA R.E.P.O. 0.1.0 (development build)",
+      "url": "https://github.com/roryekay/ULTRA-REPO/releases/download/v0.1.0-dev/ULTRA-REPO-0.1.0-dev.zip",
+      "sha256": "15916e5d4b5a70ec8175b4a39cb7f76a92bf099faf7fdfed46c2fbe0ef67bbb6",
+      "sizeBytes": 38660,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "ULTRA-REPO-0.1.0-dev.zip"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": {
+        "version": "5.4.23.5"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinex",
+      "to": "{game:repo}"
+    },
+    {
+      "action": "extract",
+      "download": "ultra-r-e-p-o",
+      "to": "{game:repo}/BepInEx/plugins/UltraHaul",
+      "from": "plugins/UltraHaul",
+      "only": [
+        "UltraHaul.dll"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "ultra-r-e-p-o",
+      "to": "{game:repo}/BepInEx/plugins/UltraHaul",
+      "only": [
+        "docs/README.md",
+        "docs/LICENSE"
+      ]
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "repo",
+        "via": "steam"
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "repo",
+      "path": "{locallow}/semiwork/Repo/saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Only R.E.P.O. runs. ULTRAKILL must be installed through Steam on this PC."
+  },
+  "conflictsWith": [
+    "repocraft"
+  ],
+  "credits": [
+    {
+      "name": "roryk (roryekay)",
+      "role": "Creator of ULTRA R.E.P.O.",
+      "url": "https://github.com/roryekay/ULTRA-REPO"
+    },
+    {
+      "name": "BepInEx team",
+      "role": "BepInEx, the mod loader",
+      "url": "https://github.com/BepInEx/BepInEx"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/roryekay/ULTRA-REPO/blob/v0.1.0-dev/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/roryekay/ULTRA-REPO",
+    "manualInstall": "https://github.com/roryekay/ULTRA-REPO/blob/v0.1.0-dev/README.md"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "An early development build from its creator. Playing with friends hasn't been tested yet, so play solo.",
+    "Controls: G draws or puts away your gun, R switches guns, left mouse fires, right mouse tosses a coin, F parries. Dash and slide use R.E.P.O.'s own Sprint and Crouch keys.",
+    "Your loot still breaks as normal, including from your own shots.",
+    "ULTRA R.E.P.O. and RepoCraft can't be installed at the same time, because both take over your R.E.P.O. character."
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 5,
+  "id": "cybercraft",
+  "title": "CyberCraft",
+  "tagline": "Minecraft blocks in Night City, lit by the city's own lights and upscaled with DLSS.",
+  "description": "SkyCraft's Minecraft brought to Cyberpunk 2077: blocks are drawn into the game's own picture, lit by Night City and kept sharp by DLSS. Press F8 to build as a Minecraft player, then give control back to V. Minecraft's block textures are made from your own Minecraft the first time you press Play.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "cyberpunk-2077",
+      "name": "Cyberpunk 2077",
+      "store": "steam",
+      "steamAppId": "1091500",
+      "version": {
+        "kind": "any",
+        "note": "Needs game version 2.31 (base game; Phantom Liberty wasn't tested). Other versions need matching mod updates first."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "skycraft-fabric",
+      "cybercraft-tweaks",
+      "fabric-api"
+    ],
+    "instanceName": "CyberCraft",
+    "jvmArgs": [
+      "--enable-native-access=ALL-UNNAMED",
+      "-Dskycraft.quitWithSkyrim=false"
+    ],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "cybercraft",
+      "name": "CyberCraft 0.1.2 (BlockRender)",
+      "url": "https://github.com/ItzBloxy/CyberCraft/releases/download/v0.1.2/CyberCraft-0.1.2.zip",
+      "sha256": "ca11b6315d5b816aa7b2568126f5e7256125e9697240693528c109a5f5216d91",
+      "sizeBytes": 741661,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "CyberCraft-0.1.2.zip"
+    },
+    {
+      "id": "cybercraft-tweaks",
+      "name": "CyberCraft Tweaks 1.7.1 (Minecraft side)",
+      "url": "https://github.com/ItzBloxy/CyberCraft/releases/download/v0.1.2/cybercraft-tweaks-1.7.1.jar",
+      "sha256": "cd8bdd18ee290b3120e93aab44e4313bc917fabf783ae9e8f9ba5c9507e9e545",
+      "sizeBytes": 25020,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "cybercraft-tweaks-1.7.1.jar"
+    },
+    {
+      "id": "skycraft-fabric",
+      "name": "SkyCraft 0.1.2 (Minecraft side)",
+      "url": "https://github.com/chasmlol/SkyCraft/releases/download/v0.1.2/skycraft-fabric-0.1.2.jar",
+      "sha256": "ea429c73dcec49d39b6a0bb9b17ad08a6b0290a39a96ccf6f6c07d581cf992d9",
+      "sizeBytes": 247869,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "skycraft-fabric-0.1.2.jar"
+    },
+    {
+      "id": "cyber-engine-tweaks",
+      "name": "Cyber Engine Tweaks 1.37.1",
+      "url": "https://github.com/maximegmd/CyberEngineTweaks/releases/download/v1.37.1/cet_1.37.1.zip",
+      "sha256": "1855017796a27f518199f5b7d7210ef1db7a5c5f0af468c68e04e6e666ad248c",
+      "sizeBytes": 35227011,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "cet_1.37.1.zip"
+    },
+    {
+      "id": "red4ext",
+      "name": "RED4ext 1.30.0",
+      "url": "https://github.com/wopss/RED4ext/releases/download/v1.30.0/red4ext-1.30.0.zip",
+      "sha256": "3a72225c9d2c46c99f4a4159d952b9d24366357c2423eb7ea255c84e9e11c0b0",
+      "sizeBytes": 575834,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "red4ext-1.30.0.zip"
+    },
+    {
+      "id": "redscript",
+      "name": "redscript 1.0.0-preview.22",
+      "url": "https://github.com/jac3km4/redscript/releases/download/v1.0.0-preview.22/redscript-v1.0.0-preview.22-windows.zip",
+      "sha256": "d68f7978f194fe0fde4fe90989317053518af998712d363f5f398aa8d13b341c",
+      "sizeBytes": 1539215,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "redscript-v1.0.0-preview.22-windows.zip"
+    },
+    {
+      "id": "codeware",
+      "name": "Codeware 1.18.1",
+      "url": "https://github.com/psiberx/cp2077-codeware/releases/download/v1.18.1/Codeware-1.18.1.zip",
+      "sha256": "3d74b3560e1b27b3e507d39a5ad8e01bbf0d3ccae8191548fec42bbea7de40a0",
+      "sizeBytes": 1919330,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "Codeware-1.18.1.zip",
+      "pins": {
+        "version": "1.18.1"
+      }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "cyber-engine-tweaks",
+      "to": "{game:cyberpunk-2077}"
+    },
+    {
+      "action": "extract",
+      "download": "red4ext",
+      "to": "{game:cyberpunk-2077}"
+    },
+    {
+      "action": "extract",
+      "download": "redscript",
+      "to": "{game:cyberpunk-2077}"
+    },
+    {
+      "action": "extract",
+      "download": "codeware",
+      "to": "{game:cyberpunk-2077}"
+    },
+    {
+      "action": "extract",
+      "download": "cybercraft",
+      "to": "{game:cyberpunk-2077}",
+      "only": [
+        "red4ext/plugins/BlockRender/BlockRender.dll",
+        "red4ext/plugins/BlockRender/shaders/**",
+        "red4ext/plugins/BlockRender/Scripts/**",
+        "red4ext/plugins/BlockRender/LICENSE.txt",
+        "red4ext/plugins/BlockRender/THIRD_PARTY_NOTICES.txt",
+        "bin/x64/plugins/cyber_engine_tweaks/mods/blockrender_hud/**"
+      ]
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Backend library: LWJGL|Sound engine started|Error starting SoundSystem",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "cyberpunk-2077",
+        "via": "steam",
+        "args": [
+          "--launcher-skip"
+        ]
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "Both games run at once, so it needs a strong PC. Tested by its creator on an NVIDIA card with DLSS."
+  },
+  "conflictsWith": [
+    "minepunk"
+  ],
+  "credits": [
+    {
+      "name": "ItzBloxy",
+      "role": "Creator of CyberCraft (BlockRender)",
+      "url": "https://github.com/ItzBloxy"
+    },
+    {
+      "name": "chasmlol",
+      "role": "SkyCraft, whose Minecraft side CyberCraft uses",
+      "url": "https://github.com/chasmlol"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/ItzBloxy/CyberCraft/blob/main/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/ItzBloxy/CyberCraft",
+    "manualInstall": "https://github.com/ItzBloxy/CyberCraft#readme"
+  },
+  "media": {},
+  "aiBuilt": false,
+  "knownIssues": [
+    "Only Cyberpunk 2077 2.31 works.",
+    "Can't be installed together with Minepunk: both change Cyberpunk the same way."
+  ],
+  "loaderOptions": {
+    "blockAtlas": {
+      "gameKey": "cyberpunk-2077",
+      "outDir": "{game:cyberpunk-2077}/red4ext/plugins/BlockRender",
+      "format": "blockrender-v1",
+      "minecraftVersion": "26.3"
+    }
+  }
+}

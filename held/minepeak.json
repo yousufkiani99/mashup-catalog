@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 5,
+  "id": "minepeak",
+  "title": "MinePeak",
+  "tagline": "Climb today's PEAK island rebuilt inside Minecraft, with PEAK's items, art and music.",
+  "description": "Play PEAK's daily island inside Minecraft. Each day MinePeak reads that day's island, items, menu art, sounds and music from your own copy of PEAK and rebuilds them as a Minecraft world, so you climb PEAK's mountain with Minecraft's body, blocks and friends. You only play Minecraft: PEAK is read in the background, never shown.",
+  "method": "content-port",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.2 itself."
+      }
+    },
+    {
+      "role": "donor",
+      "key": "peak",
+      "name": "PEAK",
+      "store": "steam",
+      "steamAppId": "3527290",
+      "version": {
+        "kind": "any",
+        "note": "Needs PEAK installed through Steam."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.2",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.156.0+26.2",
+    "javaMajor": 25,
+    "mods": [
+      "minepeak",
+      "fabric-api"
+    ],
+    "instanceName": "MinePeak",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "minepeak",
+      "name": "MinePeak 0.1.0",
+      "url": "https://github.com/E1GAT0-dotcom/MinePeak/releases/download/v0.1.0/minepeak-0.1.0.jar",
+      "sha256": "f51eec8ecfb99d61fe8d8ab2b26f758c9e7e9e81975eca8261fd240230fc0483",
+      "sizeBytes": 984749,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "minepeak-0.1.0.jar"
+    },
+    {
+      "id": "minepeak-exporter",
+      "name": "MinePeak Exporter 0.1.0",
+      "url": "https://github.com/E1GAT0-dotcom/MinePeak/releases/download/v0.1.0/MinePeakExporter-0.1.0.zip",
+      "sha256": "e236cef73d9d2aa64160099d7ad32768eb916378925d92fced31b62dc8f26a25",
+      "sizeBytes": 108543,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "MinePeakExporter-0.1.0.zip"
+    },
+    {
+      "id": "bepinexpack-peak",
+      "name": "BepInExPack for PEAK 5.4.75301",
+      "url": "https://thunderstore.io/package/download/BepInEx/BepInExPack_PEAK/5.4.75301/",
+      "sha256": "TODO",
+      "kind": "loader",
+      "source": "thunderstore",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx-BepInExPack_PEAK-5.4.75301.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.156.0 for Minecraft 26.2",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.156.0%2B26.2/fabric-api-0.156.0%2B26.2.jar",
+      "sha256": "TODO",
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.156.0+26.2.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism"
+      }
+    ]
+  },
+  "saves": [
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "notes": "Draft only: the PEAK copy the exporter runs in (about 2 GB) isn't set up by this recipe yet."
+  },
+  "credits": [
+    {
+      "name": "E1GAT0-dotcom",
+      "role": "Creator of MinePeak",
+      "url": "https://github.com/E1GAT0-dotcom/MinePeak"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/E1GAT0-dotcom/MinePeak/blob/v0.1.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/E1GAT0-dotcom/MinePeak",
+    "manualInstall": "https://github.com/E1GAT0-dotcom/MinePeak#readme"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Draft: not installable yet (see held/README.md)."
+  ]
+}

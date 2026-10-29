@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 5,
+  "id": "doom-for-crispberry",
+  "title": "DOOM for Crispberry",
+  "tagline": "Play DOOM on a phone inside PEAK: a pocket DOOM app for your climber's in-game phone.",
+  "description": "Add DOOM to the Crispberry phone in PEAK. Open the phone with Alt+P while you climb and start the DOOM app: a full DOOM engine runs right on the phone's screen. It plays Freedoom, the free DOOM-style game, out of the box. Only PEAK runs.",
+  "method": "embed",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "peak",
+      "name": "PEAK",
+      "store": "steam",
+      "steamAppId": "3527290",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "doom-for-crispberry",
+      "name": "DOOM for Crispberry 1.0.1",
+      "url": "https://thunderstore.io/package/download/onlystar/DOOM_for_Crispberry/1.0.1/",
+      "sha256": "TODO",
+      "kind": "mashup",
+      "source": "thunderstore",
+      "licence": "GPL-2.0 (DOOM engine port); Freedoom BSD-3-Clause",
+      "fileName": "onlystar-DOOM_for_Crispberry-1.0.1.zip"
+    },
+    {
+      "id": "crispberry-piphone",
+      "name": "Crispberry PiPhone 0.17.69",
+      "url": "https://thunderstore.io/package/download/tony4twenty/Crispberry_PiPhone/0.17.69/",
+      "sha256": "TODO",
+      "kind": "dependency",
+      "source": "thunderstore",
+      "licence": "All rights reserved by its creator; free download from Thunderstore",
+      "fileName": "tony4twenty-Crispberry_PiPhone-0.17.69.zip"
+    },
+    {
+      "id": "bepinexpack-peak",
+      "name": "BepInExPack for PEAK 5.4.75301",
+      "url": "https://thunderstore.io/package/download/BepInEx/BepInExPack_PEAK/5.4.75301/",
+      "sha256": "TODO",
+      "kind": "loader",
+      "source": "thunderstore",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx-BepInExPack_PEAK-5.4.75301.zip",
+      "pins": {
+        "version": "5.4.75301"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinexpack-peak",
+      "to": "{game:peak}",
+      "from": "BepInExPack"
+    },
+    {
+      "action": "extract",
+      "download": "crispberry-piphone",
+      "to": "{game:peak}/BepInEx/plugins/tony4twenty-Crispberry_PiPhone"
+    },
+    {
+      "action": "extract",
+      "download": "doom-for-crispberry",
+      "to": "{game:peak}/BepInEx/plugins/onlystar-DOOM_for_Crispberry"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "peak",
+        "via": "steam"
+      }
+    ]
+  },
+  "saves": [],
+  "requirements": {
+    "notes": "Only PEAK runs."
+  },
+  "credits": [
+    {
+      "name": "onlystar (endors-toi)",
+      "role": "Creator of DOOM for Crispberry",
+      "url": "https://github.com/endors-toi/DOOM-for-Crispberry"
+    },
+    {
+      "name": "tony4twenty",
+      "role": "Crispberry PiPhone, the in-game phone",
+      "url": "https://thunderstore.io/c/peak/p/tony4twenty/Crispberry_PiPhone/"
+    },
+    {
+      "name": "Freedoom project",
+      "role": "Freedoom, the free game data it plays",
+      "url": "https://freedoom.github.io/"
+    }
+  ],
+  "licence": {
+    "spdx": "GPL-2.0",
+    "url": "https://github.com/endors-toi/DOOM-for-Crispberry",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/endors-toi/DOOM-for-Crispberry",
+    "manualInstall": "https://thunderstore.io/c/peak/p/onlystar/DOOM_for_Crispberry/"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "It plays Freedoom, not id Software's DOOM levels.",
+    "Alt+P opens the phone."
+  ]
+}

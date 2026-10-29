@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 5,
+  "id": "bodycamcraft",
+  "title": "BodycamCraft",
+  "tagline": "Minecraft survival filmed like bodycam footage, with Bodycam's real guns.",
+  "description": "Play Minecraft survival through a chest-mounted camera: fisheye lens, grain, sway and no crosshair. Bodycam's Glock 17 and M4A1, with their models, textures and sounds, are read from your own copy of Bodycam. Free aim, recoil, magazines and reloads; craft more guns and magazines in survival. Only Minecraft runs; Bodycam is never started or changed.",
+  "method": "content-port",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "donor",
+      "key": "bodycam",
+      "name": "Bodycam",
+      "store": "steam",
+      "steamAppId": "2406770",
+      "version": {
+        "kind": "any",
+        "note": "Needs the Steam version installed; it is only read, never started. Tested with Steam build 25505592."
+      }
+    },
+    {
+      "role": "host",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 1.21.11 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "1.21.11",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.141.6+1.21.11",
+    "javaMajor": 21,
+    "mods": [
+      "bodycamcraft",
+      "fabric-api"
+    ],
+    "instanceName": "BodycamCraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "bodycamcraft",
+      "name": "BodycamCraft 0.2.1 (Minecraft mod)",
+      "url": "https://github.com/issacleral/BodycamCraft/releases/download/v0.2.1/bodycamcraft-0.2.1.jar",
+      "sha256": "e866af6ba50cff18f5ec5c931bcd4977fb651589a9c4a28bcc3a6f1958542b84",
+      "sizeBytes": 463037,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (bundled decoders: oozextract MIT, vgmstream ISC)",
+      "fileName": "bodycamcraft-0.2.1.jar"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.141.6 for Minecraft 1.21.11",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.141.6%2B1.21.11/fabric-api-0.141.6%2B1.21.11.jar",
+      "sha256": "bdff7fd7e220085cfad2ff9b1f40dde6534ae0b96cf378f97a374bc54cb9ed0f",
+      "sizeBytes": 2426039,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.141.6+1.21.11.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "BodycamCraft loaded",
+      "message": "Starting Minecraft. The first time, sign in to Minecraft; it then downloads for a few minutes.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "Only Minecraft runs. About 3 GB of RAM for Minecraft."
+  },
+  "credits": [
+    {
+      "name": "issac_leral",
+      "role": "Creator of BodycamCraft",
+      "url": "https://github.com/issacleral"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/issacleral/BodycamCraft/blob/v0.2.1/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/issacleral/BodycamCraft",
+    "manualInstall": "https://github.com/issacleral/BodycamCraft/releases/tag/v0.2.1"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Single player.",
+    "Press V to switch the bodycam view off and on.",
+    "Bodycam must be the Steam copy: the mod finds it through Steam."
+  ],
+  "important": [
+    {
+      "text": "In Minecraft, create a new single-player world: you start with a Glock 17, an M4A1 and spare magazines. Left click fires, right click aims, R reloads."
+    }
+  ]
+}

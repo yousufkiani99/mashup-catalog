@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 5,
+  "id": "steve-in-the-backrooms",
+  "title": "Steve in the Backrooms",
+  "tagline": "Escape the Backrooms' real Level 0, played as Minecraft's Steve.",
+  "description": "Walk Escape the Backrooms' real Level 0 in Minecraft: its map, textures, lamps, sounds, the Bacteria and the flashlight and almond water are read from your own copy of Escape the Backrooms while Minecraft runs. Steve, his health, hunger, inventory, combat and blocks are Minecraft's. Create a single-player Survival world, switch the flashlight on, keep your sanity with almond water, and find the exit vent before the Bacteria finds you. Only Minecraft runs; Escape the Backrooms is never started or changed.",
+  "method": "content-port",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "donor",
+      "key": "escape-the-backrooms",
+      "name": "Escape the Backrooms",
+      "store": "steam",
+      "steamAppId": "1943950",
+      "version": {
+        "kind": "any",
+        "note": "Needs the Steam version installed; it is only read, never started. A big game update can change Level 0's files."
+      }
+    },
+    {
+      "role": "host",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 1.21.11 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "1.21.11",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.141.6+1.21.11",
+    "javaMajor": 21,
+    "mods": [
+      "backroomscraft",
+      "fabric-api"
+    ],
+    "instanceName": "BackroomsCraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "backroomscraft",
+      "name": "Steve in the Backrooms 0.1.0 (Minecraft mod)",
+      "url": "https://github.com/issacleral/Steve-in-the-Backrooms/releases/download/v0.1.0/backroomscraft-0.1.0.jar",
+      "sha256": "c489a206c1cde56dffa8523cb3e1bb3db1ec7dba59a7790fdea8bf48cbd12ef1",
+      "sizeBytes": 219133,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "backroomscraft-0.1.0.jar"
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.141.6 for Minecraft 1.21.11",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.141.6%2B1.21.11/fabric-api-0.141.6%2B1.21.11.jar",
+      "sha256": "bdff7fd7e220085cfad2ff9b1f40dde6534ae0b96cf378f97a374bc54cb9ed0f",
+      "sizeBytes": 2426039,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.141.6+1.21.11.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism"
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "BackroomsCraft loaded",
+      "message": "Starting Minecraft. The first time, sign in to Minecraft; it then downloads for a few minutes.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "Only Minecraft runs. About 3 GB of RAM for Minecraft."
+  },
+  "credits": [
+    {
+      "name": "issac_leral",
+      "role": "Creator of Steve in the Backrooms",
+      "url": "https://github.com/issacleral"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/issacleral/Steve-in-the-Backrooms/blob/v0.1.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/issacleral/Steve-in-the-Backrooms",
+    "manualInstall": "https://github.com/issacleral/Steve-in-the-Backrooms#english"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Level 0 only, single player.",
+    "The lighting and the Bacteria's behaviour are the mod's own; Level 0's puzzles and see-through materials aren't there.",
+    "Each time you enter the world a new run starts with the starting kit.",
+    "Escape the Backrooms must be the Steam copy: the mod finds it through Steam."
+  ],
+  "important": [
+    {
+      "text": "In Minecraft, create a new single-player Survival world. The first time, the mod builds Level 0 from your copy of Escape the Backrooms (a few seconds) and puts you in it."
+    }
+  ]
+}

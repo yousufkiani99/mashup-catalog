@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 5,
+  "id": "doomcraft",
+  "title": "DoomCraft",
+  "tagline": "Play classic DOOM as a Minecraft player: blocks, bows, TNT and armour against DOOM's demons.",
+  "description": "Run through DOOM's real levels with Minecraft's hands, hotbar and inventory. Build and mine next to DOOM's monsters, fight them with bows, spears, pearls, TNT and explosive crossbows, and let Minecraft armour, totems and golden apples keep you alive. Boss travel takes you to DOOM's boss arenas. Both games run at the same time: Minecraft runs hidden and DOOM draws everything. Uses your own DOOM + DOOM II from Steam.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "doom-1-2",
+      "name": "DOOM + DOOM II",
+      "store": "steam",
+      "steamAppId": "2280",
+      "version": {
+        "kind": "any",
+        "note": "Uses the original DOOM.WAD in the game's base folder (The Ultimate DOOM). The 2024 re-release keeps it there. Nothing in the DOOM folder is changed."
+      },
+      "requiredFiles": [
+        "base/DOOM.WAD"
+      ]
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "doomcraft-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "DoomCraft",
+    "jvmArgs": [
+      "--enable-native-access=ALL-UNNAMED",
+      "-Dpassthrough.port=25601"
+    ],
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "doomcraft",
+      "name": "DoomCraft 0.1.0 (DOOM side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/doomcraft-v0.1.0/doomcraft-0.1.0-runtime.zip",
+      "sha256": "f08bdd72521a2a25308cbf87d6d7835e5ca93fe50403e8e7fc2bc121ed79cb42",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "GPL-3.0-or-later",
+      "fileName": "doomcraft-0.1.0-runtime.zip",
+      "sizeBytes": 14717562
+    },
+    {
+      "id": "doomcraft-fabric",
+      "name": "DoomCraft 0.1.0 (Minecraft side, community build)",
+      "url": "https://github.com/yousufkiani99/mashup-builds/releases/download/doomcraft-v0.1.0/passthrough-0.1.0-doom.jar",
+      "sha256": "7cb71120ee4addfb3e987345d8fd62eaa2bd63b42d0396d40d70a4f1bceb48fc",
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "passthrough-0.1.0-doom.jar",
+      "sizeBytes": 288060
+    },
+    {
+      "id": "gzdoom",
+      "name": "GZDoom 4.14.2 (official Windows release)",
+      "url": "https://github.com/ZDoom/gzdoom/releases/download/g4.14.2/gzdoom-4-14-2-windows.zip",
+      "sha256": "6d01c5bb48610cebfa9dfd0b7705a1e20bfd56032a74484ac256d8c4e3c51bee",
+      "sizeBytes": 21879627,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "GPL-3.0-or-later",
+      "fileName": "gzdoom-4-14-2-windows.zip",
+      "pins": {
+        "version": "4.14.2"
+      }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "gzdoom",
+      "to": "{appdir}/doomcraft/runtime",
+      "only": [
+        "*.dll",
+        "fm_banks/**",
+        "soundfonts/**",
+        "licenses.zip"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "doomcraft",
+      "to": "{appdir}/doomcraft",
+      "only": [
+        "runtime/**",
+        "doomcraft.cfg",
+        "CONTROLS.md",
+        "LICENSE.txt",
+        "NOTICE.txt",
+        "THIRD_PARTY.md"
+      ]
+    },
+    {
+      "action": "mkdir",
+      "path": "{appdir}/doomcraft/saves-Doom"
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "host link listening on 127\\.0\\.0\\.1",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "exe",
+        "exe": "{appdir}/doomcraft/runtime/gzdoom.exe",
+        "args": [
+          "-iwad",
+          "{game:doom-1-2}/base/DOOM.WAD",
+          "-config",
+          "{appdir}/doomcraft/Doom.ini",
+          "-savedir",
+          "{appdir}/doomcraft/saves-Doom",
+          "-file",
+          "{appdir}/doomcraft/runtime/doomcraft.pk3",
+          "-width",
+          "1280",
+          "-height",
+          "720",
+          "-window",
+          "+exec",
+          "{appdir}/doomcraft/doomcraft.cfg",
+          "+logfile",
+          "{appdir}/doomcraft/doomcraft.log"
+        ]
+      }
+    ],
+    "ready": {
+      "logFile": "{prism-instance}/logs/latest.log",
+      "pattern": "host connected from"
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "doom-1-2",
+      "path": "{appdir}/doomcraft/saves-Doom"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 4,
+    "notes": "About 4 GB of extra RAM for Minecraft (the creator recommends 8 GB in total), about 1.5 GB of disk for Minecraft's files, and a graphics card that runs Minecraft 26.3."
+  },
+  "credits": [
+    {
+      "name": "roryekay",
+      "role": "Creator of DoomCraft",
+      "url": "https://github.com/roryekay"
+    },
+    {
+      "name": "Rehan and universal-modder contributors",
+      "role": "Minecraft passthrough foundation (MIT)",
+      "url": "https://github.com/rehan-remade/universal-modder"
+    },
+    {
+      "name": "GZDoom team",
+      "role": "GZDoom engine (GPL-3.0)",
+      "url": "https://github.com/ZDoom/gzdoom"
+    }
+  ],
+  "licence": {
+    "spdx": "GPL-3.0-or-later AND MIT",
+    "url": "https://github.com/roryekay/doomcraft/blob/v0.1.0/LICENSE",
+    "permission": "pending"
+  },
+  "links": {
+    "source": "https://github.com/roryekay/doomcraft",
+    "manualInstall": "https://github.com/roryekay/doomcraft/blob/v0.1.0/README.md#install-on-windows"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Two games running at once add a little input delay.",
+    "Minecraft blocks get approximate walls from DOOM's level; DOOM decides the real collisions.",
+    "Long campaigns and loading saves haven't been fully tested yet.",
+    "Minecraft potion effects don't work on DOOM's monsters, and shields and enchantments aren't fully supported.",
+    "This starts DOOM (The Ultimate DOOM). DOOM II is in the same Steam game and needs its own start (coming)."
+  ]
+}

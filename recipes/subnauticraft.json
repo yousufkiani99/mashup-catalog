@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 5,
+  "id": "subnauticraft",
+  "title": "SubnautiCraft",
+  "tagline": "Play Subnautica as Steve: Minecraft's body, blocks and crafting in Subnautica's ocean.",
+  "description": "Dive into Subnautica as a Minecraft player. Minecraft runs alongside and is drawn inside Subnautica: movement, inventory, crafting and the HUD are Minecraft's, while the ocean, creatures, oxygen and vehicles are Subnautica's. Place and break blocks on the seafloor, lit by Subnautica's sun and lamps; Subnautica's materials become Minecraft items, the fabricator becomes a crafting table, and Minecraft mobs fight Subnautica's creatures. Press F7 to switch between Steve and the diver.",
+  "method": "passthrough",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "subnautica",
+      "name": "Subnautica",
+      "store": "steam",
+      "steamAppId": "264710",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version."
+      }
+    },
+    {
+      "role": "guest",
+      "key": "minecraft-java",
+      "name": "Minecraft: Java Edition",
+      "store": "minecraft",
+      "version": {
+        "kind": "any",
+        "note": "A Microsoft account that owns Minecraft: Java Edition. The app sets up Minecraft 26.3 itself."
+      }
+    }
+  ],
+  "minecraft": {
+    "gameVersion": "26.3",
+    "loader": "fabric",
+    "loaderVersion": "0.19.5",
+    "fabricApiVersion": "0.161.0+26.3",
+    "javaMajor": 25,
+    "mods": [
+      "subnauticraft-fabric",
+      "fabric-api"
+    ],
+    "instanceName": "SubnautiCraft",
+    "maxMemoryMb": 4096
+  },
+  "downloads": [
+    {
+      "id": "subnauticraft",
+      "name": "SubnautiCraft 0.2.0 (Subnautica side)",
+      "url": "https://github.com/dacotin2/SubnautiCraft/releases/download/v0.2.0/SubnautiCraft-0.2.0-BepInEx.zip",
+      "sha256": "2bab7d786b52d80bffc7d0a995a47edca4ce56d54d5c70e907b91fab5a5791c8",
+      "sizeBytes": 56996,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "SubnautiCraft-0.2.0-BepInEx.zip"
+    },
+    {
+      "id": "subnauticraft-fabric",
+      "name": "SubnautiCraft 0.2.0 (Minecraft side)",
+      "url": "https://github.com/dacotin2/SubnautiCraft/releases/download/v0.2.0/subnauticraft-0.2.0.jar",
+      "sha256": "1b0caeb8d730923130fccaf3d978d742264659500fd24b303ec685e25748ce2f",
+      "sizeBytes": 424004,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT (bundles Java-WebSocket 1.6.0, MIT)",
+      "fileName": "subnauticraft-0.2.0.jar"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": {
+        "version": "5.4.23.5"
+      }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher 11.1.1 (portable)",
+      "url": "https://github.com/PrismLauncher/PrismLauncher/releases/download/11.1.1/PrismLauncher-Windows-MSVC-Portable-11.1.1.zip",
+      "sha256": "ab35a770fb06d89d2ccc098079db5db329fb4e68f42b72babd8b095efde3d2d7",
+      "sizeBytes": 20396629,
+      "kind": "tool",
+      "source": "github-release",
+      "licence": "GPL-3.0-only",
+      "fileName": "PrismLauncher-Windows-MSVC-Portable-11.1.1.zip"
+    },
+    {
+      "id": "fabric-api",
+      "name": "Fabric API 0.161.0 for Minecraft 26.3",
+      "url": "https://github.com/FabricMC/fabric/releases/download/0.161.0%2B26.3/fabric-api-0.161.0%2B26.3.jar",
+      "sha256": "86f16178a3cecc887a85a4cfe9a79d92fa7341d8f39b5951a4d6ad800ab657a6",
+      "sizeBytes": 2620967,
+      "kind": "dependency",
+      "source": "github-release",
+      "licence": "Apache-2.0",
+      "fileName": "fabric-api-0.161.0+26.3.jar"
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinex",
+      "to": "{game:subnautica}"
+    },
+    {
+      "action": "extract",
+      "download": "subnauticraft",
+      "to": "{game:subnautica}"
+    },
+    {
+      "action": "prism-instance"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "prism",
+        "waitFor": {
+          "logFile": "{prism-instance}/logs/latest.log",
+          "pattern": "Backend library: LWJGL|Sound engine started|Error starting SoundSystem",
+          "message": "Getting Minecraft ready. The first start downloads Minecraft and takes a few minutes.",
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "order": 2,
+        "target": "game",
+        "gameKey": "subnautica",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{game:subnautica}/BepInEx/LogOutput.log",
+      "pattern": "connected to Minecraft on",
+      "message": "Load a save in Subnautica. You become Steve where the diver was.",
+      "timeoutSeconds": 1800
+    }
+  },
+  "saves": [
+    {
+      "gameKey": "subnautica",
+      "path": "{game:subnautica}/SNAppData/SavedGames"
+    },
+    {
+      "gameKey": "minecraft-java",
+      "path": "{prism-instance}/saves"
+    }
+  ],
+  "requirements": {
+    "ramGb": 3,
+    "notes": "Two games draw at once. Lower ResolutionScale in Subnautica/BepInEx/config/dev.subnauticraft.cfg if it's slow."
+  },
+  "credits": [
+    {
+      "name": "dacotin2",
+      "role": "Creator of SubnautiCraft",
+      "url": "https://github.com/dacotin2"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/dacotin2/SubnautiCraft/blob/v0.2.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/dacotin2/SubnautiCraft",
+    "manualInstall": "https://github.com/dacotin2/SubnautiCraft/blob/v0.2.0/README.md#install"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Subnautica's item icons appear the first time the plugin has drawn them; until then items show simple pictures.",
+    "Each Subnautica save gets its own Minecraft world."
+  ]
+}

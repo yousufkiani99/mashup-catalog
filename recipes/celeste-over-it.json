@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 5,
+  "id": "celeste-over-it",
+  "title": "Celeste Over It",
+  "tagline": "Climb Getting Over It's mountain as Celeste's Madeline, with her dash, wall climb and sounds.",
+  "description": "Madeline from Celeste takes Diogenes' place on Getting Over It's mountain. She runs, jumps, dashes in eight directions, wall-jumps and climbs exactly like in Celeste, with her own animations, hair and sound effects read from your copy of Celeste. Find nine hidden strawberries, chain dashes with refill crystals, and reach the real ending among the asteroids above the antenna. Getting Over It's camera, autosave, progress and narrator all still work. Only Getting Over It runs: Celeste is read, never started or changed.",
+  "method": "content-port",
+  "tier": "unlocked",
+  "testLabel": "beta",
+  "games": [
+    {
+      "role": "host",
+      "key": "getting-over-it",
+      "name": "Getting Over It with Bennett Foddy",
+      "store": "steam",
+      "steamAppId": "240720",
+      "version": {
+        "kind": "any",
+        "note": "Any current Steam version."
+      }
+    },
+    {
+      "role": "donor",
+      "key": "celeste",
+      "name": "Celeste",
+      "store": "steam",
+      "steamAppId": "504230",
+      "version": {
+        "kind": "any",
+        "note": "Needs Celeste installed; it is only read, never started."
+      }
+    }
+  ],
+  "downloads": [
+    {
+      "id": "celeste-over-it",
+      "name": "Celeste Over It 1.2.0",
+      "url": "https://github.com/mohamad-boop/CelesteOverIt/releases/download/v1.2.0/CelesteOverIt_v1.2.0.zip",
+      "sha256": "d8a44f609819f184ced52612081fc7d8ed558071c410fe1dc11fa7eeb3bac392",
+      "sizeBytes": 698433,
+      "kind": "mashup",
+      "source": "github-release",
+      "licence": "MIT",
+      "fileName": "CelesteOverIt_v1.2.0.zip"
+    },
+    {
+      "id": "bepinex",
+      "name": "BepInEx 5.4.23.5 (64-bit)",
+      "url": "https://github.com/BepInEx/BepInEx/releases/download/v5.4.23.5/BepInEx_win_x64_5.4.23.5.zip",
+      "sha256": "82f9878551030f54657792c0740d9d51a09500eeae1fba21106b0c441e6732c4",
+      "sizeBytes": 639118,
+      "kind": "loader",
+      "source": "github-release",
+      "licence": "LGPL-2.1",
+      "fileName": "BepInEx_win_x64_5.4.23.5.zip",
+      "pins": {
+        "version": "5.4.23.5"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "action": "extract",
+      "download": "bepinex",
+      "to": "{game:getting-over-it}"
+    },
+    {
+      "action": "extract",
+      "download": "celeste-over-it",
+      "to": "{game:getting-over-it}/BepInEx/plugins/CelesteOverIt",
+      "from": "BepInEx/plugins/CelesteOverIt",
+      "only": [
+        "CelesteOverIt.dll",
+        "CelesteAudioHost.exe",
+        "CelesteAudioHost64.exe"
+      ]
+    },
+    {
+      "action": "extract",
+      "download": "celeste-over-it",
+      "to": "{game:getting-over-it}/BepInEx/plugins/CelesteOverIt",
+      "only": [
+        "CelesteOverIt_LICENSE.txt",
+        "CelesteOverIt_README.txt"
+      ]
+    },
+    {
+      "action": "ini-set",
+      "file": "{game:getting-over-it}/BepInEx/config/celesteoverit.madeline.cfg",
+      "section": "General",
+      "key": "CelesteDirectory",
+      "value": "{game:celeste}"
+    }
+  ],
+  "launch": {
+    "steps": [
+      {
+        "order": 1,
+        "target": "game",
+        "gameKey": "getting-over-it",
+        "via": "steam"
+      }
+    ],
+    "ready": {
+      "logFile": "{game:getting-over-it}/BepInEx/LogOutput.log",
+      "pattern": "Madeline spawned",
+      "message": "Starting Getting Over It. Madeline appears once the mountain has loaded.",
+      "timeoutSeconds": 600
+    }
+  },
+  "saves": [],
+  "requirements": {
+    "notes": "Only Getting Over It runs. Celeste must be installed on this PC."
+  },
+  "credits": [
+    {
+      "name": "mohamad-boop",
+      "role": "Creator of Celeste Over It",
+      "url": "https://github.com/mohamad-boop/CelesteOverIt"
+    },
+    {
+      "name": "Noel Berry",
+      "role": "Celeste's player code, published under MIT, which Madeline's movement is ported from",
+      "url": "https://github.com/NoelFB/Celeste"
+    },
+    {
+      "name": "BepInEx team",
+      "role": "BepInEx, the mod loader",
+      "url": "https://github.com/BepInEx/BepInEx"
+    }
+  ],
+  "licence": {
+    "spdx": "MIT",
+    "url": "https://github.com/mohamad-boop/CelesteOverIt/blob/v1.2.0/LICENSE",
+    "permission": "not-needed"
+  },
+  "links": {
+    "source": "https://github.com/mohamad-boop/CelesteOverIt",
+    "manualInstall": "https://github.com/mohamad-boop/CelesteOverIt/blob/v1.2.0/README.md#play-it"
+  },
+  "media": {},
+  "aiBuilt": true,
+  "knownIssues": [
+    "Controls: arrows or WASD to move, C or Space to jump, X or Shift to dash, Z or V to grab. F5 takes you back to the last safe spot, Shift+F5 to the start, F2 opens the strawberry editor.",
+    "Getting Over It keeps your climb progress in Windows' settings store, not in a folder, so the app can't back it up. Your normal climb isn't changed, but Madeline continues from it.",
+    "Madeline's sounds come from a small helper program inside the mod. Some antivirus programs may ask about it."
+  ]
+}
